@@ -7,16 +7,11 @@ import logoImg from '../../assets/images/logo.png';
 import 'antd/dist/antd.less';
 import app from '../../assets/styles/App.css';
 import Manpower from './Manpower';
-import KeyRespQuery from '../../post/containers/keyrespquery';
-import KeyResp from '../../post/containers/keyresp';
-import KeyRespRank from '../../post/containers/keyresprank';
 
 
 const { SubMenu } = Menu;
 
 const MainLayout = (state) => {
-  //console.log(state);
-  //console.log(state.menus);
   return (
     <div className={app.App}>
       <div className={app.AppHeader}>
@@ -80,9 +75,6 @@ const MainLayout = (state) => {
         <Layout style={{ padding: '0 24px 24px' }}>
           <Switch>
             <Route exact path="/" component={Manpower} />
-            <Route exact path="/post/keyrespquery" component={KeyRespQuery} />
-            <Route exact path="/post/keyresp" component={KeyResp} />
-            <Route exact path="/post/keyresprank" component={KeyRespRank} />
           </Switch>
         </Layout>
       </Layout>
