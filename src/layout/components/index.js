@@ -6,8 +6,7 @@ import { Route, Switch, Link } from 'dva/router';
 import logoImg from '../../assets/images/logo.png';
 import 'antd/dist/antd.less';
 import app from '../../assets/styles/App.css';
-import Manpower from './Manpower';
-
+import Main from './main';
 
 const { SubMenu } = Menu;
 
@@ -24,15 +23,15 @@ const MainLayout = (state) => {
             <Input.Search
               placeholder="请输入功能或服务关键字"
               enterButton="搜索"
-              onSearch={value => console.log(value)}
+              onSearch={value => value}
             />
           </div>
         </div>
         <div className={app.headerBottom}>
           <nav>
-            <a href="jacascript::void(0)">员工服务大厅</a>
-            <a href="jacascript::void(0)" className={app.navActive}>人力业务管理</a>
-            <a href="jacascript::void(0)">数据决策中心</a>
+            <a href="#">员工服务大厅</a>
+            <a href="#" className={app.navActive}>人力业务管理</a>
+            <a href="#">数据决策中心</a>
           </nav>
         </div>
       </div>
@@ -72,9 +71,9 @@ const MainLayout = (state) => {
             }
           </Menu>
         </Layout.Sider>
-        <Layout style={{ padding: '0 24px 24px' }}>
+        <Layout style={{ padding: '5px' }}>
           <Switch>
-            <Route exact path="/" component={Manpower} />
+            <Route exact path="/" component={Main} />
           </Switch>
         </Layout>
       </Layout>
