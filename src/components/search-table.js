@@ -10,14 +10,10 @@ import request from '../utils/request';
  * columns={refColumns}//表格显示字段
  * refUrl={refUrl}//请求url
  * rowSelection={rowSelection}//行属性
+ * refCodes={refCodes}//字段对应
+ * refSelectData={refSelectData}//参照选中数据
  * const rowSelection = {
     type:'radio',//radio、checkbox
-    onSelect: (row, selected, selectedRows) => {
-      console.log(row);
-      refCodes.map((item) => {
-        record[item.code] = row[item.refcode];
-      });
-    },
   }
  * />
  */
@@ -32,6 +28,15 @@ class SearchTable extends React.PureComponent {
       current: 1, pages: 0, records: Array(0), size: 10, total: 0,
     },
     tableLoading: false,
+    selectedRowKeys: [],
+    onSelect: (row) => {
+      const { refCodes, refSelectData } = this.props;
+      this.setState({ selectedRowKeys: [row.key] });
+      refCodes.map((item) => {
+        /* eslint-disable no-param-reassign,no-return-assign */
+        return refSelectData[item.code] = row[item.refcode];
+      });
+    },
   };
 
   async componentDidMount() {
@@ -91,12 +96,17 @@ class SearchTable extends React.PureComponent {
   };
 
   render() {
-    const { columns, rowSelection, placeholder } = this.props;
-    const { refData, tableLoading } = this.state;
+    const {
+      columns, rowSelection, placeholder, refCodes, refSelectData,
+    } = this.props;
+    const {
+      refData, tableLoading, selectedRowKeys, onSelect,
+    } = this.state;
     const {
       current, size, total, records,
     } = refData;
 
+    const rowS = { ...rowSelection, selectedRowKeys, onSelect };
     return (
       <div>
         <Input.Search style={{ width: '300px', marginBottom: '5px' }} placeholder={placeholder} onSearch={this.onSearch} />
@@ -105,11 +115,22 @@ class SearchTable extends React.PureComponent {
             columns={columns}
             dataSource={records}
             size="small"
-            rowSelection={rowSelection}
+            rowSelection={rowS}
             pagination={false}
             bordered
             scroll={{ y: 300 }}
             loading={tableLoading}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  this.setState({ selectedRowKeys: [record.key] });
+                  refCodes.map((item) => {
+                    /* eslint-disable no-param-reassign,no-return-assign */
+                    return refSelectData[item.code] = record[item.refcode];
+                  });
+                }, // 点击行
+              };
+            }}
           />
           <Pagination
             size="small"
