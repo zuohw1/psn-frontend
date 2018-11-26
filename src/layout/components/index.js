@@ -8,6 +8,7 @@ import 'antd/dist/antd.less';
 import app from '../../assets/styles/App.css';
 import Main from './main';
 import PsnTranspro from '../../psn/containers/psn-transpro';
+import PsnRoster from '../../psn/containers/roster';
 
 
 const { SubMenu } = Menu;
@@ -77,6 +78,7 @@ const MainLayout = (state) => {
           <Switch>
             <Route exact path="/" component={Main} />
             <Route exact path="/psn/transpro" component={PsnTranspro} />
+            <Route exact path="/psn/roster" component={PsnRoster} />
           </Switch>
         </Layout>
       </Layout>
