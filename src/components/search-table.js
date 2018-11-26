@@ -1,5 +1,7 @@
 import React from 'react';
-import { Input, Pagination, Table } from 'antd';
+import {
+  Input, Pagination, Table, Row,
+} from 'antd';
 import request from '../utils/request';
 
 /**
@@ -25,7 +27,9 @@ class SearchTable extends React.PureComponent {
       pageNumber: 1,
       pageSize: 10,
     },
-    refData: [],
+    refData: {
+      current: 1, pages: 0, records: Array(0), size: 10, total: 0,
+    },
   };
 
   async componentDidMount() {
@@ -91,26 +95,27 @@ class SearchTable extends React.PureComponent {
 
     return (
       <div>
-        <Input.Search style={{ width: 300 }} placeholder="Search" onSearch={this.onSearch} />
-        <Table
-          columns={columns}
-          dataSource={records}
-          pagination={false}
-          size="small"
-          rowSelection={rowSelection}
-        />
-        <Pagination
-          size="small"
-          showQuickJumper
-          current={current}
-          total={total}
-          pageSize={size}
-          onChange={this.onChangePage}
-          onShowSizeChange={this.onChangePageSize}
-          showTotal={tota => `共 ${tota} 条`}
-          showSizeChanger
-          style={{ marginTop: 10, float: 'right' }}
-        />
+        <Input.Search style={{ width: '300px', marginBottom: '5px' }} placeholder="Search" onSearch={this.onSearch} />
+        <Row>
+          <Table
+            columns={columns}
+            dataSource={records}
+            size="small"
+            rowSelection={rowSelection}
+          />
+          <Pagination
+            size="small"
+            showQuickJumper
+            current={current}
+            total={total}
+            pageSize={size}
+            onChange={this.onChangePage}
+            onShowSizeChange={this.onChangePageSize}
+            showTotal={tota => `共 ${tota} 条`}
+            showSizeChanger
+            style={{ marginTop: 10, float: 'right' }}
+          />
+        </Row>
       </div>
     );
   }
