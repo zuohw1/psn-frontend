@@ -1,0 +1,160 @@
+import React from 'react';
+import {
+  Form, Row, Col, Input, Button, Icon, Select,
+} from 'antd';
+
+import AsyncTreeSelect from '../../../components/async-tree-select';
+
+const FormItem = Form.Item;
+const { Option } = Select;
+
+export default (props) => {
+  const {
+    form,
+    actions,
+    expand,
+    tableData,
+  } = props;
+  const { getFieldDecorator } = form;
+  const { listTable, setToggle } = actions;
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    form.validateFields((err, values) => {
+      if (!err) {
+        const pageSize = tableData.size;
+        const pageNumber = 1;
+        const select = { ...values, pageSize, pageNumber };
+        listTable(select);
+      }
+    });
+  };
+
+  const refUrl = '';
+  const childrenUrl = '';
+  const handleReset = () => {
+    form.resetFields();
+  };
+
+  const toggle = () => {
+    setToggle(!expand);
+  };
+
+  const apply = (item) => {
+    return (<Option value={item.title} key={item.id}> {item.title} </Option>);
+  };
+
+  const treeSelectChange = (value, label, extra) => {
+    form.setFieldsValue({
+      org_id: `${extra.triggerNode.props.id}`,
+    });
+  };
+
+  const queryItems = [
+    {
+      itemName: '员工编号', itemKey: 'employeeNumber', itemType: 'String', required: false,
+    },
+    {
+      itemName: '员工姓名', itemKey: 'fullName', itemType: 'String', required: false,
+    },
+    {
+      itemName: '组织', itemKey: 'orgName', itemType: 'Ref', required: false,
+    },
+    {
+      itemName: '用工类型',
+      itemKey: 'userPersonType',
+      itemType: 'Select',
+      required: false,
+      list: [{ id: '0', title: '正式' }, { id: '1', title: '其他从业' }, { id: '2', title: '离退休人员' }, { id: '3', title: '离职人员' }],
+    }];
+
+  let collapse = null;
+  if (queryItems.length > 3) {
+    collapse = (
+      <a style={{ marginLeft: 8, fontSize: 14 }} onClick={toggle}>
+        更多 <Icon type={expand ? 'up' : 'down'} />
+      </a>
+    );
+  }
+
+  function getFields() {
+    const count = expand ? queryItems.length : 3;
+    const children = [];
+    for (let i = 0; i < queryItems.length; i += 1) {
+      if (queryItems[i].itemType === 'String') {
+        children.push(
+          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={queryItems[i].itemName}>
+              {getFieldDecorator(queryItems[i].itemKey, {
+                rules: [{
+                  required: queryItems[i].required,
+                  message: '不能为空!',
+                }],
+              })(
+                <Input placeholder="请输入" />,
+              )}
+            </FormItem>
+          </Col>,
+        );
+      } else if (queryItems[i].itemType === 'Select') {
+        children.push(
+          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={queryItems[i].itemName}>
+              {getFieldDecorator(queryItems[i].itemKey)(
+                <Select placeholder="请选择" allowClear>
+                  {
+                    queryItems[i].list.map(apply)
+                  }
+                </Select>,
+              )}
+            </FormItem>
+          </Col>,
+        );
+      } else if (queryItems[i].itemType === 'Ref') {
+        children.push(
+          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={queryItems[i].itemName}>
+              {getFieldDecorator(queryItems[i].itemKey)(
+                <AsyncTreeSelect
+                  treeId={101}
+                  treeSelectChange={treeSelectChange}
+                  refUrl={refUrl}
+                  url={childrenUrl}
+                />,
+              )}
+            </FormItem>
+            <Input id="org_id" type="hidden" />,
+          </Col>,
+        );
+      }
+    }
+
+    if (expand) {
+      for (let i = 0; i < 7 - count; i += 1) {
+        children.push(
+          <Col span={6} key={count + i} style={{ display: 'block' }} />,
+        );
+      }
+    }
+    children.push(
+      <Col span={6} key={count + 3} style={{ textAlign: 'right', marginTop: 5 }}>
+        <Button htmlType="submit">查询</Button>
+        <Button style={{ marginLeft: 8 }} onClick={handleReset}>
+          重置
+        </Button>
+        {collapse}
+      </Col>,
+    );
+    return children;
+  }
+
+  return (
+    <Form
+      className="ant-advanced-search-form"
+      onSubmit={handleSearch}
+      style={{ padding: 10 }}
+      layout="inline"
+    >
+      <Row gutter={24}>{getFields()}</Row>
+    </Form>);
+};
