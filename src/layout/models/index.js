@@ -7,7 +7,7 @@ export default {
     /* 左侧菜单数据 */
     menus: [
       {
-        id: 1,
+        id: 3,
         menuName: '人员管理',
         url: '',
         pid: 0,
