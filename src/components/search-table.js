@@ -26,6 +26,7 @@ class SearchTable extends React.PureComponent {
     search: {
       pageNumber: 1,
       pageSize: 10,
+      name: '',
     },
     refData: {
       current: 1, pages: 0, records: Array(0), size: 10, total: 0,
@@ -55,13 +56,15 @@ class SearchTable extends React.PureComponent {
   onSearch = (value) => {
     const { refUrl } = this.props;
     const { search } = this.state;
-    const searchF = { ...search, name: value };
-    this.refreshData(refUrl, searchF);
+    search.name = value;
+    this.setState(search);
+    this.refreshData(refUrl, search);
   };
 
   onChangePage = (pageNumber, pageSize) => {
     const { refUrl } = this.props;
     const { search } = this.state;
+    console.log(this.state);
     const searchF = { ...search, pageSize, pageNumber };
     this.refreshData(refUrl, searchF);
   };
@@ -87,7 +90,7 @@ class SearchTable extends React.PureComponent {
   };
 
   render() {
-    const { columns, rowSelection } = this.props;
+    const { columns, rowSelection, placeholder } = this.props;
     const { refData } = this.state;
     const {
       current, size, total, records,
@@ -95,13 +98,16 @@ class SearchTable extends React.PureComponent {
 
     return (
       <div>
-        <Input.Search style={{ width: '300px', marginBottom: '5px' }} placeholder="Search" onSearch={this.onSearch} />
+        <Input.Search style={{ width: '300px', marginBottom: '5px' }} placeholder={placeholder} onSearch={this.onSearch} />
         <Row>
           <Table
             columns={columns}
             dataSource={records}
             size="small"
             rowSelection={rowSelection}
+            pagination={false}
+            bordered
+            scroll={{ y: 300 }}
           />
           <Pagination
             size="small"
