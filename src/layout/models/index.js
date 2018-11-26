@@ -7,9 +7,16 @@ export default {
     /* 左侧菜单数据 */
     menus: [
       {
-        id: 3,
+        id: 1,
         menuName: '人员管理',
-        url: null,
+        url: '',
+        pid: 0,
+        iconUrl: 'tag-o',
+      },
+      {
+        id: 2,
+        menuName: '跨省调动',
+        url: 'psn/transpro',
         pid: 0,
         iconUrl: 'team',
       },

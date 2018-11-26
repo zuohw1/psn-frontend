@@ -7,7 +7,7 @@ import logoImg from '../../assets/images/logo.png';
 import 'antd/dist/antd.less';
 import app from '../../assets/styles/App.css';
 import Main from './main';
-import PsnRoster from '../../psn/containers/roster';
+import PsnTranspro from '../../psn/containers/psn-transpro';
 
 
 const { SubMenu } = Menu;
@@ -76,7 +76,7 @@ const MainLayout = (state) => {
         <Layout style={{ padding: '5px' }}>
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route exact path="/psn/roster" component={PsnRoster} />
+            <Route exact path="/psn/transpro" component={PsnTranspro} />
           </Switch>
         </Layout>
       </Layout>
