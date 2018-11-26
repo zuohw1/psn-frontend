@@ -31,6 +31,7 @@ class SearchTable extends React.PureComponent {
     refData: {
       current: 1, pages: 0, records: Array(0), size: 10, total: 0,
     },
+    tableLoading: false,
   };
 
   async componentDidMount() {
@@ -64,7 +65,6 @@ class SearchTable extends React.PureComponent {
   onChangePage = (pageNumber, pageSize) => {
     const { refUrl } = this.props;
     const { search } = this.state;
-    console.log(this.state);
     const searchF = { ...search, pageSize, pageNumber };
     this.refreshData(refUrl, searchF);
   };
@@ -77,6 +77,7 @@ class SearchTable extends React.PureComponent {
   };
 
   refreshData = (refUrl, search) => {
+    this.setState({ tableLoading: true });
     return new Promise(async (resolve) => {
       let url = `${refUrl}?pageNumber=${search.pageNumber}&pageSize=${search.pageSize}`;
       if (search.name && search.name !== '') {
@@ -84,14 +85,14 @@ class SearchTable extends React.PureComponent {
       }
       const tableData = await request.get(url);
       const formatTable = this.formatTableData(tableData);
-      this.setState({ refData: formatTable });
+      this.setState({ refData: formatTable, tableLoading: false });
       resolve();
     });
   };
 
   render() {
     const { columns, rowSelection, placeholder } = this.props;
-    const { refData } = this.state;
+    const { refData, tableLoading } = this.state;
     const {
       current, size, total, records,
     } = refData;
@@ -108,6 +109,7 @@ class SearchTable extends React.PureComponent {
             pagination={false}
             bordered
             scroll={{ y: 300 }}
+            loading={tableLoading}
           />
           <Pagination
             size="small"
