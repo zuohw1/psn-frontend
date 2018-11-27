@@ -17,16 +17,6 @@ export default {
     }
     return request.get(url);
   },
-  /* getAttachData(id) {
-    return request.get(`orgHeaderBatch/getAttachData?id=${id}`);
-  }, */
-  getRefData(url, search) {
-    let thisUrl = `${url}?pageNumber=${search.pageNumber}&pageSize=${search.pageSize}`;
-    if (search.batchCode && search.batchCode !== '') {
-      thisUrl += `&batchCode=${search.batchCode}`;
-    }
-    return request.get(thisUrl);
-  },
   getBasicDetailData(personId) {
     let url = 'empBasic/queryPsnBasicInfoById?';
     if (personId && personId !== '') {
