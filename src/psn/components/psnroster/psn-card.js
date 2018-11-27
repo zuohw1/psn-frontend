@@ -423,25 +423,25 @@ export default ({
               <div dangerouslySetInnerHTML={{ __html: `<table width="100%"  style="border:#e8e8e8" border="1" cellspacing="0" cellpadding="0"><tbody>${buildBasicInfoTable()}</tbody></table>` }} />
             </TabPane>
             <TabPane tab="教育经历" key="EMP_EDUCATIONS">
-              <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="工作经历" key="EMP_PREVIOUS_JOBS">
-              <Table columns={buildEmpPreviousJobs()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpPreviousJobs()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="职业技能信息" key="EMP_QUALIFICATIONS">
-              <Table columns={buildEmpQualifications()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpQualifications()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="专业技术资格" key="EMP_TECH_QUALIFICATION">
-              <Table columns={buildEmpTechQualification()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpTechQualification()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="奖励信息" key="EMP_REWARD">
-              <Table columns={buildEmpReward()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpReward()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="处分信息" key="EMP_PUNISHMENT">
-              <Table columns={buildEmpPunishment()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpPunishment()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="党团政治信息" key="POLITICS_LANDSCAPE">
-              <Table columns={buildPoliticsLandscape()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildPoliticsLandscape()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             {/* <TabPane tab="培训信息" key="ehrbase_emp_education">Content of Tab Pane 3</TabPane> */}
             <TabPane tab="员工简历" key="7">Content of Tab Pane 3</TabPane>
@@ -449,10 +449,10 @@ export default ({
             {/* <TabPane tab="职位信息" key="9">Content of Tab Pane 3</TabPane> */}
             {/* <TabPane tab="合同信息" key="10">Content of Tab Pane 3</TabPane> */}
             <TabPane tab="职业技能鉴定" key="EMP_QUALIFICATIONS_APP">
-              <Table columns={buildEmpQualificationsApp()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpQualificationsApp()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
             <TabPane tab="专业技术资格聘任" key="EMP_TECH_APPOINT">
-              <Table columns={buildEmpTechAppoint()} dataSource={infoSetList} size="small" bordered />
+              <Table columns={buildEmpTechAppoint()} dataSource={infoSetList} size="small" bordered pagination={false} />
             </TabPane>
           </Tabs>
         </Col>
