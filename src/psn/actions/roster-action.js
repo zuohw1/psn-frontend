@@ -25,6 +25,15 @@ export function isPsnCardModelShow(psnCardModel) {
   };
 }
 
+export function updateOrgRefModelShow(refModal) {
+  return {
+    type: 'psnRoster/stateWillUpdate',
+    payload: {
+      refModal,
+    },
+  };
+}
+
 export function updateDynamicTableCols(newDynamicTableCols) {
   return {
     type: 'psnRoster/stateWillUpdate',
