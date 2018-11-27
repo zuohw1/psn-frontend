@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, Button, Icon, Select,
+  Form, Row, Col, Input, Button, Icon, Select, Modal,
 } from 'antd';
 
-import AsyncTreeSelect from '../../../components/async-tree-select';
+import SearchTable from '../../../components/search-table';
+
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -14,10 +15,56 @@ export default (props) => {
     actions,
     expand,
     tableData,
+    refModal,
+    refSelectData,
   } = props;
   const { getFieldDecorator } = form;
-  const { listTable, setToggle } = actions;
+  const { listTable, setToggle, updateOrgRefModelShow } = actions;
 
+  /* 组织参照部分 */
+  const onOrgRefOk = () => {
+    form.setFieldsValue({
+      org_id: `${refSelectData.orgId}`,
+      orgName: `${refSelectData.orgName}`,
+    });
+    updateOrgRefModelShow(false);
+  };
+
+  const onOrgRefCancel = (e) => {
+    e.preventDefault();
+    updateOrgRefModelShow(false);
+  };
+
+  const onOrgRefClick = () => {
+    updateOrgRefModelShow(true);
+  };
+
+  const orgRefUrl = 'empBasic/queryOrgListByName';
+
+  const rowSelection = {
+    columnWidth: '30px',
+    type: 'radio', // radio、checkbox
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(selectedRows);
+    },
+  };
+
+  const orgRefColumns = [{
+    title: '序号',
+    dataIndex: 'key',
+    key: 'key',
+    align: 'center',
+    width: 120,
+  }, {
+    title: '组织',
+    dataIndex: 'orgName',
+    key: 'orgName',
+    align: 'left',
+    width: 400,
+  }];
+
+  const orgRefCodes = [{ code: 'orgId', refcode: 'orgId' }, { code: 'orgName', refcode: 'orgName' }];
+  /* 组织参照部分end */
   const handleSearch = (e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
@@ -30,8 +77,6 @@ export default (props) => {
     });
   };
 
-  const refUrl = '';
-  const childrenUrl = '';
   const handleReset = () => {
     form.resetFields();
   };
@@ -44,11 +89,6 @@ export default (props) => {
     return (<Option value={item.title} key={item.id}> {item.title} </Option>);
   };
 
-  const treeSelectChange = (value, label, extra) => {
-    form.setFieldsValue({
-      org_id: `${extra.triggerNode.props.id}`,
-    });
-  };
 
   const queryItems = [
     {
@@ -58,7 +98,7 @@ export default (props) => {
       itemName: '员工姓名', itemKey: 'fullName', itemType: 'String', required: false,
     },
     {
-      itemName: '组织', itemKey: 'orgName', itemType: 'Ref', required: false,
+      itemName: '组织', itemKey: 'orgName', itemType: 'RefTable', required: false,
     },
     {
       itemName: '用工类型',
@@ -110,20 +150,19 @@ export default (props) => {
             </FormItem>
           </Col>,
         );
-      } else if (queryItems[i].itemType === 'Ref') {
+      } else if (queryItems[i].itemType === 'RefTable') {
         children.push(
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={queryItems[i].itemName}>
               {getFieldDecorator(queryItems[i].itemKey)(
-                <AsyncTreeSelect
-                  treeId={101}
-                  treeSelectChange={treeSelectChange}
-                  refUrl={refUrl}
-                  url={childrenUrl}
-                />,
+                <Input.Search style={{ width: '100%' }} placeholder="请选择组织" onSearch={onOrgRefClick} />,
               )}
-            </FormItem>
-            <Input id="org_id" type="hidden" />,
+            </FormItem>,
+            <FormItem>
+              {getFieldDecorator('org_id')(
+                <Input type="hidden" />,
+              )}
+            </FormItem>,
           </Col>,
         );
       }
@@ -149,12 +188,34 @@ export default (props) => {
   }
 
   return (
-    <Form
-      className="ant-advanced-search-form"
-      onSubmit={handleSearch}
-      style={{ padding: 10 }}
-      layout="inline"
-    >
-      <Row gutter={24}>{getFields()}</Row>
-    </Form>);
+    <React.Fragment>
+      <Form
+        className="ant-advanced-search-form"
+        onSubmit={handleSearch}
+        style={{ padding: 10 }}
+        layout="inline"
+      >
+        <Row gutter={24}>{getFields()}</Row>
+      </Form>
+      <Modal
+        title="组织"
+        visible={refModal}
+        maskClosable={false}
+        onCancel={onOrgRefCancel}
+        onOk={onOrgRefOk}
+        bodyStyle={{ padding: '12px' }}
+        width="700px"
+      >
+        <SearchTable
+          refUrl={orgRefUrl}
+          rowSelection={rowSelection}
+          columns={orgRefColumns}
+          placeholder="请输入组织名称"
+          refSelectData={refSelectData}
+          refCodes={orgRefCodes}
+          onConfirm={onOrgRefOk}
+        />
+      </Modal>
+    </React.Fragment>
+  );
 };
