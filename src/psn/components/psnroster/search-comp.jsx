@@ -155,7 +155,7 @@ export default (props) => {
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={queryItems[i].itemName}>
               {getFieldDecorator(queryItems[i].itemKey)(
-                <Input.Search style={{ width: '100%' }} placeholder="请选择组织" onSearch={onOrgRefClick} />,
+                <Input.Search style={{ width: '100%' }} placeholder="请选择组织" onSearch={onOrgRefClick} autoComplete="off" />,
               )}
             </FormItem>,
             <FormItem>
