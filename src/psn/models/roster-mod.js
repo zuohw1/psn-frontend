@@ -132,7 +132,7 @@ export default {
     lastSetQueryItems: ['sex', 'nation', 'politicsLandscapeName'],
     modal: false,
     refModal: false,
-    refData: [],
+    refSelectData: [],
     expand: false, // 查询条件是否展开
     formEdit: true,
     record: {},
@@ -150,7 +150,7 @@ export default {
     },
     psnCardModel: false,
     detailRecord: {}, // 基本信息详情
-    infoSetList: [], // 学历信息
+    infoSetList: [], // 子集信息
   },
   reducers: {
     stateWillUpdate(state, { payload }) {
