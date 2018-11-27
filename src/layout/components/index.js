@@ -5,7 +5,7 @@ import {
 import { Route, Switch, Link } from 'dva/router';
 import logoImg from '../../assets/images/logo.png';
 import 'antd/dist/antd.less';
-import app from '../../assets/styles/App.css';
+import app from '../../assets/styles/app.less';
 import Main from './main';
 import PsnTranspro from '../../psn/containers/psn-transpro';
 import PsnRoster from '../../psn/containers/roster';
