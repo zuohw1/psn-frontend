@@ -27,6 +27,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 303,
+        menuName: '员工离职',
+        url: '/psn/staffdimission',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {

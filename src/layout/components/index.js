@@ -9,6 +9,7 @@ import app from '../../assets/styles/app.less';
 import Main from './main';
 import PsnTranspro from '../../psn/containers/psn-transpro';
 import PsnRoster from '../../psn/containers/roster';
+import StaffDimission from '../../psn/containers/staff-dimission';
 
 
 const { SubMenu } = Menu;
@@ -79,6 +80,7 @@ const MainLayout = (state) => {
             <Route exact path="/" component={Main} />
             <Route exact path="/psn/transpro" component={PsnTranspro} />
             <Route exact path="/psn/roster" component={PsnRoster} />
+            <Route exact path="/psn/staffdimission" component={StaffDimission} />
           </Switch>
         </Layout>
       </Layout>
