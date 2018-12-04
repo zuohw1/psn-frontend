@@ -91,7 +91,7 @@ export default class StaffDimission extends Component {
         if (index === 7) {
           return {
             children: (
-              <Select style={{ width: 180 }} placeholder="---请选择---" onChange={this.handleResign}>
+              <Select style={{ width: 170 }} placeholder="---请选择---" onChange={this.handleResign}>
                 {value.map(resign => <Option key={resign}>{resign}</Option>)}
               </Select>
             ),
@@ -155,8 +155,8 @@ export default class StaffDimission extends Component {
         if (index === 5 || index === 6 || index === 7 || index === 8) {
           return {
             children: (
-              <Select placeholder="---请选择---" style={{ width: 260 }} notFoundContent="请选择离职原因">
-                {value.map((ele) => {
+              <Select placeholder="---请选择---" style={{ width: value.width }} notFoundContent="请选择离职原因">
+                {value.children.map((ele) => {
                   return <Option value={ele}>{ele}</Option>;
                 })}
               </Select>
@@ -212,31 +212,37 @@ export default class StaffDimission extends Component {
       col_1: '离职日期：',
       col_2: <DatePicker />,
       col_3: '离职原因：',
-      col_4: [
-        '辞职',
-        '辞退',
-        '劳动合同到期终止',
-        '死亡',
-        '劳务派遣转紧密型业务外包',
-        '调遣到外系统',
-        '退回劳务派遣公司',
-        '其他',
-      ],
+      col_4: {
+        width: 215,
+        children: [
+          '辞职',
+          '辞退',
+          '劳动合同到期终止',
+          '死亡',
+          '劳务派遣转紧密型业务外包',
+          '调遣到外系统',
+          '退回劳务派遣公司',
+          '其他',
+        ],
+      },
     },
     {
       key: '7',
       col_1: '离职原因详细描述：',
       col_2: '',
       col_3: '离职原因分类：',
-      col_4: [
-        '工作环境',
-        '薪酬待遇',
-        '职业发展',
-        '其他',
-        '个人原因',
-        '学习深造',
-        '员工关系',
-      ],
+      col_4: {
+        width: 150,
+        children: [
+          '工作环境',
+          '薪酬待遇',
+          '职业发展',
+          '其他',
+          '个人原因',
+          '学习深造',
+          '员工关系',
+        ],
+      },
     },
     {
       key: '8',
@@ -257,12 +263,15 @@ export default class StaffDimission extends Component {
       col_1: '去往单位：',
       col_2: '',
       col_3: '是否流入到其他运营商：',
-      col_4: ['是', '否'],
+      col_4: {
+        width: 150,
+        children: ['是', '否'],
+      },
     },
     {
       key: '10',
       col_1: '备注：',
-      col_2: <TextArea rows={4} />,
+      col_2: <TextArea rows={4} style={{ width: '80%', height: 200 }} />,
       col_3: '',
       col_4: '',
     },
@@ -302,6 +311,7 @@ export default class StaffDimission extends Component {
   resignDescribe = [
     {
       name: '辞职',
+      width: 170,
       children: [
         '试用期内主动离职',
         '无',
@@ -311,6 +321,7 @@ export default class StaffDimission extends Component {
     },
     {
       name: '辞退',
+      width: 190,
       children: [
         '考核退出',
         '其他强制退出',
@@ -321,6 +332,7 @@ export default class StaffDimission extends Component {
     },
     {
       name: '劳动合同到期终止',
+      width: 150,
       children: [
         '公司主动辞退',
         '员工主动离职',
@@ -328,10 +340,12 @@ export default class StaffDimission extends Component {
     },
     {
       name: '死亡',
+      width: 150,
       children: ['无'],
     },
     {
       name: '终止劳务派遣',
+      width: 220,
       children: [
         '劳务派遣转紧密型业务外包',
         '劳务派遣转营业型业务外包',
@@ -345,20 +359,25 @@ export default class StaffDimission extends Component {
     },
     {
       name: '离职创业',
+      width: 150,
       children: ['无'],
     },
   ];
 
   state = {
-    reasons: [],
+    reasons: {
+      width: 150,
+      children: [],
+    },
   };
 
 
   handleResign = (value) => {
-    let { reasons } = this.state;
+    const { reasons } = this.state;
     this.resignDescribe.forEach((ele) => {
       if (ele.name === value) {
-        reasons = ele.children;
+        reasons.children = ele.children;
+        reasons.width = ele.width;
       }
     });
     this.setState({ reasons });

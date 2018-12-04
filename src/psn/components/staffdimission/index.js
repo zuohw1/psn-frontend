@@ -11,13 +11,13 @@ export default class StaffIndex extends Component {
   render() {
     return (
       <Layout>
-        <Content>
+        <Content style={{ marginTop: 20 }}>
           <Row>
-            <Col span={3} />
-            <Col span={18}>
+            <Col span={4} />
+            <Col span={16}>
               <StaffDimission />
             </Col>
-            <Col span={3} />
+            <Col span={4} />
           </Row>
         </Content>
         <Footer style={{ margin: '0 auto' }}>

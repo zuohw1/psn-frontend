@@ -1,9 +1,4 @@
 :global {
-  .ant-table-tbody > tr {
-    &:hover > td {
-      background: transparent ! important;
-    }
-  }
   .table_name{
     list-style: none;
     input{
@@ -25,6 +20,21 @@
       margin-top: 10px;
       input{
         width: 140px;
+      }
+    }
+  }
+
+  .ant-table-tbody{
+    > tr {
+      &:first-child{
+        >td{
+          &:first-child{
+            border-right: 0;
+          }
+        }
+      }
+      &:hover > td {
+        background: transparent ! important;
       }
     }
   }
