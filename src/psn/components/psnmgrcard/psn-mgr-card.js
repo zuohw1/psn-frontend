@@ -1,26 +1,20 @@
-/* eslint-disable no-return-assign,no-param-reassign */
+
 import React from 'react';
 import {
-  Row, Col, Tabs, Table,
+  Row, Col, Tabs, Table, Button,
 } from 'antd';
-// import moment from 'moment';
-
 /*
- 人员花名册卡片
+ 员工信息维护卡片
  @autor:zhanggang
- @date：2018-11-16
+ @date：2018-11-27
  */
 export default ({
   record, actions, detailRecord, infoSetList,
 }) => {
   const { personId } = record;
-  //
+
   const { queryDetailDataByPersonId } = actions;
 
-  // const queryDataByPersonId = (infoSetType) => {
-  //   //   queryDetailDataByPersonId({ personId, infoSetType });
-  //   //   // queryDataByPersonId;
-  //   // };
   const { TabPane } = Tabs;
   const onTabChange = (activeKey) => {
     if (activeKey === 'EMP_BASIC') {
@@ -421,6 +415,7 @@ export default ({
           <Tabs type="card" onChange={onTabChange}>
             <TabPane tab="基本信息" key="EMP_BASIC">
               <div dangerouslySetInnerHTML={{ __html: `<table width="100%"  style="border:#e8e8e8" border="1" cellspacing="0" cellpadding="0"><tbody>${buildBasicInfoTable()}</tbody></table>` }} />
+              <div style={{ textAlign: 'center' }}><Button>修改</Button></div>
             </TabPane>
             <TabPane tab="教育经历" key="EMP_EDUCATIONS">
               <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered pagination={false} />

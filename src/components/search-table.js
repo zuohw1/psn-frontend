@@ -6,12 +6,40 @@ import request from '../utils/request';
 
 /**
  * 表格参照
+ * const refCodes = [{ code: 'DOC_CODE', refcode: 'docCode' },
+ * { code: 'DOC_VERIFIER', refcode: 'docVerifier' }];
+ * const refColumns = [{
+ *   title: '序号',
+    dataIndex: 'key',
+    key: 'key',
+    align: 'center',
+  }, {
+    title: '文件名称和文号',
+    dataIndex: 'docCode',
+    key: 'docCode',
+    align: 'center',
+  }, {
+    title: '文件拟稿人',
+    dataIndex: 'docVerifier',
+    key: 'docVerifier',
+    align: 'center',
+  }];
+
+ const refUrl = 'orgHeaderBatch/list';
+  const onConfirm = () => {
+    form.setFieldsValue({
+      org_id: `${refSelectData.orgId}`,
+      orgName: `${refSelectData.orgName}`,
+    });
+    updateOrgRefModelShow(false);
+  };
  * <SearchTable
  * columns={refColumns}//表格显示字段
  * refUrl={refUrl}//请求url
  * rowSelection={rowSelection}//行属性
- * writeCodes={writeCodes}//字段对应
+ * refCodes={refCodes}//字段对应
  * refSelectData={refSelectData}//参照选中数据
+ * onConfirm={onConfirm}
  * const rowSelection = {
     type:'radio',//radio、checkbox
   }

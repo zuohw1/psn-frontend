@@ -10,6 +10,8 @@ import Main from './main';
 import PsnTranspro from '../../psn/containers/psn-transpro';
 import PsnRoster from '../../psn/containers/roster';
 import StaffDimission from '../../psn/containers/staff-dimission';
+import PsnMgr from '../../psn/containers/psn-mgr';
+import PsnMgrCard from '../../psn/containers/psn-mgr-card';
 
 
 const { SubMenu } = Menu;
@@ -81,6 +83,8 @@ const MainLayout = (state) => {
             <Route exact path="/psn/transpro" component={PsnTranspro} />
             <Route exact path="/psn/roster" component={PsnRoster} />
             <Route exact path="/psn/staffdimission" component={StaffDimission} />
+            <Route exact path="/psn/psnMgr" component={PsnMgr} />
+            <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
           </Switch>
         </Layout>
       </Layout>
