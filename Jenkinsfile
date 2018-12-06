@@ -71,7 +71,11 @@ node {
                 // 是否强制结束当前项目未完成的任务进行最新的部署
                 forceUpdate: true,
                 uris: [[uri: 'file:///share/docker/auth.tar.gz']],
-                env: [[name: "TZ", value: "Asia/Shanghai"]]
+                env: [[name: "TZ", value: "Asia/Shanghai"]],
+                labels: [[name: 'HAPROXY_GROUP', value: 'unicom_ihr_test'],
+                         [name: "HAPROXY_0_HTTP_BACKEND_PROXYPASS_PATH", value: "/${SUB_PROJECT_NAME}/"],
+                         [name: "HAPROXY_0_VHOST", value: "10.0.210.93,10.0.210.94,10.0.210.95"],
+                         [name: "HAPROXY_0_PATH", value: "/${SUB_PROJECT_NAME}/"]]
             )
         }
     }
