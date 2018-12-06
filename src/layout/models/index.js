@@ -16,7 +16,7 @@ export default {
       {
         id: 2,
         menuName: '跨省调动',
-        url: 'psn/transpro',
+        url: '/psn/transpro',
         pid: 0,
         iconUrl: 'team',
       },
