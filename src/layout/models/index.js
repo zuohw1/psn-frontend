@@ -14,10 +14,10 @@ export default {
         iconUrl: 'tag-o',
       },
       {
-        id: 2,
+        id: 302,
         menuName: '跨省调动',
-        url: 'psn/transpro',
-        pid: 0,
+        url: '/psn/transpro',
+        pid: 3,
         iconUrl: 'team',
       },
       {
