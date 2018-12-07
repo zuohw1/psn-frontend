@@ -1,0 +1,61 @@
+:global .submitdismiss {
+  text-align: center;
+}
+:global .submitdismiss button {
+  margin: 10px;
+}
+:global .dimiss {
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+}
+:global .dimiss input {
+  border: 0;
+  outline: 0;
+}
+:global .dimiss input:focus {
+  border: 0;
+  outline: 0;
+}
+:global .dimiss .dimiss_head {
+  height: 140px;
+  border-bottom: 1px solid #d9d9d9;
+}
+:global .dimiss .dimiss_head input {
+  border-bottom: 1px solid #d9d9d9;
+}
+:global .dimiss .dimiss_head > p:first-child {
+  font-size: 26px;
+  text-align: center;
+}
+:global .dimiss .dimiss_main .ant-form-item {
+  border-bottom: 1px solid #d9d9d9;
+}
+:global .dimiss .dimiss_main .ant-form-item .ant-form-item-label {
+  text-align: left;
+  border-right: 1px solid #d9d9d9;
+  padding-left: 20px;
+}
+:global .dimiss .dimiss_main .ant-form-item .ant-form-item-control-wrapper {
+  border-right: 1px solid #d9d9d9;
+}
+:global .dimiss .dimiss_main_title {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #d9d9d9;
+  padding: 0 20px;
+  font-weight: bold;
+}
+:global .dimiss .dimiss_main_title button {
+  float: right;
+  margin-top: 5px;
+}
+:global .dimiss .dimiss_main_cont {
+  display: flex;
+}
+:global .dimiss .dimiss_main_cont_left {
+  flex: 1;
+}
+:global .dimiss .dimiss_main_cont_right {
+  flex: 1;
+}
+/*# sourceMappingURL=staffmission.css.map */
