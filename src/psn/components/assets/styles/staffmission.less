@@ -7,24 +7,22 @@
 :global {
   .submitdismiss {
     text-align: center;
-    button{
+    button {
       margin: 10px;
     }
   }
   .dimiss {
+    width: 100%;
     background-color: #fff;
     border: 1px solid #d9d9d9;
     input {
       border: 0;
       outline: 0;
-      &:focus{
-        border: 0;
-        outline:0;
-      }
     }
     .dimiss_head {
       height: 140px;
       border-bottom: 1px solid #d9d9d9;
+      padding: 3px;
       .input_border();
       > p:first-child {
         font-size: 26px;
@@ -32,20 +30,37 @@
       }
     }
     .dimiss_main {
-      .ant-form-item{
+      display: flex;
+      flex-flow: column nowrap;
+      height: 800px;
+      .ant-form-item {
         border-bottom: 1px solid #d9d9d9;
-        .ant-form-item-label{
+        margin: 0;
+        .ant-form-item-label {
+          height: 100%;
           text-align: left;
           border-right: 1px solid #d9d9d9;
           padding-left: 20px;
+          padding-top: 3px;
         }
-        .ant-form-item-control-wrapper{
+        .ant-form-item-control-wrapper {
+          height: 100%;
+          padding: 5px;
           border-right: 1px solid #d9d9d9;
+          .ant-upload{
+            float: right;
+          }
+          .ant-upload-list{
+            float: right;
+            width: 250px;
+            margin-right: 10px;
+            background-color: #fbfbfb;
+          }
         }
       }
       &_title {
-        height: 50px;
-        line-height: 50px;
+        flex: 1;
+        line-height: 3;
         border-bottom: 1px solid #d9d9d9;
         padding: 0 20px;
         font-weight: bold;
@@ -55,22 +70,104 @@
         }
       }
       &_cont {
-        display: flex;
+        width: 100%;
         &_left {
-          flex: 1;
+          width: 50%;
+          height: 100%;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 1;
+          }
         }
         &_right {
-          flex: 1;
+          width: 50%;
+          height: 100%;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 1;
+            .ant-form-item-control-wrapper{
+              border-right: 0;
+            }
+          }
+        }
+        &-staff {
+          flex: 3;
+          .dimiss_main_cont_right{
+            .ant-form-item:nth-child(1) {
+              input {
+                border: 1px solid #d9d9d9;
+              }
+            }
+          }
+        }
+        &-registtop {
+          flex: 4;
+          .dimiss_main_cont_left{
+            .ant-form-item:nth-child(1) {
+              input {
+                border: 1px solid #d9d9d9;
+              }
+            }
+          }
+        }
+        &-registbottom {
+          flex: 7;
+          display: flex;
+          flex-flow: column nowrap;
+          .ant-form-item {
+            flex: 1;
+            .ant-form-item-control-wrapper{
+              border-right: 0;
+            }
+            &:first-child {
+              flex: 3;
+              textarea{
+                border: 0;
+              }
+            }
+            &:nth-child(4){
+              .ant-select{
+                width: 150px;
+              }
+            }
+            &:last-child {
+              border-bottom: 0;
+              .ant-form-item-label{
+                text-align: right;
+                border-right: 0;
+              }
+              .ant-form-item-control-wrapper{
+                input{
+                  border: 1px solid #d9d9d9;
+                }
+              }
+            }
+          }
         }
       }
-      &_note{}
-      &_maintext{}
-      &_attachment{}
-      &_selectnotice{}
-      &_datewritten{}
     }
     .dimss_foot {
+      flex: 1;
     }
   }
-
+.selectstaff{
+  height: 400px;
+  .queryform{
+    display: flex;
+    border: 1px solid #e8e8e8;
+    border-bottom: 0;
+    .ant-form-item{
+      flex: 1;
+      margin-right: 2px;
+    }
+    button{
+      margin-top: 3px;
+      margin-right: 2px;
+    }
+  }
+}
 }

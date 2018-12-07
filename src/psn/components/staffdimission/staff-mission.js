@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
-  DatePicker, Button, Form, Icon, Input, Select, Upload,
+  DatePicker, Button, Form, Icon, Input, Select, Upload, Modal,
 } from 'antd';
 import '../assets/styles/staffmission.less';
+import SelectStaff from './select-staff';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -68,6 +69,7 @@ const registDescript = [
 class StaffDimission extends Component {
   state = {
     reasons: [],
+    visible: false,
   }
 
   handleResign = (value) => {
@@ -91,13 +93,43 @@ class StaffDimission extends Component {
         ...fieldsValue,
         birth: fieldsValue.birth.format('YYYY-MM-DD'),
         departuredate: fieldsValue.departuredate.format('YYYY-MM-DD'),
+        datewritten: fieldsValue.datewritten.format('YYYY-MM-DD'),
       };
       console.log('Received values of form: ', values);
     });
   }
 
+  normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
+
+  showModal = () => {
+    const { visible } = this.state;
+    this.setState({
+      visible: !visible,
+    });
+  }
+
+  handleOk = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
+  handleCancel = (e) => {
+    console.log(e);
+    this.setState({
+      visible: false,
+    });
+  }
+
   render() {
-    const { reasons } = this.state;
+    const { reasons, visible } = this.state;
     const { form } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
@@ -128,26 +160,48 @@ class StaffDimission extends Component {
       '员工关系',
     ];
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <div className="dimiss">
-          <div className="dimiss_head">
-            <p>关于 <input type="text" />办离职手续请示</p>
-            <p><input type="text" />:</p>
-            <p><input type="text" />(工号 <input type="text" /><Icon type="search" /> )申请办理离职手续，具体情况如下：</p>
-          </div>
-          <div className="dimiss_main">
-            <div className="dimiss_main_title">
-              <span>人员基本信息</span>
-              <Button>查看简历</Button>
+      <Fragment>
+        <Modal
+          width={800}
+          title="选择人员"
+          visible={visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button onClick={this.handleCancel}><Icon type="close" />关闭</Button>,
+            <Button type="primary" onClick={this.handleOk}>
+              <Icon type="check" />
+              确定
+            </Button>,
+          ]}
+        >
+          <SelectStaff />
+        </Modal>
+        <Form onSubmit={this.handleSubmit}>
+          <div className="dimiss">
+            <div className="dimiss_head">
+              <p>关于 <input type="text" />办离职手续请示</p>
+              <p><input type="text" />:</p>
+              <p><input type="text" />(工号 <input type="text" /><Icon
+                type="search"
+                onClick={this.showModal}
+              /> )申请办理离职手续，具体情况如下：
+              </p>
             </div>
-            <div className="dimiss_main_cont">
-              <div className="dimiss_main_cont_left">
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="用户名"
-                >
-                  {
+            <div className="dimiss_main">
+              <div className="dimiss_main_title">
+                <span>人员基本信息</span>
+                <Button>查看简历</Button>
+              </div>
+              <div className="dimiss_main_cont dimiss_main_cont-staff">
+                <div className="dimiss_main_cont_left">
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="用户名"
+                  >
+                    {
                     getFieldDecorator('userName',
                       {
                         rules: [{ required: true, whitespace: true }],
@@ -155,13 +209,14 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="身份证号"
-                >
-                  {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="身份证号"
+                  >
+                    {
                     getFieldDecorator('idnumber',
                       {
                         rules: [{ required: true, whitespace: true }],
@@ -169,13 +224,14 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="工作单位"
-                >
-                  {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="工作单位"
+                  >
+                    {
                     getFieldDecorator('workunit',
                       {
                         rules: [{ required: true, whitespace: true }],
@@ -183,15 +239,16 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
-              </div>
-              <div className="dimiss_main_cont_right">
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="出生日期"
-                >
-                  {
+                  </FormItem>
+                </div>
+                <div className="dimiss_main_cont_right">
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="出生日期"
+                  >
+                    {
                     getFieldDecorator('birth',
                       {
                         rules: [{ required: true }],
@@ -199,13 +256,14 @@ class StaffDimission extends Component {
                         <DatePicker />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="用工类型"
-                >
-                  {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="用工类型"
+                  >
+                    {
                     getFieldDecorator('employtype',
                       {
                         rules: [{ required: true }],
@@ -213,13 +271,14 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="职务"
-                >
-                  {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="职务"
+                  >
+                    {
                     getFieldDecorator('duty',
                       {
                         rules: [{ required: true }],
@@ -227,21 +286,22 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
+                  </FormItem>
 
+                </div>
               </div>
-            </div>
-            <div className="dimiss_main_title">
-              <span>离职相关信息</span>
-            </div>
-            <div className="dimiss_main_cont">
-              <div className="dimiss_main_cont_left">
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职日期"
-                >
-                  {
+              <div className="dimiss_main_title">
+                <span>离职相关信息</span>
+              </div>
+              <div className="dimiss_main_cont dimiss_main_cont-registtop">
+                <div className="dimiss_main_cont_left">
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职日期"
+                  >
+                    {
                     getFieldDecorator('departuredate',
                       {
                         rules: [{ required: true }],
@@ -249,39 +309,45 @@ class StaffDimission extends Component {
                         <DatePicker />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职原因详细描述"
-                >
-                  {getFieldDecorator('registdescript',
-                    {
-                      rules: [{ required: true }],
-                    })(
-                      <Input />,
-                  )
-                  }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职原因（新）"
-                >
-                  {
-                    (
-                      <Select placeholder="---请选择---" onChange={this.handleResign}>
-                        {registReasonNew.map(resign => <Option key={resign}>{resign}</Option>)}
-                      </Select>
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职原因详细描述"
+                  >
+                    {getFieldDecorator('registdescript',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Input />,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="去往单位"
-                >
-                  {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职原因（新）"
+                  >
+                    {
+                    getFieldDecorator('registreasonnew',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Select placeholder="---请选择---" onChange={this.handleResign}>
+                          {registReasonNew.map(resign => <Option key={resign}>{resign}</Option>)}
+                        </Select>,
+                    )
+                  }
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="去往单位"
+                  >
+                    {
                     getFieldDecorator('gotounit',
                       {
                         rules: [{ required: true }],
@@ -289,151 +355,154 @@ class StaffDimission extends Component {
                         <Input />,
                     )
                   }
-                </FormItem>
-
-              </div>
-              <div className="dimiss_main_cont_right">
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职原因"
-                >
-                  {
-                    (
-                      <Select placeholder="---请选择---">
-                        {registReason.map(ele => <Option value={ele}>{ele}</Option>)}
-                      </Select>
+                  </FormItem>
+                </div>
+                <div className="dimiss_main_cont_right">
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职原因"
+                  >
+                    {
+                    getFieldDecorator('registreason',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Select placeholder="---请选择---">
+                          {registReason.map(ele => <Option value={ele}>{ele}</Option>)}
+                        </Select>,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职原因分类"
-                >
-                  {
-                    (
-                      <Select placeholder="---请输入---">
-                        {registReasonClass.map(ele => <Option value={ele}>{ele}</Option>)}
-                      </Select>
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职原因分类"
+                  >
+                    {getFieldDecorator('registreasontype',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Select placeholder="---请输入---">
+                          {registReasonClass.map(ele => <Option value={ele}>{ele}</Option>)}
+                        </Select>,
                     )
                   }
-                </FormItem>
-                <FormItem
-                  help=""
-                  {...formItemLayout}
-                  label="离职原因说明（新）"
-                >
-                  {
-                    (
-                      <Select placeholder="---请选择---" notFoundContent="请选择离职原因">
-                        {
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="离职原因说明（新）"
+                  >
+                    {
+                    getFieldDecorator('registdescriptnew',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Select placeholder="---请选择---" notFoundContent="请选择离职原因">
+                          {
                           reasons.map(reason => <Option key={reason}>{reason}</Option>)
                         }
-                      </Select>
+                        </Select>,
                     )
                   }
+                  </FormItem>
+                  <FormItem
+                    hasFeedback
+                    help=""
+                    {...formItemLayout}
+                    label="是否流入到其他运营商"
+                  >
+                    {getFieldDecorator('operator',
+                      {
+                        rules: [{ required: true }],
+                      })(
+                        <Select placeholder="---请输入---">
+                          <Option value="是">是</Option>
+                          <Option value="否">否</Option>
+                        </Select>,
+                    )
+                  }
+                  </FormItem>
+                </div>
+              </div>
+              <div className="dimiss_main_cont dimiss_main_cont-registbottom">
+                <FormItem
+                  help=""
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                  label="备注"
+                >
+                  {
+                  getFieldDecorator('note')(
+                    <TextArea rows={6} />,
+                  )
+                }
                 </FormItem>
                 <FormItem
                   help=""
-                  {...formItemLayout}
-                  label="是否流入到其他运营商"
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                  label="正文"
+                >
+                  {getFieldDecorator('maintext', {
+                    valuePropName: 'fileList',
+                    getValueFromEvent: this.normFile,
+                  })(
+                    <Upload name="maintext" action="/upload.do">
+                      <Button>
+                        <Icon type="upload" /> 浏览
+                      </Button>
+                    </Upload>,
+                  )}
+
+                </FormItem>
+                <FormItem
+                  help=""
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                  label="附件"
+                >
+                  {getFieldDecorator('attachment', {
+                    valuePropName: 'fileList',
+                    getValueFromEvent: this.normFile,
+                  })(
+                    <Upload name="attachment" action="/upload.do">
+                      <Button>
+                        <Icon type="upload" /> 浏览
+                      </Button>
+                    </Upload>,
+                  )}
+                </FormItem>
+                <FormItem
+                  hasFeedback
+                  help=""
+                  labelCol={{ span: 6 }}
+                  wrapperCol={{ span: 18 }}
+                  label="选择通知单"
                 >
                   {
-                    (
-                      <Select placeholder="---请输入---">
-                        <Option value="是">是</Option>
-                        <Option value="否">否</Option>
-                      </Select>
-                    )
-                  }
-                </FormItem>
-              </div>
-            </div>
-            <div className="dimiss_main_note">
-              <FormItem
-                hasFeedback
-                help=""
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
-                label="备注"
-              >
-                {
-                  getFieldDecorator('note',
-                    {
-                      rules: [{ required: true }],
-                    })(
-                      <TextArea />,
-                  )
-                }
-              </FormItem>
-            </div>
-            <div className="dimiss_main_maintext">
-              <FormItem
-                hasFeedback
-                help=""
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
-                label="正文"
-              >
-                {getFieldDecorator('upload', {
-                  valuePropName: 'fileList',
-                  getValueFromEvent: this.normFile,
-                })(
-                  <Upload name="maintext" action="/upload.do">
-                    <Button>
-                      <Icon type="upload" /> 浏览
-                    </Button>
-                  </Upload>,
-                )}
-
-              </FormItem>
-            </div>
-            <div className="dimiss_main_attachment">
-              <FormItem
-                hasFeedback
-                help=""
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
-                label="附件"
-              >
-                {
-                  getFieldDecorator('attachment',
-                    {
-                      rules: [{ required: true }],
-                    })(
-                      <Input />,
-                  )
-                }
-              </FormItem>
-            </div>
-            <div className="dmiss_main_selectnotice">
-              <FormItem
-                hasFeedback
-                help=""
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
-                label="选择通知单"
-              >
-                {
                   getFieldDecorator('selectnotice',
                     {
                       rules: [{ required: true }],
                     })(
-                      <Input />,
+                      <Select placeholder="---请选择---">
+                        <Option value="离职通知">离职通知</Option>
+                      </Select>,
                   )
                 }
-              </FormItem>
-            </div>
-            <div className="dimiss_main_datewritten">
-              <FormItem
-                hasFeedback
-                help=""
-                labelCol={{ span: 18 }}
-                wrapperCol={{ span: 6 }}
-                label="成文日期"
-              >
-                {
+                </FormItem>
+                <FormItem
+                  hasFeedback
+                  help=""
+                  labelCol={{ span: 18 }}
+                  wrapperCol={{ span: 6 }}
+                  label="成文日期"
+                >
+                  {
                   getFieldDecorator('datewritten',
                     {
                       rules: [{ type: 'object', required: true }],
@@ -441,18 +510,20 @@ class StaffDimission extends Component {
                       <DatePicker />,
                   )
                 }
-              </FormItem>
+                </FormItem>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="submitdismiss">
-          <Button type="primary" htmlType="submit">提交</Button>
-          <Button>打印通知单</Button>
-        </div>
-      </Form>
+          <div className="submitdismiss">
+            <Button type="primary" htmlType="submit">提交</Button>
+            <Button>打印通知单</Button>
+          </div>
+        </Form>
+      </Fragment>
     );
   }
 }
+
 const StaffDimissionForm = Form.create()(StaffDimission);
 
 export default StaffDimissionForm;
