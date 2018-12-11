@@ -60,6 +60,16 @@ export function updateLastSetQueryItems(newSetQueryItems) {
   };
 }
 
+// 查询单据模板数据
+export function queryBillTemplateDataS(billTypeCode) {
+  return {
+    type: 'psnMgrCard/queryBillTemplateDataByCode',
+    payload: {
+      billTypeCode,
+    },
+  };
+}
+
 export function getRecord(record) {
   return {
     type: 'psnMgrCard/getRecord',

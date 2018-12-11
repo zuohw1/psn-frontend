@@ -33,6 +33,7 @@ export default {
     psnCardModel: false,
     detailRecord: {}, // 基本信息详情
     infoSetList: [], // 最新的子集信息
+    templateData: [], // 单据模板数据
   },
   reducers: {
     stateWillUpdate(state, { payload }) {
@@ -86,6 +87,13 @@ export default {
     //     },
     //   });
     // },
+    * queryBillTemplateDataByCode({ payload: { billTypeCode } }, { call, put }) {
+      const templateData = yield call(PsnMgrCardService.queryBillTemplateDataByCode, billTypeCode);
+      yield put({
+        type: 'stateWillUpdate',
+        payload: { templateData },
+      });
+    },
   },
   subscriptions: {
     setup({ history, dispatch }) {

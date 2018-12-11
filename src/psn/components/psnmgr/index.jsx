@@ -7,7 +7,7 @@ import '../../../assets/styles/module.less';
 
 const { Content } = Layout;
 
-const PsnRoster = (state) => {
+const PsnMgr = (state) => {
   return (
 
     <React.Fragment>
@@ -32,4 +32,4 @@ const PsnRoster = (state) => {
   );
 };
 
-export default PsnRoster;
+export default PsnMgr;
