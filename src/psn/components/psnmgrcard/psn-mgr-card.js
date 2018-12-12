@@ -1,19 +1,20 @@
 
 import React from 'react';
 import {
-  Row, Col, Tabs, Table, Button,
+  Row, Col, Tabs, Table, Button, Divider, Modal,
 } from 'antd';
+import BasicForm from './basic-info-edit';
 /*
  员工信息维护卡片
  @autor:zhanggang
  @date：2018-11-27
  */
 export default ({
-  record, actions, detailRecord, infoSetList,
+  record, actions, detailRecord, infoSetList, form, modal, templateData,
 }) => {
   const { personId } = record;
 
-  const { queryDetailDataByPersonId } = actions;
+  const { queryDetailDataByPersonId, isModeShow, queryBillTemplateDataS } = actions;
 
   const { TabPane } = Tabs;
   const onTabChange = (activeKey) => {
@@ -22,6 +23,18 @@ export default ({
     } else {
       queryDetailDataByPersonId({ personId, infoSetType: activeKey });
     }
+  };
+
+  const onEditBasicInfo = () => {
+    // 查询单据模板数据
+    queryBillTemplateDataS('emp-mgr-basicinfo-edit');
+    // 弹出基本信息编辑框
+    isModeShow(true, true);
+  };
+
+  const onCancel = () => {
+    // 关闭Model框
+    isModeShow(false, false);
   };
 
   function buildBasicInfoTable() {
@@ -38,6 +51,21 @@ export default ({
     }
     return tableStr;
   }
+
+  const onClickView = (text, row) => {
+    console.log('----text-----', text);
+    console.log('---------', row);
+  };
+
+  const onClickEdit = (text, row) => {
+    console.log('-----text----', text);
+    console.log('---------', row);
+  };
+
+  const onClickDelete = (text, row) => {
+    console.log('-----text----', text);
+    console.log('---------', row);
+  };
 
   const buildEmpEducations = () => {
     return (
@@ -84,6 +112,21 @@ export default ({
         key: 'educationHighFlag',
         align: 'center',
         width: 100,
+      }, {
+        title: '操作',
+        dataIndex: 'action',
+        key: 'action',
+        align: 'center',
+        width: 240,
+        render: (text, row) => (
+          <span>
+            <a href=" javascript:;" onClick={() => onClickView(text, row)}>查1看</a>
+            <Divider type="vertical" />
+            <a href=" javascript:;" onClick={() => onClickEdit(text, row)}>修改</a>
+            <Divider type="vertical" />
+            <a href=" javascript:;" onClick={() => onClickDelete(text, row)}>删除</a>
+          </span>
+        ),
       },
       ]);
   };
@@ -401,6 +444,15 @@ export default ({
       ]);
   };
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    form.validateFields((err, values) => {
+      if (!err) {
+        console.log('--------------', values);
+      }
+    });
+  };
+
   return (
     <div>
       <Row>
@@ -415,7 +467,7 @@ export default ({
           <Tabs type="card" onChange={onTabChange}>
             <TabPane tab="基本信息" key="EMP_BASIC">
               <div dangerouslySetInnerHTML={{ __html: `<table width="100%"  style="border:#e8e8e8" border="1" cellspacing="0" cellpadding="0"><tbody>${buildBasicInfoTable()}</tbody></table>` }} />
-              <div style={{ textAlign: 'center' }}><Button>修改</Button></div>
+              <div style={{ textAlign: 'center' }}><Button onClick={onEditBasicInfo}>修改</Button></div>
             </TabPane>
             <TabPane tab="教育经历" key="EMP_EDUCATIONS">
               <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered pagination={false} />
@@ -452,6 +504,9 @@ export default ({
           </Tabs>
         </Col>
       </Row>
+      <Modal visible={modal} onOk={onSubmit} onCancel={onCancel} width="80%">
+        <BasicForm form={form} templateData={templateData} detailRecord={detailRecord} />
+      </Modal>
     </div>
   );
 };

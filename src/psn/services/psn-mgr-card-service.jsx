@@ -34,6 +34,13 @@ export default {
     }
     return request.get(url);
   },
+  queryBillTemplateDataByCode(billTypeCode) {
+    let url = 'empMgr/queryBilltempletDataByCode?';
+    if (billTypeCode && billTypeCode !== '') {
+      url += `billTypeCode=${billTypeCode}`;
+    }
+    return request.get(url);
+  },
   /*
   add(records) {
     return request.post('orgHeaderBatch/save', records);

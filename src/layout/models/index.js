@@ -63,15 +63,15 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(({ pathname }) => {
-        if (pathname && pathname === '/') {
-          /* 跳转页面后初始化左侧菜单数据 */
-          dispatch({
-            type: 'getMenuList',
-            payload: {
-            },
-          });
-        }
+      return history.listen(() => {
+        // if (pathname && pathname === '/') {
+        /* 跳转页面后初始化左侧菜单数据 */
+        dispatch({
+          type: 'getMenuList',
+          payload: {
+          },
+        });
+      //  }
       });
     },
   },
