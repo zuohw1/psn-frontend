@@ -1,0 +1,55 @@
+:global .selectcondition .ant-modal-header {
+  padding: 10px;
+  background-color: #D8000F;
+}
+:global .selectcondition .ant-modal-header .ant-modal-title {
+  color: #fff;
+}
+:global .selectcondition .ant-modal-body {
+  padding: 10px;
+}
+:global .selectcondition .ant-modal-body .ant-card {
+  margin-bottom: 10px;
+}
+:global .selectcondition .ant-modal-body .ant-card .ant-card-head {
+  margin-bottom: 5px;
+}
+:global .selectcondition .ant-modal-body .ant-card .ant-card-head .ant-card-head-title {
+  line-height: 38px;
+}
+:global .selectcondition .ant-modal-body .ant-card .ant-card-body .ant-btn {
+  width: 180px;
+  text-align: left;
+  margin-right: 10px;
+  margin-top: 5px;
+  background-color: #F7F7F7;
+  border: 0;
+  color: #000;
+}
+:global .selectcondition .ant-modal-body .conditionlist .ant-card-head {
+  border-bottom: 1px solid #D8000F;
+}
+:global .selectcondition .ant-modal-body .conditionlist .ant-card-head .ant-card-head-wrapper {
+  width: 100px;
+  padding-left: 15px;
+  background-color: #D8000F;
+  color: #fff;
+}
+:global .selectcondition .ant-modal-body .othercondition .ant-card-head {
+  border-bottom: 1px solid #D8000F;
+}
+:global .selectcondition .ant-modal-body .othercondition .ant-card-head .ant-card-head-wrapper {
+  width: 100px;
+  padding-left: 15px;
+  background-color: #D8000F;
+  color: #fff;
+}
+:global .selectcondition .ant-modal-close span {
+  width: 42px;
+  height: 42px;
+  line-height: 42px;
+}
+:global .ant-popover {
+  width: 400px;
+}
+/*# sourceMappingURL=select-condition.css.map */

@@ -8,17 +8,20 @@ import {
 } from 'antd';
 import QuerySetting from './query-setting';
 import PsnCard from './psn-card';
+import SelectCondition from './select-condition';
+import '../assets/styles/select-condition.less';
 
 export default ({
   tableData,
   actions,
   search,
-  loading, dynamicTableCols, querySettingModel, allDisplayItems,
-  lastSetQueryItems, psnCardModel, record, detailRecord, infoSetList,
+  loading, dynamicTableCols, selectConditionModel, querySettingModel, allDisplayItems,
+  lastSetQueryItems, psnCardModel, record, detailRecord, infoSetList, conditionIsSelect,
+  selectedConditions,
 }) => {
   const {
-    isModeShow,
     isQuerySetModeShow,
+    isSelectConditionModelShow,
     listTable,
     updateLastSetQueryItems,
     updateDynamicTableCols,
@@ -31,8 +34,8 @@ export default ({
     getRecord(row);
   };
 
-  const onClickAdd = () => {
-    isModeShow(true, true);
+  const onClickAdvancedQuery = () => {
+    isSelectConditionModelShow(true);
   };
 
   const onClickSetQuery = () => {
@@ -58,7 +61,6 @@ export default ({
     updateDynamicTableCols(dynamicCols);
     isQuerySetModeShow(false);
   };
-
   const onItemSetCancel = (e) => {
     e.preventDefault();
     // 重置上一次选中的字段
@@ -79,7 +81,6 @@ export default ({
     updateQuerySetItems(newDisplayItems);
     isQuerySetModeShow(false);
   };
-
   const onPsnCardCancel = (e) => {
     e.preventDefault();
     isPsnCardModelShow(false);
@@ -87,6 +88,12 @@ export default ({
 
   const onPsnCardOk = (e) => {
     onPsnCardCancel(e);
+  };
+  const onAdvancedSelectOk = () => {
+    isSelectConditionModelShow(false);
+  };
+  const onAdvancedSelectCancel = () => {
+    isSelectConditionModelShow(false);
   };
 
   const onChange = (pageNumber, pageSize) => {
@@ -196,7 +203,7 @@ export default ({
   return (
     <div>
       <Button.Group>
-        <Button type="primary" style={{ margin: '10px 0' }} onClick={onClickAdd}>高级查询</Button>
+        <Button type="primary" style={{ margin: '10px 0' }} onClick={onClickAdvancedQuery}>高级查询</Button>
         <Button type="primary" style={{ margin: '10px 0' }} onClick={onClickSetQuery}>设置查询</Button>
       </Button.Group>
       &nbsp;&nbsp;
@@ -238,6 +245,22 @@ export default ({
         onOk={onItemSetOk}
       >
         <QuerySetting allDisplayItems={allDisplayItems} actions={actions} />
+      </Modal>
+      <Modal
+        className="selectcondition"
+        title="选择条件"
+        visible={selectConditionModel}
+        maskClosable={false}
+        width={800}
+        centered={true}
+        onCancel={onAdvancedSelectCancel}
+        onOk={onAdvancedSelectOk}
+      >
+        <SelectCondition
+          selectedConditions={selectedConditions}
+          conditionIsSelect={conditionIsSelect}
+          actions={actions}
+        />
       </Modal>
       <Modal
         title="人员信息"

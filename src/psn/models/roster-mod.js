@@ -54,7 +54,10 @@ export default {
       dataIndex: 'politicsLandscapeName', key: 'politicsLandscapeName', title: '政治面貌', isCheck: true, align: 'center', width: 160,
     }], // 人员列表动态列
     querySettingModel: false, // 查询设置框是否显示
+    selectConditionModel: false, // 高级查询框是否显示
     checkedQueryItems: [], // 已经设置显示字段
+    conditionIsSelect: false, // 是否选择了条件
+    selectedConditions: [], // 已经选择的条件
     allDisplayItems: [{
       dataIndex: 'sex',
       key: 'sex',
