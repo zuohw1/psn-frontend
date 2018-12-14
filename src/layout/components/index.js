@@ -12,7 +12,7 @@ import PsnRoster from '../../psn/containers/roster';
 import StaffDimission from '../../psn/containers/staff-dimission';
 import PsnMgr from '../../psn/containers/psn-mgr';
 import PsnMgrCard from '../../psn/containers/psn-mgr-card';
-
+import DocumentLoad from '../../psn/containers/document-load';
 
 const { SubMenu } = Menu;
 
@@ -85,6 +85,7 @@ const MainLayout = (state) => {
             <Route exact path="/psn/staffdimission" component={StaffDimission} />
             <Route exact path="/psn/psnMgr" component={PsnMgr} />
             <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
+            <Route exact path="/psn/documentLoad" component={DocumentLoad} />
           </Switch>
         </Layout>
       </Layout>
