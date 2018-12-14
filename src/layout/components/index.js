@@ -17,7 +17,22 @@ import DocumentLoad from '../../psn/containers/document-load';
 const { SubMenu } = Menu;
 
 const MainLayout = (state) => {
-  return (
+  const route = (
+    <Switch>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/psn/transpro" component={PsnTranspro} />
+      <Route exact path="/psn/roster" component={PsnRoster} />
+      <Route exact path="/psn/staffdimission" component={StaffDimission} />
+      <Route exact path="/psn/psnMgr" component={PsnMgr} />
+      <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
+      <Route exact path="/psn/documentLoad" component={DocumentLoad} />
+    </Switch>
+  );
+  const ret = state.headless ? (
+    <Layout style={{ padding: '5px' }}>
+      {route}
+    </Layout>
+  ) : (
     <div className={app.App}>
       <div className={app.AppHeader}>
         <div className={app.headerTop}>
@@ -78,19 +93,12 @@ const MainLayout = (state) => {
           </Menu>
         </Layout.Sider>
         <Layout style={{ padding: '5px' }}>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/psn/transpro" component={PsnTranspro} />
-            <Route exact path="/psn/roster" component={PsnRoster} />
-            <Route exact path="/psn/staffdimission" component={StaffDimission} />
-            <Route exact path="/psn/psnMgr" component={PsnMgr} />
-            <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
-            <Route exact path="/psn/documentLoad" component={DocumentLoad} />
-          </Switch>
+          {route}
         </Layout>
       </Layout>
     </div>
   );
+  return ret;
 };
 
 export default MainLayout;
