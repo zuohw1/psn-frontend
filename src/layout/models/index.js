@@ -34,6 +34,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 304,
+        menuName: '操作向导及文档下载',
+        url: '/psn/documentLoad',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
