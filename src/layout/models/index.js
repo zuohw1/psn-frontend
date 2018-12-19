@@ -42,6 +42,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 305,
+        menuName: '员工入职',
+        url: '/psn/staffEntry',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
@@ -71,7 +78,7 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen((search) => {
+      return history.listen(({ pathname, search }) => {
         const headless = search.indexOf('headless=true') >= 0;
         dispatch({
           type: 'willUpdateState',
@@ -79,14 +86,14 @@ export default {
             headless,
           },
         });
-        // if (pathname && pathname === '/') {
-        /* 跳转页面后初始化左侧菜单数据 */
-        dispatch({
-          type: 'getMenuList',
-          payload: {
-          },
-        });
-      //  }
+        if (pathname && pathname === '/') {
+          /* 跳转页面后初始化左侧菜单数据 */
+          dispatch({
+            type: 'getMenuList',
+            payload: {
+            },
+          });
+        }
       });
     },
   },
