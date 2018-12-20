@@ -7,7 +7,7 @@ import '../../../assets/styles/module.less';
 
 const { Content } = Layout;
 
-const documentLoad = (state) => {
+const quitPersonnel = (state) => {
   return (
     <React.Fragment>
       <Breadcrumb style={{ margin: '10px 0' }}>
@@ -31,4 +31,4 @@ const documentLoad = (state) => {
     </React.Fragment>
   );
 };
-export default documentLoad;
+export default quitPersonnel;
