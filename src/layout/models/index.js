@@ -49,6 +49,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 306,
+        menuName: '离职人员补薪',
+        url: '/psn/quitPersonnel',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {

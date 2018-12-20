@@ -14,6 +14,7 @@ import PsnMgr from '../../psn/containers/psn-mgr';
 import PsnMgrCard from '../../psn/containers/psn-mgr-card';
 import DocumentLoad from '../../psn/containers/document-load';
 import StaffEntry from '../../psn/containers/staff-entry';
+import QuitPersonnel from '../../psn/containers/quit-personnel';
 
 const { SubMenu } = Menu;
 
@@ -28,6 +29,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
       <Route exact path="/psn/documentLoad" component={DocumentLoad} />
       <Route exact path="/psn/staffEntry" component={StaffEntry} />
+      <Route exact path="/psn/quitPersonnel" component={QuitPersonnel} />
     </Switch>
   );
   const ret = state.headless ? (
