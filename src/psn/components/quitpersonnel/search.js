@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, TreeSelect, Tree, Button, Checkbox, Card,
+  Form, Row, Col, Input, TreeSelect, Tree, Button, Checkbox,
 } from 'antd';
 
 const FormItem = Form.Item;
@@ -29,11 +29,12 @@ export default (state) => {
       orgid: `${extra.triggerNode.props.id}`,
     });
   };
+  const refUrl = 'org/allData?id=';
   const renderTreeNodes = () => {
     return (
-      <TreeNode value="parent" title="中国联合网络通信集团有限公司" key="0-1">
+      <TreeNode value="parent" title="中国联合网络有限公司" key="0-1">
         <TreeNode value="parent 1-0" title="中国联通总部管理部门" key="0-1-1">
-          <TreeNode value="parent 1-1" title="中国联通总部-综合部（董事会办公室）" key="0-1-1-1">
+          <TreeNode value="parent 1-1-1" title="中国联通总部-综合部（董事会办公室）" key="0-1-1-1">
             <TreeNode value="leaf1" title="中国联通总部-综合部" key="random" />
             <TreeNode value="leaf2" title="中国联通总部-综合部" key="random1" />
           </TreeNode>
@@ -51,8 +52,6 @@ export default (state) => {
     itemName: '员工编号', itemKey: 'Employee', itemType: 'String', required: false,
   }, {
     itemName: '姓名', itemKey: 'name', itemType: 'String', required: false,
-  }, {
-    itemName: '所属模块', itemKey: 'model', itemType: 'DiSelect', required: false,
   }];
   function getFields() {
     const count = expand ? queryCols.length : 3;
@@ -61,14 +60,14 @@ export default (state) => {
       if (queryCols[i].itemType === 'String') {
         children.push(
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
-            <FormItem label={queryCols[i].itemName}>
+            <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey, {
                 rules: [{
                   required: queryCols[i].required,
                   message: '不能为空',
                 }],
               })(
-                <Input placeholder="请输入" />,
+                <Input placeholder="请输入" style={{ width: 220 }} />,
               )
               }
             </FormItem>
@@ -77,11 +76,12 @@ export default (state) => {
       } else if (queryCols[i].itemType === 'OrgSelect') {
         children.push(
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
-            <FormItem label={queryCols[i].itemName}>
+            <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey)(
                 <div>
                   <TreeSelect
                     treeId={37838}
+                    refUrl={refUrl}
                     treeSelectChange={treeSelectChange}
                     placeholder="请选择"
                     allowClear
@@ -106,16 +106,14 @@ export default (state) => {
   }
   return (
     <div>
-      <Card title="员工查询">
-        <Form
-          className="ant-advanced-search-form"
-          style={{ padding: 10 }}
-          onSubmit={handleSearch}
-          layout="inline"
-        >
-          <Row gutter={24}>{getFields()}</Row>
-        </Form>
-      </Card>
+      <Form
+        className="ant-advanced-search-form"
+        style={{ padding: 10 }}
+        onSubmit={handleSearch}
+        layout="inline"
+      >
+        <Row gutter={24}>{getFields()}</Row>
+      </Form>
     </div>
   );
 };
