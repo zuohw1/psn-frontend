@@ -3,6 +3,7 @@ import {
   Table, Button, Row, Col, Modal,
 } from 'antd';
 import OperateDuty from './operate';
+import PsndataUpload from './operate/psndata-upload';
 
 /* table size统一设置为small 固定表头，
    scroll={{ y: document.body.scrollHeight - 460 }}
@@ -111,17 +112,10 @@ export default ({
   function handleExportPsnEntry() {
     console.log('handleExportPsnEntry');
   }
-  function handleOk() {
-    console.log('handleOk');
-    setImpModalVisiable(false);
-  }
 
   function handleCancel() {
     console.log('handleCancel');
     setImpModalVisiable(false);
-  }
-  function handlePickFile() {
-    console.log('handlePickFile');
   }
 
   function getFields() {
@@ -145,17 +139,11 @@ export default ({
           <Modal
             title="入职批量导入"
             visible={impModalVisiable}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            okText="上传"
-            cancelText="返回"
+            footer={[
+              <Button key="back" onClick={handleCancel}>返回</Button>,
+            ]}
           >
-            <p>上传文件：</p>
-            <Button htmlType="button" type="primary" style={{ marginLeft: '0' }} onClick={handlePickFile}>
-              添加附件
-            </Button>
-            &nbsp;&nbsp;<p>当前没有添加附件（最多上传1个附件）</p>
-            <p style={{ color: 'red' }}>注：上传文件为xls格式</p>
+            <PsndataUpload />
           </Modal>
           <Button htmlType="button" type="primary" style={{ marginLeft: '10px' }} onClick={handleExportPsnEntry}>
             导出模板

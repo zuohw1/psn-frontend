@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Button, Row, Col, Modal,
+  Button, Row, Col, Modal, Icon, Upload,
 } from 'antd';
 import PropTypes from 'prop-types';
 import img from './img20181219193304.png';
+import AppendixUpload from './appendix-upload';
 
 class OperateDuty extends React.Component {
   state = {
@@ -32,10 +33,6 @@ class OperateDuty extends React.Component {
     } else if (operateName === '删除') {
       handleDelete(psnKey);
     }
-  };
-
-  addAppendix = () => {
-    console.log('addAppendix');
   };
 
   handleOk = () => {
@@ -79,18 +76,14 @@ class OperateDuty extends React.Component {
         <Modal
           title="附件"
           visible={appendixVisiable}
-          width={1000}
+          width={600}
           footer={null}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           okText="上传"
         >
           上传文件：
-          <Button htmlType="button" type="primary" style={{ marginLeft: '10px' }} onClick={this.addAppendix}>
-            添加附件
-          </Button>
-          <p>当前没有添加附件（无数量限制）</p>
-
+          <AppendixUpload />
         </Modal>
 
         <Modal
@@ -115,10 +108,12 @@ class OperateDuty extends React.Component {
                 <p style={{ color: 'red' }}>
                   更换照片
                 </p>
-                <p>请选择新的好怕文件，文件需小于2MB</p>
-                <Button htmlType="button">
-                  上传
-                </Button>
+                <p>请选择新的照片文件，文件需小于2MB</p>
+                <Upload name="logo" action="/upload.do" listType="picture" accept="image/png,image/gif">
+                  <Button>
+                    <Icon type="upload" />上传
+                  </Button>
+                </Upload>
               </Col>
             </Row>
           </div>
