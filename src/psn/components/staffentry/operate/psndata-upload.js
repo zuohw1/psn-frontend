@@ -85,6 +85,12 @@ class PsndataUpload extends React.Component {
         });
       },
       beforeUpload: (file) => {
+        const size = file.size / 1024;
+        if (size <= 0) {
+          alert('附件大小不能为0M！');
+          return false;
+        }
+
         const fileArr = [];
         // 获取新的上传列表
         fileArr.push(file);
@@ -99,14 +105,18 @@ class PsndataUpload extends React.Component {
       fileList, // 上传文件列表
     };
 
+    let showTip = '当前没有添加附件（最多上传1个附件）';
+    if (fileList.length > 0) {
+      showTip = '已添加1个附件（最多上传1个附件）';
+    }
     return (
       <div>
         <Upload {...props}>
           <Button>
-            <Icon type="upload" />添加附件01
+            <Icon type="upload" />添加附件
           </Button>
         </Upload>
-        <p>当前没有添加附件（最多上传1个附件）</p>
+        <p>{showTip}</p>
         <p style={{ color: 'red' }}>注：上传文件为xls格式</p>
 
         <Button

@@ -16,12 +16,22 @@ export default ({
   loading,
 }) => {
   const data = tableData.records;
-  const { setImpModalVisiable } = actions;
+  const { setImpModalVisiable, setTableData } = actions;
 
   console.log(impModalVisiable);
 
-  const handleDelete = () => {
-    console.log(handleDelete);
+  const handleDelete = (posKey) => {
+    const dataDel = [...data];
+    const dataNew = dataDel.filter((item) => {
+      return item.key !== posKey;
+    });
+    const tableDataNew = {
+      total: 0,
+      size: 0,
+      current: 1,
+      records: dataNew,
+    };
+    setTableData(tableDataNew);
   };
 
   /* 列表字段 */
@@ -139,6 +149,7 @@ export default ({
           <Modal
             title="入职批量导入"
             visible={impModalVisiable}
+            onCancel={handleCancel}
             footer={[
               <Button key="back" onClick={handleCancel}>返回</Button>,
             ]}

@@ -7,3 +7,12 @@ export function setImpModalVisiable(impModalVisiable) {
     },
   };
 }
+/* 设置列表数据 */
+export function setTableData(tableData) {
+  return {
+    type: 'staffEntry/stateWillUpdate',
+    payload: {
+      tableData,
+    },
+  };
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Button, Row, Col, Modal, Icon, Upload,
+  Modal, // Button, Row, Col, Icon, Upload,
 } from 'antd';
 import PropTypes from 'prop-types';
-import img from './img20181219193304.png';
 import AppendixUpload from './appendix-upload';
+import PsnPhotoUpload from './psnphoto-upload';
 
 class OperateDuty extends React.Component {
   state = {
@@ -94,29 +94,7 @@ class OperateDuty extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          <div style={{ height: 400 }}>
-            <Row>
-              <Col span={12}>
-                <p style={{ color: 'red' }}>
-                  当前照片
-                </p>
-                <div>
-                  <img src={img} width="200" height="200" alt="当前照片" />
-                </div>
-              </Col>
-              <Col span={12}>
-                <p style={{ color: 'red' }}>
-                  更换照片
-                </p>
-                <p>请选择新的照片文件，文件需小于2MB</p>
-                <Upload name="logo" action="/upload.do" listType="picture" accept="image/png,image/gif">
-                  <Button>
-                    <Icon type="upload" />上传
-                  </Button>
-                </Upload>
-              </Col>
-            </Row>
-          </div>
+          <PsnPhotoUpload />
         </Modal>
 
       </div>
