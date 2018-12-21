@@ -56,6 +56,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 307,
+        menuName: '调动人员补薪',
+        url: '/psn/transferPersonnel',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
