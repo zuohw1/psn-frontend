@@ -63,6 +63,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 308,
+        menuName: '退休人员补薪',
+        url: '/psn/retirePersonnel',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
