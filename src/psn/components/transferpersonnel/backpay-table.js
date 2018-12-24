@@ -78,6 +78,9 @@ class StaffDimission extends Component {
       });
     };
     const refUrl = 'org/allData?id=';
+    const handleReset = () => {
+      form.resetFields();
+    };
     return (
       <Card title="补薪信息">
         <Fragment>
@@ -217,7 +220,7 @@ class StaffDimission extends Component {
             </div>
             <Col span={24} style={{ textAlign: 'center', marginTop: 15 }}>
               <Button htmlType="submit" style={{ marginRight: 10 }}>提交</Button>
-              <Button htmlType="button">重置</Button>
+              <Button htmlType="button" onClick={handleReset}>重置</Button>
             </Col>
           </Form>
         </Fragment>
