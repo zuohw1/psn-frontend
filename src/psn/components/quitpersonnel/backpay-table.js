@@ -1,142 +1,187 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import {
-  Table, Card, Button, Input, DatePicker, Upload, Col, Form, Icon,
+  DatePicker, Button, Form, Input, Card, Upload, Col, Icon,
 } from 'antd';
-import '../assets/styles/personnel.less';
+import '../assets/styles/quit-personnel.less';
 
 const FormItem = Form.Item;
-class BackPay extends React.Component {
-  render() {
-    const {
-      loading,
-      form,
-    } = this.props;
-    const { getFieldDecorator } = form;
-    /* 列表字段 */
-    const tableCols = [{
-      title: '栏目名称',
-      dataIndex: 'catname',
-      key: 'catname',
-      align: 'center',
-      width: '20%',
-      render: (text, record, index) => {
-        if (index === 0) {
-          return '员工编号';
-        } else if (index === 1) {
-          return '姓名';
-        } else if (index === 2) {
-          return '最终处理日期';
-        } else if (index === 3) {
-          return '附件';
-        }
-      },
-    }, {
-      title: '修改前内容',
-      dataIndex: 'update',
-      key: 'update',
-      align: 'center',
-      width: '40%',
-      render: (text, record, index) => {
-        if (index === 0) {
-          return (
-            <div>
-              <Input disabled style={{ width: 258 }} />
-            </div>
-          );
-        } else if (index === 1) {
-          return (
-            <Input disabled style={{ width: 258 }} />
-          );
-        } else if (index === 2) {
-          return (
-            <Input disabled style={{ width: 258 }} />
-          );
-        }
-      },
-    }, {
-      title: '修改后内容',
-      dataIndex: 'message',
-      key: 'message',
-      align: 'center',
-      width: '40%',
-      render: (text, record, index) => {
-        if (index === 2) {
-          return (
-            <Form style={{ height: 40 }}>
-              <FormItem>
-                {getFieldDecorator('departuredate', {
-                  rules: [{ required: true }],
-                })(
-                  <DatePicker style={{ width: 258 }} />,
-                )
-                }
-              </FormItem>
-            </Form>
-          );
-        } else if (index === 3) {
-          return (
-            <div className="main">
-              <div className="upload_main">
-                <FormItem
-                  help=""
-                  labelCol={{ span: 6 }}
-                >
-                  {getFieldDecorator('maintext', {
-                    getValueFromEvent: this.normFile,
-                  })(
-                    <Upload name="maintext" action="/upload.do">
-                      <Button style={{ marginRight: 35 }}>
-                        <Icon type="upload" />浏览
-                      </Button>
-                    </Upload>,
-                  )}
-                </FormItem>
-              </div>
-            </div>
-          );
-        }
-      },
-    }];
 
-    const attachData = [{
-      catname: '员工编号',
-    }, {
-      catname: '姓名',
-    }, {
-      catname: '最终处理日期',
-    }, {
-      catname: '附件',
-    }];
+class StaffDimission extends Component {
+  handleSubmit = (e) => {
+    const { form } = this.props;
+    e.preventDefault();
+    form.validateFields((err, fieldsValue) => {
+      if (err) {
+        return;
+      }
+      const values = {
+        ...fieldsValue,
+        birth: fieldsValue.birth.format('YYYY-MM-DD'),
+        departuredate: fieldsValue.departuredate.format('YYYY-MM-DD'),
+        datewritten: fieldsValue.datewritten.format('YYYY-MM-DD'),
+      };
+      console.log('Received values of form: ', values);
+    });
+  }
+
+  normFile = (e) => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  }
+
+  render() {
+    const { form } = this.props;
+    const { getFieldDecorator } = form;
+    const formItemLayout = {
+      labelCol: {
+        span: 12,
+      },
+      wrapperCol: {
+        span: 12,
+      },
+    };
     const handleReset = () => {
       form.resetFields();
     };
-    function getFields() {
-      const children = [];
-      for (let i = 0; i < tableCols.length; i += 1) {
-        children.push(tableCols[i]);
-      }
-      return children;
-    }
     return (
-      <div>
-        <Card title="补薪信息维护">
-          <Table
-            columns={getFields()}
-            dataSource={attachData}
-            loading={loading}
-            pagination={false}
-            size="small"
-            bordered
-            scroll={{ y: document.body.scrollHeight - 460 }}
-            style={{ marginTop: 10 }}
-          />
-          <Col span={24} style={{ textAlign: 'center' }}>
-            <Button htmlType="submit" style={{ margin: '10px' }}>提交</Button>
-            <Button htmlType="button" style={{ margin: 'auto' }} onClick={handleReset}>重置</Button>
-          </Col>
-        </Card>
-      </div>
+      <Card title="补薪信息维护">
+        <Fragment>
+          <Form onSubmit={this.handleSubmit}>
+            <div className="active">
+              <div className="active_main">
+                <div className="active_main_cont active_main_cont-staff">
+                  <div className="active_main_cont_left">
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label="栏目名称"
+                    >
+                      {
+                        getFieldDecorator('userName')(
+                          <p>修改前内容</p>,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label="员工编号"
+                    >
+                      {
+                        getFieldDecorator('userName')(
+                          <Input disabled style={{ width: 220 }} />,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label="姓名"
+                    >
+                      {
+                        getFieldDecorator('idnumber')(
+                          <Input disabled style={{ width: 220 }} />,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label="最终处理日期"
+                    >
+                      {
+                        getFieldDecorator('workunit',
+                          {
+                            rules: [{ required: true, whitespace: true }],
+                          })(
+                            <DatePicker disabled style={{ width: 220 }} />,
+                        )
+                      }
+                    </FormItem>
+                  </div>
+                  <div className="active_main_cont_right">
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label=""
+                    >
+                      {
+                        getFieldDecorator('employtype')(
+                          <p>修改后内容</p>,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label=""
+                    >
+                      {
+                        getFieldDecorator('employtype')(
+                          <Input style={{ display: 'none' }} />,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label=""
+                    >
+                      {
+                        getFieldDecorator('employtype')(
+                          <Input style={{ display: 'none' }} />,
+                        )
+                      }
+                    </FormItem>
+                    <FormItem
+                      help=""
+                      {...formItemLayout}
+                      label=""
+                    >
+                      {
+                        getFieldDecorator('employtype')(
+                          <DatePicker style={{ width: 220 }} />,
+                        )
+                      }
+                    </FormItem>
+                  </div>
+                </div>
+                <div className="active_main_cont active_main_cont-registbottom">
+                  <FormItem
+                    help=""
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    label="附件"
+                  >
+                    {getFieldDecorator('maintext', {
+                      valuePropName: 'fileList',
+                      getValueFromEvent: this.normFile,
+                    })(
+                      <Upload name="maintext" action="/upload.do">
+                        <Button>
+                          <Icon type="upload" /> 浏览
+                        </Button>
+                      </Upload>,
+                    )}
+
+                  </FormItem>
+                </div>
+              </div>
+            </div>
+            <Col span={24} style={{ textAlign: 'center', marginTop: 15 }}>
+              <Button htmlType="submit" style={{ marginRight: 10 }} type="primary">提交</Button>
+              <Button htmlType="button" onClick={handleReset}>重置</Button>
+            </Col>
+          </Form>
+        </Fragment>
+      </Card>
     );
   }
 }
-export default BackPay;
+
+const StaffDimissionForm = Form.create()(StaffDimission);
+
+export default StaffDimissionForm;

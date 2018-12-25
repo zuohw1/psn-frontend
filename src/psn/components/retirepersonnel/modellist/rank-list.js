@@ -46,7 +46,6 @@ class StaffQuery extends React.Component {
         if (stringA > stringB) {
           return 1;
         }
-        // names must be equal
         return 0;
       },
     }];
@@ -63,6 +62,18 @@ class StaffQuery extends React.Component {
     }, {
       key: '4',
       name: '04.A',
+    }, {
+      key: '5',
+      name: '05.A',
+    }, {
+      key: '6',
+      name: '06.A',
+    }, {
+      key: '7',
+      name: '07.A',
+    }, {
+      key: '8',
+      name: '08.A',
     }];
     function onChange(pagination, filters, sorter) {
       console.log('params', pagination, filters, sorter);
