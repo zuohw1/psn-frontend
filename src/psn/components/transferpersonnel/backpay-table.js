@@ -3,7 +3,7 @@ import {
   DatePicker, Button, Form, Input, Card, Col, Upload, Icon, TreeSelect, Tree, Modal,
 } from 'antd';
 import StaffQuery from './staff-query';
-import '../assets/styles/personnel.less';
+import '../assets/styles/transfer-personnel.less';
 
 
 const FormItem = Form.Item;
