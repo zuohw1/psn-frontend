@@ -93,11 +93,8 @@ class StaffDimission extends Component {
                       label="最终处理日期"
                     >
                       {
-                        getFieldDecorator('workunit',
-                          {
-                            rules: [{ required: true, whitespace: true }],
-                          })(
-                            <DatePicker disabled style={{ width: 220 }} />,
+                        getFieldDecorator('workunit')(
+                          <DatePicker disabled style={{ width: 220 }} />,
                         )
                       }
                     </FormItem>
@@ -142,8 +139,11 @@ class StaffDimission extends Component {
                       label=""
                     >
                       {
-                        getFieldDecorator('employtype')(
-                          <DatePicker style={{ width: 220 }} />,
+                        getFieldDecorator('sdf',
+                          {
+                            rules: [{ required: true, whitespace: true }],
+                          })(
+                            <DatePicker style={{ width: 220 }} />,
                         )
                       }
                     </FormItem>
