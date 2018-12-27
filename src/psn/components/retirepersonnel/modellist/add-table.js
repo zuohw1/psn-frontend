@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Table, Button, Card, Col,
+  Table, Button,
 } from 'antd';
 
 export default (props) => {
@@ -95,21 +95,15 @@ export default (props) => {
   return (
     <div>
       <Button style={{ margin: 10 }}>新增</Button>
-      <Card title="支付方法列表">
-        <Table
-          columns={colums}
-          dataSource={dataSource}
-          loading={loading}
-          pagination={false}
-          size="small"
-          scroll={{ x: '180%' }}
-        />
-        <Col span={24} style={{ textAlign: 'center', marginTop: 20 }}>
-          <Button type="primary" style={{ marginRight: 10 }}>提交</Button>
-          <Button style={{ marginRight: 10 }}>置空</Button>
-          <Button>返回</Button>
-        </Col>
-      </Card>
+      <p>支付方法列表</p>
+      <Table
+        columns={colums}
+        dataSource={dataSource}
+        loading={loading}
+        pagination={false}
+        size="small"
+        scroll={{ x: '180%' }}
+      />
     </div>
   );
 };

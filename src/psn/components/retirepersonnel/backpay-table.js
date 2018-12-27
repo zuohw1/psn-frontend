@@ -4,12 +4,13 @@ import {
   Button,
   Form,
   Input, Card,
-  Upload, Icon, TreeSelect, Tree, Modal, Select,
+  Upload, Icon, TreeSelect, Tree, Modal, Select, Col,
 } from 'antd';
 import RankList from './modellist/rank-list';
 import EmployerList from './modellist/employer-list';
 import AreaList from './modellist/area-list';
 import InsuranceList from './modellist/insurance-list';
+import AddTable from './modellist/add-table';
 import '../assets/styles/retire-personnel.less';
 
 
@@ -390,6 +391,12 @@ class StaffDimission extends Component {
                 </div>
               </div>
             </div>
+            <AddTable />
+            <Col span={24} style={{ textAlign: 'center', marginTop: 20 }}>
+              <Button type="primary" style={{ marginRight: 10 }} htmlType="submit">提交</Button>
+              <Button style={{ marginRight: 10 }}>置空</Button>
+              <Button>返回</Button>
+            </Col>
           </Form>
         </Fragment>
       </Card>
