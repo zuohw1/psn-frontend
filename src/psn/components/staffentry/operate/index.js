@@ -93,6 +93,7 @@ class OperateDuty extends React.Component {
           footer={null}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          maskClosable={false}
         >
           <PsnPhotoUpload />
         </Modal>

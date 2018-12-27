@@ -12,60 +12,68 @@ class PsnPhotoUpload extends React.Component {
   state = {
     fileList: [],
     uploading: false,
-    imgSrc: '',
     fileName: 'derewr',
-    previewImage: img,
+    selectImg: img,
     scale: 1,
     previewAfterScale: null,
+    position: { x: 0.5, y: 0.5 },
   }
 
+  setEditorRef = (editor) => {
+    if (editor) this.editor = editor;
+  }
 
-  handleSave = (data) => {
-  // handleSave = function (data) {
-    console.log('handleSave()--', data);
-    // const img0 = this.editor.getImageScaledToCanvas().toDataURL();
-    // const rect = this.editor.getCroppingRect();
-
-    // const {
-    //   scale, width, height, borderRadius,
-    // } = this.state;
-    // this.setState({
-    //   previewAfterScale: {
-    //     // img: img0,
-    //     // rect,
-    //     scale,
-    //     width,
-    //     height,
-    //     borderRadius,
-    //   },
-    // });
+  /** 剪裁预览 */
+  handleSave = () => {
+    const img0 = this.editor.getImageScaledToCanvas().toDataURL();
+    const rect = this.editor.getCroppingRect();
+    const {
+      scale,
+    } = this.state;
+    this.setState({
+      previewAfterScale: {
+        img: img0,
+        rect,
+        scale,
+      },
+    });
   };
-  // }.bind(this);
 
+  /** 滑动输入条改变 */
   handleScale = (e) => {
     const scale = parseFloat(e);
+    this.handleSave();
     this.setState({ scale });
   };
 
-  // handlePositionChange = (position) => {
-  //   this.setState({ position });
-  // }
-  //
-  // handleDrop = (acceptedFiles) => {
-  //   this.setState({ previewImage: acceptedFiles[0] });
-  // }
+  /** 鼠标拖动触发 */
+  handlePositionChange = (position) => {
+    this.handleSave();
+    this.setState({ position });
+  }
 
+  upload = (file, token) => {
+    return fetch('http://localhost:8002/psn/staffEntry/uploadAppendix2', { // url地址
+      body: file,
+      credentials: 'include',
+      headers: {
+        token,
+      },
+      method: 'POST',
+    })
+      .then(response => response.json());
+  };
+
+  /** 上传按钮触发 */
   handleUpload = () => {
     const { fileList } = this.state;
     const formData = new FormData();
     fileList.forEach((file) => {
       formData.append('files[]', file);
     });
-
     this.setState({
       uploading: true,
     });
-
     const croppedCanvas = this.cropper.getCroppedCanvas({
       minWidth: 200,
       minHeight: 200,
@@ -74,7 +82,6 @@ class PsnPhotoUpload extends React.Component {
       maxWidth: 200,
       maxHeight: 200,
     });
-
     if (typeof croppedCanvas === 'undefined') {
       return;
     }
@@ -88,20 +95,20 @@ class PsnPhotoUpload extends React.Component {
       const filedata = new FormData();
       // 添加要上传的文件
       filedata.append('file', blob, fileName);
-
-      // try {
-      //   // 接口
-      //   const res = await upload(filedata, token);
-      //   if (res.errCode === 0) {
-      //     // 上传成功
-      //   } else {
-      //     // 上传失败
-      //   }
-      // } catch (err) {
-      //   console.log(err);
+      try {
+        // 接口
+        const token = '';
+        const res = await this.upload(filedata, token);
+        if (res.errCode === 0) {
+          // 上传成功
+        } else {
+          // 上传失败
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }, 'image/jpeg');
 
-    // You can use any AJAX library you like
     reqwest({
       url: 'http://localhost:8002/psn/staffEntry/uploadAppendix', // TODO  上传url
       method: 'post',
@@ -123,15 +130,13 @@ class PsnPhotoUpload extends React.Component {
     });
   }
 
+
   render() {
-    // 判断浏览器是否支持FileReader接口
     if (typeof FileReader === 'undefined') {
-      console.log('<h1>当前浏览器不支持FileReader接口</h1>');
+      message.error('当前浏览器不支持FileReader接口');
     }
     const {
-      uploading,
-      fileList,
-      imgSrc,
+      uploading, fileList, selectImg, scale, previewAfterScale, position,
     } = this.state;
     const props = {
       onRemove: (file) => {
@@ -141,7 +146,10 @@ class PsnPhotoUpload extends React.Component {
           newFileList.splice(index, 1);
           return {
             fileList: newFileList,
-            previewImage: img,
+            selectImg: img,
+            previewAfterScale: null,
+            scale: 1,
+            position: { x: 0.5, y: 0.5 },
           };
         });
       },
@@ -149,7 +157,7 @@ class PsnPhotoUpload extends React.Component {
         const size = file.size / 1024; // kb
         const filemaxsize = 1024 * 2; // 2M
         if (size > filemaxsize) {
-          message.error(`附件大小不能大于${filemaxsize / 1024}M！`);
+          message.error('附件大小不能大于2M！');
           return false;
         }
         if (size <= 0) {
@@ -160,55 +168,42 @@ class PsnPhotoUpload extends React.Component {
           fileList: [...state.fileList, file],
         }));
 
+        // 读取文件内容
         const fr = new FileReader();
-        // 读取文件内容，结果用data:url的字符串形式表示
         fr.readAsDataURL(file);
         fr.onload = function (e) {
           this.setState({
-            previewImage: e.target.result,
+            selectImg: e.target.result,
           });
         }.bind(this);
 
         return false;
       },
-      onPreview: (file) => {
-        this.setState({
-          previewImage: file.thumbUrl,
-        });
-      },
-      onChange: (file) => {
-        console.log('onChange() ----- file:', file);
-        // this.setState({ fileList });
-      },
+      // onChange: (file) => {
+      // },
       // ({ fileList }) => this.setState({ fileList })
       accept: 'image/png,image/gif,image/jpeg,image/jpg,image/bmp', // 照片
       // fileList,
     };
 
-    const {
-      previewImage,
-    } = this.state;
     const uploadButton = (
       <div>
         <Icon type="plus" />
         <div className="ant-upload-text">选择照片</div>
       </div>
     );
-
-
-    // 当前没有添加附件（无数量限制）
-    const { scale, previewAfterScale } = this.state;
     return (
-      <div style={{ height: 400 }}>
+      <div style={{ height: 500 }}>
         <Row>
           <Col span={12}>
             <p style={{ color: 'red' }}>
-              当前照片
+              剪裁头像照片
             </p>
+            <p>您可以拖动照片以剪裁满意的头像</p>
             <div>
               <AvatarEditor
                 ref={this.setEditorRef}
-                image={previewImage}
+                image={selectImg}
                 width={200}
                 height={200}
                 border={50}
@@ -216,6 +211,8 @@ class PsnPhotoUpload extends React.Component {
                 borderRadius={0}
                 scale={parseFloat(scale)}
                 style={{ cursor: 'move', margin: '10px 0' }}
+                position={position}
+                onPositionChange={this.handlePositionChange}
               />
               <Slider
                 onChange={this.handleScale}
@@ -233,45 +230,44 @@ class PsnPhotoUpload extends React.Component {
               更换照片
             </p>
             <p>请选择新的照片文件，文件需小于2MB</p>
-            <Upload
-              {...props}
-              listType="picture-card"
-            >
-              {fileList.length >= 1 ? null : uploadButton}
-            </Upload>
-            <Button
-              type="primary"
-              onClick={this.handleUpload}
-              disabled={fileList.length === 0}
-              loading={uploading}
-              style={{ marginTop: 16 }}
-            >
-              {uploading ? '正在上传...' : '上传' }
-            </Button>
+            <Row>
+              <Col span={24}>
+                <div>
+                  <Upload
+                    {...props}
+                    listType="picture-card"
+                    // showUploadList={false}
+                  >
+                    {fileList.length >= 1 ? null : uploadButton}
+                  </Upload>
+                  <Button
+                    type="primary"
+                    onClick={this.handleUpload}
+                    disabled={fileList.length === 0}
+                    loading={uploading}
+                    style={{ marginTop: 16 }}
+                  >
+                    {uploading ? '正在上传...' : '上传' }
+                  </Button>
+                </div>
+              </Col>
+            </Row>
             <Cropper
               style={{ width: '300', height: '200' }}
               aspectRatio={1}
               preview=".uploadCrop"
               guides={false}
-              src={imgSrc}
               ref={(cropper) => { this.cropper = cropper; }}
             />
-            <input type="button" onClick={this.handleSave} value="Preview" />
-            <br />
-            {!!previewAfterScale && (
-              <img
-                alt="imgAftScale"
-                src={previewAfterScale.img}
-                style={{
-                  borderRadius: `${(Math.min(
-                    previewAfterScale.height,
-                    previewAfterScale.width,
-                  )
-                    + 10)
-                  * (previewAfterScale.borderRadius / 2 / 100)}px`,
-                }}
-              />
-            )}
+            <div>
+              <br />
+              {!!previewAfterScale && (
+                <img
+                  alt="imgAftScale"
+                  src={previewAfterScale.img}
+                />
+              )}
+            </div>
           </Col>
         </Row>
       </div>
