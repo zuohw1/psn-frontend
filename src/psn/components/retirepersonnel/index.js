@@ -3,6 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 import Search from './search';
 import Personnel from './persoonel-table';
 import Back from './backpay-table';
+import AddTable from './modellist/add-table';
 import '../../../assets/styles/module.less';
 
 const { Content } = Layout;
@@ -27,6 +28,7 @@ const transferPersonnel = (state) => {
         <Search {...state} />
         <Personnel {...state} />
         <Back {...state} />
+        <AddTable {...state} />
       </Content>
     </React.Fragment>
   );

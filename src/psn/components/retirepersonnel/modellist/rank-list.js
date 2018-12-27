@@ -20,23 +20,6 @@ class StaffQuery extends React.Component {
     const columns = [{
       title: '职级薪档',
       dataIndex: 'name',
-      filters: [{
-        text: '正序',
-        value: 'Joe',
-      }, {
-        text: '逆序',
-        value: 'Jim',
-      }, {
-        text: '列',
-        value: 'Submenu',
-        children: [{
-          text: '职级薪档',
-          value: 'Green',
-        }],
-      }],
-      // specify the condition of filtering result
-      // here is that finding the name started with `value`
-      onFilter: (value, record) => record.name.indexOf(value) === 0,
       sorter: (a, b) => {
         const stringA = a.name.toUpperCase(); // ignore upper and lowercase
         const stringB = b.name.toUpperCase(); // ignore upper and lowercase

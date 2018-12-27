@@ -4,10 +4,13 @@ import {
   Button,
   Form,
   Input, Card,
-  Col, Upload, Icon, TreeSelect, Tree, Modal, Select,
+  Upload, Icon, TreeSelect, Tree, Modal, Select,
 } from 'antd';
 import RankList from './modellist/rank-list';
-import '../assets/styles/backpay.less';
+import EmployerList from './modellist/employer-list';
+import AreaList from './modellist/area-list';
+import InsuranceList from './modellist/insurance-list';
+import '../assets/styles/retire-personnel.less';
 
 
 const FormItem = Form.Item;
@@ -112,9 +115,6 @@ class StaffDimission extends Component {
       });
     };
     const refUrl = 'org/allData?id=';
-    const handleReset = () => {
-      form.resetFields();
-    };
     return (
       <Card title="补薪信息">
         <Fragment>
@@ -302,7 +302,9 @@ class StaffDimission extends Component {
                               visible={employer}
                               onOk={this.handleOk}
                               onCancel={this.handleCancel}
-                            />
+                            >
+                              <EmployerList />
+                            </Modal>
                           </div>,
                       )
                       }
@@ -325,7 +327,9 @@ class StaffDimission extends Component {
                               visible={taxes}
                               onOk={this.handleOk}
                               onCancel={this.handleCancel}
-                            />
+                            >
+                              <AreaList />
+                            </Modal>
                           </div>,
                       )
                       }
@@ -348,7 +352,9 @@ class StaffDimission extends Component {
                               visible={insurance}
                               onOk={this.handleOk}
                               onCancel={this.handleCancel}
-                            />
+                            >
+                              <InsuranceList />
+                            </Modal>
                           </div>,
                       )
                       }
@@ -360,7 +366,7 @@ class StaffDimission extends Component {
                     >
                       {getFieldDecorator('duty11')(
                         <div>
-                          <Input style={{ width: 220 }} defaultValue="中国联通集团员工薪金基准" />
+                          <Input style={{ width: 220 }} disabled defaultValue="中国联通集团员工薪金基准" />
                         </div>,
                       )
                       }
@@ -384,10 +390,6 @@ class StaffDimission extends Component {
                 </div>
               </div>
             </div>
-            <Col span={24} style={{ textAlign: 'center', marginTop: 15 }}>
-              <Button htmlType="submit" style={{ marginRight: 10 }}>提交</Button>
-              <Button htmlType="button" onClick={handleReset}>重置</Button>
-            </Col>
           </Form>
         </Fragment>
       </Card>
