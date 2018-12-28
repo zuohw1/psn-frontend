@@ -17,6 +17,7 @@ import StaffEntry from '../../psn/containers/staff-entry';
 import QuitPersonnel from '../../psn/containers/quit-personnel';
 import TransferPersonnel from '../../psn/containers/transfer-personnel';
 import RetirePersonnel from '../../psn/containers/retire-personnel';
+import SurvivorsInput from '../../psn/containers/survivors-input';
 
 const { SubMenu } = Menu;
 
@@ -34,6 +35,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/quitPersonnel" component={QuitPersonnel} />
       <Route exact path="/psn/transferPersonnel" component={TransferPersonnel} />
       <Route exact path="/psn/retirePersonnel" component={RetirePersonnel} />
+      <Route exact path="/psn/survivorsInput" component={SurvivorsInput} />
     </Switch>
   );
   const ret = state.headless ? (

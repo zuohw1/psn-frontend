@@ -70,6 +70,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 309,
+        menuName: '遗属人员录入',
+        url: '/psn/survivorsInput',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
