@@ -125,7 +125,6 @@ class UploadList extends React.Component {
         }));
         return false;
       },
-      accept: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,', // 上传文件类型--这个是excel类型
       fileList, // 上传文件列表
     };
 
@@ -148,7 +147,6 @@ class UploadList extends React.Component {
             </Button>
           </Upload>
           <p>{showTip}</p>
-          <p style={{ color: 'red' }}>注：上传文件为xls格式</p>
 
           <Button
             type="primary"
