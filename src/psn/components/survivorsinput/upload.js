@@ -11,6 +11,7 @@ class UploadList extends React.Component {
     this.state = {
       fileList: [], // 文件列表
       uploading: false,
+      fileNum: 0,
       visible: false,
     };
   }
@@ -38,26 +39,6 @@ class UploadList extends React.Component {
     this.setState({
       visible: false,
     });
-  };
-
-  // 上传之前事件
-  beforeUpload = (file) => {
-    const fileArr = [];
-    // 获取新的上传列表
-    fileArr.push(file);
-    // 进行赋值保存
-    this.setState(() => ({
-      fileList: fileArr,
-      uploadPath: '',
-    }));
-  };
-
-  // 移除文件
-  removeFile = () => {
-    this.setState(() => ({
-      fileList: [],
-      uploadPath: '',
-    }));
   };
 
   // 上传状态改变事件
@@ -95,7 +76,9 @@ class UploadList extends React.Component {
   };
 
   render() {
-    const { visible, fileList, uploading } = this.state;
+    const {
+      visible, fileList, uploading, fileNum,
+    } = this.state;
     const { operateName } = this.props;
     const props = {
       onRemove: (file) => {
@@ -105,33 +88,20 @@ class UploadList extends React.Component {
           newFileList.splice(index, 1);
           return {
             fileList: newFileList,
+            fileNum: fileNum - 1,
           };
         });
       },
       beforeUpload: (file) => {
-        const size = file.size / 1024;
-        if (size <= 0) {
-          alert('附件大小不能为0M！');
-          return false;
-        }
-
-        const fileArr = [];
-        // 获取新的上传列表
-        fileArr.push(file);
-        // 进行赋值保存
-        this.setState(() => ({
-          fileList: fileArr,
-          uploadPath: '',
+        console.log('beforeUpload');
+        this.setState(state => ({
+          fileList: [...state.fileList, file],
+          fileNum: fileNum + 1,
         }));
         return false;
       },
       fileList, // 上传文件列表
     };
-
-    let showTip = '当前没有添加附件（最多上传1个附件）';
-    if (fileList.length > 0) {
-      showTip = '已添加1个附件（最多上传1个附件）';
-    }
     return (
       <div>
         <a href=" javascript:void(0)" onClick={this.showModal.bind(this)}>{operateName}</a>
@@ -145,8 +115,8 @@ class UploadList extends React.Component {
             <Button>
               <Icon type="upload" />添加附件
             </Button>
+            <p>已添加{fileNum}个附件（无数量限制）</p>
           </Upload>
-          <p>{showTip}</p>
 
           <Button
             type="primary"
