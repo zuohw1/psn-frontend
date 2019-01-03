@@ -77,6 +77,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 310,
+        menuName: '合同管理',
+        url: '/psn/contractManage',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
