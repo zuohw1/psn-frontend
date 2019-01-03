@@ -72,6 +72,7 @@ class Operate extends React.Component {
         <Modal
           title="修改合同信息"
           visible={modifyContract}
+          style={{ top: 20 }}
           width={1000}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -79,6 +80,7 @@ class Operate extends React.Component {
         />
         <Modal
           title="合同续签信息"
+          style={{ top: 20 }}
           visible={renewalContract}
           width={1000}
           onOk={this.handleOk}
@@ -87,6 +89,7 @@ class Operate extends React.Component {
         />
         <Modal
           title="合同解除信息"
+          style={{ top: 20 }}
           visible={relieveContract}
           width={1000}
           onOk={this.handleOk}

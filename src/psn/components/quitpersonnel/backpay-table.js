@@ -59,44 +59,36 @@ class StaffDimission extends Component {
                       {...formItemLayout}
                       label="栏目名称"
                     >
-                      {
-                        getFieldDecorator('userName')(
-                          <p>修改前内容</p>,
-                        )
-                      }
+                      {getFieldDecorator('userName')(
+                        <span>修改前内容</span>,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label="员工编号"
                     >
-                      {
-                        getFieldDecorator('userName')(
-                          <Input disabled style={{ width: 220 }} />,
-                        )
-                      }
+                      {getFieldDecorator('userName')(
+                        <Input disabled style={{ width: 220 }} />,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label="姓名"
                     >
-                      {
-                        getFieldDecorator('idnumber')(
-                          <Input disabled style={{ width: 220 }} />,
-                        )
-                      }
+                      {getFieldDecorator('idnumber')(
+                        <Input disabled style={{ width: 220 }} />,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label="最终处理日期"
                     >
-                      {
-                        getFieldDecorator('workunit')(
-                          <DatePicker disabled style={{ width: 220 }} />,
-                        )
-                      }
+                      {getFieldDecorator('workunit')(
+                        <DatePicker disabled style={{ width: 220 }} />,
+                      )}
                     </FormItem>
                   </div>
                   <div className="active_main_cont_right">
@@ -105,47 +97,38 @@ class StaffDimission extends Component {
                       {...formItemLayout}
                       label=""
                     >
-                      {
-                        getFieldDecorator('employtype')(
-                          <p>修改后内容</p>,
-                        )
-                      }
+                      {getFieldDecorator('employtype')(
+                        <span>修改后内容</span>,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label=""
                     >
-                      {
-                        getFieldDecorator('employtype')(
-                          <Input style={{ display: 'none' }} />,
-                        )
-                      }
+                      {getFieldDecorator('employtype')(
+                        <Input style={{ display: 'none' }} />,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label=""
                     >
-                      {
-                        getFieldDecorator('employtype')(
-                          <Input style={{ display: 'none' }} />,
-                        )
-                      }
+                      {getFieldDecorator('employtype')(
+                        <Input style={{ display: 'none' }} />,
+                      )}
                     </FormItem>
                     <FormItem
                       help=""
                       {...formItemLayout}
                       label=""
                     >
-                      {
-                        getFieldDecorator('sdf',
-                          {
-                            rules: [{ required: true, whitespace: true }],
-                          })(
-                            <DatePicker style={{ width: 220 }} />,
-                        )
-                      }
+                      {getFieldDecorator('sdf', {
+                        rules: [{ required: true, whitespace: true }],
+                      })(
+                        <DatePicker style={{ width: 220 }} />,
+                      )}
                     </FormItem>
                   </div>
                 </div>
@@ -166,7 +149,6 @@ class StaffDimission extends Component {
                         </Button>
                       </Upload>,
                     )}
-
                   </FormItem>
                 </div>
               </div>
