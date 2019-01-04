@@ -59,8 +59,8 @@ export default (props) => {
     return children;
   }
   return (
-    <div>
-      <Card title="员工列表">
+    <div style={{ marginTop: 10 }}>
+      <Card title="员工列表" bodyStyle={{ padding: '20px 5px' }} bordered={false}>
         <Table
           columns={getFields()}
           dataSource={data}
@@ -69,7 +69,6 @@ export default (props) => {
           size="small"
           bordered
           scroll={{ y: document.body.scrollHeight - 460 }}
-          style={{ marginTop: 10 }}
         />
         <Pagination
           showQuickJumper

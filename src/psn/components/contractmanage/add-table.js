@@ -114,7 +114,7 @@ export default () => {
   }];
   return (
     <div>
-      <Card title="合同列表" bordered={false}>
+      <Card title="合同列表" bordered={false} bodyStyle={{ padding: '10px 5px' }}>
         <Button style={{ marginBottom: 10 }}>新增</Button>
         <Table
           columns={getFields()}
@@ -123,7 +123,6 @@ export default () => {
           size="small"
           bordered
           scroll={{ y: document.body.scrollHeight - 460 }}
-          style={{ marginTop: 10 }}
         />
       </Card>
     </div>

@@ -118,7 +118,7 @@ export default (props) => {
   }
   return (
     <div>
-      <Card title="人员列表" bordered={false}>
+      <Card title="人员列表" bordered={false} bodyStyle={{ padding: '20px 5px' }}>
         <Table
           columns={getFields()}
           loading={loading}

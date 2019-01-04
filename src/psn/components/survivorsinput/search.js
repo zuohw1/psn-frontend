@@ -97,7 +97,7 @@ class Search extends Component {
     const handleSave = () => {
     };
     return (
-      <Card title="人员信息" bordered={false}>
+      <Card title="人员信息" bordered={false} bodyStyle={{ padding: '20px 5px' }}>
         <Fragment>
           <Form onSubmit={this.handleSubmit}>
             <div className="survivors">

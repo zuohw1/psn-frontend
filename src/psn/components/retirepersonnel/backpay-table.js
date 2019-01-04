@@ -117,7 +117,7 @@ class StaffDimission extends Component {
     };
     const refUrl = 'org/allData?id=';
     return (
-      <Card title="补薪信息">
+      <Card title="补薪信息" bordered={false} bodyStyle={{ padding: '20px 5px' }}>
         <Fragment>
           <Form onSubmit={this.handleSubmit}>
             <div className="retire">

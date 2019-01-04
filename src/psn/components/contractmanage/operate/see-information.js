@@ -117,7 +117,7 @@ class SeeInformation extends React.Component {
           style={{ padding: 10 }}
           layout="inline"
         >
-          <Row gutter={24}>{getFields()}</Row>
+          <Row>{getFields()}</Row>
         </Form>
       </div>
     );

@@ -82,7 +82,7 @@ class StaffDimission extends Component {
       form.resetFields();
     };
     return (
-      <Card title="补薪信息">
+      <Card title="补薪信息" bodyStyle={{ padding: '20px 5px' }} bordered={false}>
         <Fragment>
           <Modal
             width={800}
