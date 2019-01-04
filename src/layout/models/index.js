@@ -84,6 +84,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 314,
+        menuName: '设置通知单',
+        url: '/psn/settingNotice',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {

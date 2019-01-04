@@ -48,10 +48,10 @@ export default ({
 
   const data = tableData.records;
   const onClickAdd = () => {
-    redirectDetail('SettingNotice/orgExportConditionr', { name: 'main-table' });
+    redirectDetail('/psn/settingNotice/OrgExportCondition', { name: 'main-table' });
   };
   const onClickEdit = () => {
-    redirectDetail('SettingNotice/psnExportConditionr');
+    redirectDetail('settingNotice/psnExportConditionr');
   };
 
   const onChange = (pageNumber, pageSize) => {
