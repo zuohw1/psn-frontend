@@ -1,5 +1,7 @@
 import React from 'react';
-import { Table, Card, Pagination } from 'antd';
+import {
+  Table, Card, Pagination, Button,
+} from 'antd';
 import AddTable from './add-table';
 
 export default (props) => {
@@ -9,7 +11,10 @@ export default (props) => {
     actions,
   } = props;
   const data = tableData.records;
-  const { listTable } = actions;
+  const { listTable, redirectDetail } = actions;
+  const handleAdd = () => {
+    redirectDetail('/psn/contractManage/newInformation', { name: 'main-table' });
+  };
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -92,7 +97,10 @@ export default (props) => {
           style={{ marginTop: 10, float: 'right' }}
         />
       </Card>
-      <AddTable />
+      <Card title="合同列表" bordered={false} bodyStyle={{ padding: '10px 5px' }}>
+        <Button onClick={handleAdd} style={{ marginBottom: 10 }}>新增</Button>
+        <AddTable />
+      </Card>
     </div>
   );
 };

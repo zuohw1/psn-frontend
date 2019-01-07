@@ -19,6 +19,7 @@ import RetirePersonnel from '../../psn/containers/retire-personnel';
 import ContractManage from '../../psn/containers/contract-manage';
 import SettingNotice from '../../psn/containers/setting-notice';
 import OrgExportCondition from '../../psn/components/settingnotice/org-export-condition';
+import NewInformation from '../../psn/components/contractmanage/new-information';
 
 const { SubMenu } = Menu;
 
@@ -38,6 +39,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/contractManage" component={ContractManage} />
       <Route exact path="/psn/settingNotice" component={SettingNotice} />
       <Route exact path="/psn/settingNotice/OrgExportCondition" component={OrgExportCondition} />
+      <Route exact path="/psn/contractManage/newInformation" component={NewInformation} />
     </Switch>
   );
   const ret = state.headless ? (

@@ -1,3 +1,5 @@
+import { routerRedux } from 'dva/router';
+
 export default {
   namespace: 'contractManage',
   state: {
@@ -41,6 +43,9 @@ export default {
     },
   },
   effects: {
+    *redirect({ payload: { pathname, state } }, { put }) {
+      yield put(routerRedux.push({ pathname, state }));
+    },
   },
   subscriptions: {
   },
