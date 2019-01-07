@@ -16,6 +16,7 @@ import DocumentLoad from '../../psn/containers/document-load';
 import QuitPersonnel from '../../psn/containers/quit-personnel';
 import TransferPersonnel from '../../psn/containers/transfer-personnel';
 import RetirePersonnel from '../../psn/containers/retire-personnel';
+import SurvivorsInput from '../../psn/containers/survivors-input';
 import ContractManage from '../../psn/containers/contract-manage';
 import SettingNotice from '../../psn/containers/setting-notice';
 import OrgExportCondition from '../../psn/components/settingnotice/org-export-condition';
@@ -36,6 +37,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/quitPersonnel" component={QuitPersonnel} />
       <Route exact path="/psn/transferPersonnel" component={TransferPersonnel} />
       <Route exact path="/psn/retirePersonnel" component={RetirePersonnel} />
+      <Route exact path="/psn/survivorsInput" component={SurvivorsInput} />
       <Route exact path="/psn/contractManage" component={ContractManage} />
       <Route exact path="/psn/settingNotice" component={SettingNotice} />
       <Route exact path="/psn/settingNotice/OrgExportCondition" component={OrgExportCondition} />

@@ -96,15 +96,17 @@ class Search extends React.Component {
                 <div className="contract_main_cont contract_main_cont-staff">
                   <div className="contract_main_cont_left">
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="合同编号"
                     >{getFieldDecorator('contractNumber', {
-                      rules: [{ required: true, whitespace: true }],
+                      rules: [{ required: true }],
                     })(
                       <Input style={{ width: 220 }} />,
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="合同状态"
                     >
@@ -117,6 +119,7 @@ class Search extends React.Component {
                       )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="签订日期"
                     >{getFieldDecorator('SignData', {
@@ -126,6 +129,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="生效日期"
                     >{getFieldDecorator('effData', {
@@ -135,6 +139,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="合同期限"
                     >{getFieldDecorator('ContractPeriod', {
@@ -144,6 +149,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="扩展次数"
                     >{getFieldDecorator('time', {
@@ -153,6 +159,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="扩展期单位"
                     >{getFieldDecorator('Company', {
@@ -164,6 +171,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="预计到期日"
                     >{getFieldDecorator('Estimate', {
@@ -173,6 +181,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="试用期限单位"
                     >{getFieldDecorator('trial', {
@@ -184,6 +193,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="发生的相关费用"
                     >{getFieldDecorator('Relevant', {
@@ -193,6 +203,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="甲方主体"
                     >{getFieldDecorator('party', {
@@ -204,6 +215,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="工作工时制"
                     >{getFieldDecorator('work', {
@@ -217,6 +229,7 @@ class Search extends React.Component {
                   </div>
                   <div className="contract_main_cont_right">
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="合同类型"
                     >{getFieldDecorator('contractType', {
@@ -228,6 +241,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="特殊说明"
                     >{getFieldDecorator('special', {
@@ -237,6 +251,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="终止到期日"
                     >{getFieldDecorator('endData', {
@@ -246,6 +261,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="失效期日"
                     >{getFieldDecorator('Expiration', {
@@ -255,6 +271,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="期限单位"
                     >{getFieldDecorator('status', {
@@ -266,6 +283,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="扩展期限"
                     >{getFieldDecorator('extend', {
@@ -275,6 +293,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="签署日期"
                     >{getFieldDecorator('SignData', {
@@ -284,6 +303,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="试用期限"
                     >{getFieldDecorator('Probationary', {
@@ -293,6 +313,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="试用期到期日"
                     >{getFieldDecorator('period', {
@@ -302,6 +323,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="发生的相关费用币种"
                     >{getFieldDecorator('period', {
@@ -313,6 +335,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label="担任岗位"
                     >{getFieldDecorator('post', {
@@ -324,6 +347,7 @@ class Search extends React.Component {
                     )}
                     </FormItem>
                     <FormItem
+                      help=""
                       {...formItemLayout}
                       label=""
                     >
@@ -340,7 +364,7 @@ class Search extends React.Component {
             <Col span={24} style={{ textAlign: 'center', marginTop: 15 }}>
               <Button htmlType="submit" style={{ marginRight: 10 }} type="primary">提交</Button>
               <Button htmlType="button" onClick={handleReset} style={{ marginRight: 10 }}>重置</Button>
-              <Button htmlType="button" onClick={handleReset}><Link to="/psn/contractManage">返回</Link></Button>
+              <Button htmlType="button"><Link to="/psn/contractManage">返回</Link></Button>
             </Col>
           </Form>
         </Fragment>
