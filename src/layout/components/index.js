@@ -13,6 +13,7 @@ import StaffDimission from '../../psn/containers/staff-dimission';
 import PsnMgr from '../../psn/containers/psn-mgr';
 import PsnMgrCard from '../../psn/containers/psn-mgr-card';
 import DocumentLoad from '../../psn/containers/document-load';
+import StaffEntry from '../../psn/containers/staff-entry';
 import QuitPersonnel from '../../psn/containers/quit-personnel';
 import TransferPersonnel from '../../psn/containers/transfer-personnel';
 import RetirePersonnel from '../../psn/containers/retire-personnel';
@@ -34,6 +35,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/psnMgr" component={PsnMgr} />
       <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
       <Route exact path="/psn/documentLoad" component={DocumentLoad} />
+      <Route exact path="/psn/staffEntry" component={StaffEntry} />
       <Route exact path="/psn/quitPersonnel" component={QuitPersonnel} />
       <Route exact path="/psn/transferPersonnel" component={TransferPersonnel} />
       <Route exact path="/psn/retirePersonnel" component={RetirePersonnel} />
