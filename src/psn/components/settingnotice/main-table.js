@@ -51,7 +51,7 @@ export default ({
     redirectDetail('/psn/settingNotice/OrgExportCondition', { name: 'main-table' });
   };
   const onClickEdit = () => {
-    redirectDetail('settingNotice/psnExportConditionr');
+    redirectDetail('/psn/settingNotice/PsnExportCondition');
   };
 
   const onChange = (pageNumber, pageSize) => {

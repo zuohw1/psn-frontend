@@ -22,6 +22,7 @@ import ContractManage from '../../psn/containers/contract-manage';
 import SettingNotice from '../../psn/containers/setting-notice';
 import OrgExportCondition from '../../psn/components/settingnotice/org-export-condition';
 import NewInformation from '../../psn/components/contractmanage/new-information';
+import PsnExportCondition from '../../psn/components/settingnotice/psn-export-condition';
 
 const { SubMenu } = Menu;
 
@@ -44,6 +45,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/settingNotice" component={SettingNotice} />
       <Route exact path="/psn/settingNotice/OrgExportCondition" component={OrgExportCondition} />
       <Route exact path="/psn/contractManage/newInformation" component={NewInformation} />
+      <Route exact path="/psn/settingNotice/PsnExportCondition" component={PsnExportCondition} />
     </Switch>
   );
   const ret = state.headless ? (
