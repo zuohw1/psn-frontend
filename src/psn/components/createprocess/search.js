@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, TreeSelect, Tree, Button, Checkbox,
+  Form, Row, Col, Input, TreeSelect, Tree, Button,
 } from 'antd';
 
 const FormItem = Form.Item;
 const InputGroup = Input.Group;
-export default (state) => {
+
+export default (props) => {
   const {
     form,
     expand,
     actions,
-  } = state;
+  } = props;
   const { getFieldDecorator } = form;
   const { listTable } = actions;
   const { TreeNode } = Tree;
@@ -24,6 +25,10 @@ export default (state) => {
         listTable(select);
       }
     });
+  };
+  const handleReset = () => {
+    console.log('resetFields', Input.value);
+    form.resetFields();
   };
   const treeSelectChange = (value, label, extra) => {
     form.setFieldsValue({
@@ -50,12 +55,14 @@ export default (state) => {
   const queryCols = [{
     itemName: '组织名称', itemKey: 'orgname', itemType: 'OrgSelect', required: false,
   }, {
-    itemName: '员工编号', itemKey: 'Employee', itemType: 'String', required: false,
+    itemName: '员工编号', itemKey: 'Employee', itemType: 'EmString', required: false,
   }, {
     itemName: '姓名', itemKey: 'name', itemType: 'String', required: false,
+  }, {
+    itemName: '身份证号', itemKey: 'idNumber', itemType: 'String', required: false,
   }];
   function getFields() {
-    const count = expand ? queryCols.length : 3;
+    const count = expand ? queryCols.length : 4;
     const children = [];
     for (let i = 0; i < queryCols.length; i += 1) {
       if (queryCols[i].itemType === 'String') {
@@ -68,7 +75,7 @@ export default (state) => {
                   message: '不能为空',
                 }],
               })(
-                <Input placeholder="请输入" style={{ width: 220 }} />,
+                <Input placeholder="请输入" />,
               )
               }
             </FormItem>
@@ -79,29 +86,45 @@ export default (state) => {
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey)(
-                <InputGroup>
-                  <TreeSelect
-                    treeId={37838}
-                    refUrl={refUrl}
-                    treeSelectChange={treeSelectChange}
-                    placeholder="请选择"
-                    allowClear
-                    treeDefaultExpandAll
-                    style={{ width: 220 }}
-                  >
-                    {renderTreeNodes(state.orgTree)}
-                  </TreeSelect>,
-                  <Checkbox defaultChecked /> 是否包含下层组织
-                </InputGroup>,
+                <TreeSelect
+                  treeId={37838}
+                  refUrl={refUrl}
+                  treeSelectChange={treeSelectChange}
+                  placeholder="请选择"
+                  allowClear
+                  treeDefaultExpandAll
+                >
+                  {renderTreeNodes()}
+                </TreeSelect>,
               )}
+            </FormItem>
+          </Col>,
+        );
+      } else if (queryCols[i].itemType === 'EmString') {
+        children.push(
+          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
+              {getFieldDecorator(queryCols[i].itemKey, {
+                rules: [{
+                  required: queryCols[i].required,
+                  message: '不能为空',
+                }],
+              })(
+                <InputGroup compact>
+                  <Input placeholder="请输入" />
+                  <span style={{ fontSize: 12 }}>可输入多个员工编号用逗号分隔</span>
+                </InputGroup>,
+              )
+              }
             </FormItem>
           </Col>,
         );
       }
     }
     children.push(
-      <Col span={6} key={count + 5} style={{ textAlign: 'center', marginTop: 5 }}>
-        <Button htmlType="submit">查询</Button>
+      <Col span={24} key={count + 5} style={{ textAlign: 'right', marginTop: 5 }}>
+        <Button htmlType="submit" style={{ marginRight: 10 }}>查询</Button>
+        <Button onClick={handleReset}>重置</Button>
       </Col>,
     );
     return children;
@@ -115,6 +138,7 @@ export default (state) => {
         layout="inline"
       >
         <Row gutter={24}>{getFields()}</Row>
+        <Row gutter={24} />
       </Form>
     </div>
   );

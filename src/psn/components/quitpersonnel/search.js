@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, TreeSelect, Tree, Button, Checkbox,
+  Form, Row, Col, Input, TreeSelect, Tree, Checkbox, Button,
 } from 'antd';
 
 const FormItem = Form.Item;
+const InputGroup = Input.Group;
 export default (state) => {
   const {
     form,
@@ -52,9 +53,11 @@ export default (state) => {
     itemName: '员工编号', itemKey: 'Employee', itemType: 'String', required: false,
   }, {
     itemName: '姓名', itemKey: 'name', itemType: 'String', required: false,
+  }, {
+    itemName: '身份证号', itemKey: 'idNumber', itemType: 'String', required: false,
   }];
   function getFields() {
-    const count = expand ? queryCols.length : 3;
+    const count = expand ? queryCols.length : 6;
     const children = [];
     for (let i = 0; i < queryCols.length; i += 1) {
       if (queryCols[i].itemType === 'String') {
@@ -67,7 +70,7 @@ export default (state) => {
                   message: '不能为空',
                 }],
               })(
-                <Input placeholder="请输入" style={{ width: 220 }} />,
+                <Input placeholder="请输入" />,
               )
               }
             </FormItem>
@@ -78,7 +81,7 @@ export default (state) => {
           <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey)(
-                <div>
+                <InputGroup>
                   <TreeSelect
                     treeId={37838}
                     refUrl={refUrl}
@@ -86,11 +89,12 @@ export default (state) => {
                     placeholder="请选择"
                     allowClear
                     treeDefaultExpandAll
+                    style={{ width: 220 }}
                   >
                     {renderTreeNodes(state.orgTree)}
                   </TreeSelect>,
                   <Checkbox defaultChecked /> 是否包含下层组织
-                </div>,
+                </InputGroup>,
               )}
             </FormItem>
           </Col>,
@@ -98,7 +102,7 @@ export default (state) => {
       }
     }
     children.push(
-      <Col span={6} key={count + 5} style={{ textAlign: 'center', marginTop: 5 }}>
+      <Col span={24} key={count + 5} style={{ textAlign: 'right', marginTop: 5 }}>
         <Button htmlType="submit">查询</Button>
       </Col>,
     );
@@ -113,6 +117,7 @@ export default (state) => {
         layout="inline"
       >
         <Row gutter={24}>{getFields()}</Row>
+        <Row gutter={24} />
       </Form>
     </div>
   );

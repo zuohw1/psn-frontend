@@ -91,6 +91,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 315,
+        menuName: '创建次要分配流程',
+        url: '/psn/createProcess',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
