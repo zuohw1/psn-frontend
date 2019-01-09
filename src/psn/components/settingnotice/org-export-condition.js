@@ -1,21 +1,26 @@
-/* eslint-disable */
+
 import React from 'react';
 import {
   Layout, Select, Input,
 } from 'antd';
+// import PropTypes from 'prop-types';
 import '../assets/styles/org-export-condition.less';
 import AttachTable from './attach-table';
-import Table from "./main-table";
 
+// import Table from './main-table';
 
+const OrgExportCondition = (state) => {
 // class OrgExportCondition extends React.Component {
-export default ({
-  addPeople,
-  tableData,
-}) => {
-  console.log('addPeople0000', addPeople, tableData);
+// export default ({
+//   addPeople,
+//   tableData,
+// }) => {
+  const { addPeople } = state;
+  console.log('state5555', state, addPeople);
+  // const { setAddPeople } = actions;
   const { Header, Content } = Layout;
-  const Option = Select.Option;
+  // const  = .Option;const
+  const { Option } = Select;
   const respList = [];
   const apply = (item) => {
     return (<Option value={item.id} key={item.id}> {item.title} </Option>);
@@ -76,10 +81,14 @@ export default ({
               </Select>,
             </span>
           </div>
-          <AttachTable addPeople={addPeople} />
+          <AttachTable {...state} />
         </Content>
       </Layout>
     </div>
   );
 };
-// export default OrgExportCondition;
+export default OrgExportCondition;
+
+// OrgExportCondition.propTypes = {
+//   setAddPeople: PropTypes.func.isRequired,
+// };

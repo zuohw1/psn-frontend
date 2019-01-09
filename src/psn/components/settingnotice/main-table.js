@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import Modall from './alertmessage/index';
 import Model from './card';
+import OrgExportCondition from './org-export-condition';
 
 const { confirm } = Modal;
 
@@ -15,18 +16,20 @@ const { confirm } = Modal;
    scroll={{ y: document.body.scrollHeight - 460 }}
    460为其他控件宽度之和
 */
-export default ({
-  tableData,
-  actions,
-  search,
-  addPeople,
-  loading,
-
-  record,
-  modal,
-  form,
-  formEdit, refModal, refSelectData,
-}) => {
+export default (state) => {
+  const {
+    tableData,
+    actions,
+    search,
+    addPeople,
+    loading,
+    isNAddViewShow,
+    // record,
+    modal,
+    form,
+    formEdit,
+    // refModal, refSelectData,
+  } = state;
   const {
     // deleteRecord,
     listTable,
@@ -36,10 +39,13 @@ export default ({
     // setRecords,
     updateRecord,
     getRecord,
-
+    setIsNAddViewShow,
+    setAddPeople,
   } = actions;
 
   console.log(addPeople);
+  console.log('isNAddViewShow', isNAddViewShow);
+
   // const onClickAdd = () => {
   //   //   setModeShow(true, true);
   //   // };
@@ -62,8 +68,14 @@ export default ({
   const onCancel = (e) => {
     e.preventDefault();
     form.resetFields();
-    getRecord({}, false, true);
+    getRecord(false);
   };
+  const onCancel1 = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    setIsNAddViewShow(false);
+  };
+
 
   const onClickDelete = (posKey) => {
     confirm({
@@ -86,10 +98,11 @@ export default ({
     });
   };
   const data = tableData.records;
-  console.log('tableData', tableData);
-  console.log('data', data);
+  // console.log('tableData', tableData);
+  // console.log('data', data);
   const onClickAdd = () => {
-    redirectDetail('/psn/settingNotice/OrgExportCondition', { name: 'main-table' });
+    // redirectDetail('/psn/settingNotice/OrgExportCondition', { tableData, addPeople });
+    setIsNAddViewShow(true);
   };
   const onClickEdit = () => {
     redirectDetail('/psn/settingNotice/PsnExportCondition');
@@ -162,7 +175,6 @@ export default ({
       >
         新增
       </Button>
-
       <Button
         type="primary"
         style={{ marginLeft: '10px' }}
@@ -177,15 +189,9 @@ export default ({
         maskClosable={false}
         destroyOnClose
         width={500}
+        footer={null}
       >
-        <Model
-          record={record}
-          form={form}
-          actions={actions}
-          formEdit={formEdit}
-          refModal={refModal}
-          refSelectData={refSelectData}
-        />
+        <Model />
       </Modal>
       <Table columns={getFields()} loading={loading} dataSource={data} pagination={false} size="small" bordered scroll={{ y: document.body.scrollHeight - 460 }} />
       <Pagination
@@ -199,6 +205,19 @@ export default ({
         showSizeChanger
         style={{ marginTop: 10, marginRight: 20, float: 'right' }}
       />
+      <Modal
+        title="新增"
+        visible={isNAddViewShow}
+        onOk={formEdit ? onSubmit : onCancel1}
+        onCancel={onCancel1}
+        maskClosable={false}
+        destroyOnClose
+        width={1500}
+        height={560}
+        footer={null}
+      >
+        <OrgExportCondition {...state} setAddPeople={setAddPeople} />
+      </Modal>
     </div>
   );
 };
