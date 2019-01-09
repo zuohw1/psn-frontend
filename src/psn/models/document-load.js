@@ -1,0 +1,138 @@
+export default {
+  namespace: 'documentLoad',
+  state: {
+    /* 列表数据 */
+    tableData: {
+      total: 0,
+      size: 0,
+      current: 1,
+      records: [
+        {
+          key: '1',
+          documentTitle: '员工职级薪档调整.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '1992',
+          load: '下载',
+        },
+        {
+          key: '2',
+          documentTitle: '员工转正.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '734',
+          load: '下载',
+        },
+        {
+          key: '3',
+          documentTitle: '人力资源管理平台-认识业务管理操作手册v2.0.pdf',
+          documentType: '操作手册',
+          module: '人事业务管理',
+          windowLoad: '680',
+          load: '下载',
+        },
+        {
+          key: '4',
+          documentTitle: '员工退休.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '602',
+          load: '下载',
+        },
+        {
+          key: '6',
+          documentTitle: '员工离职.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '438',
+          load: '下载',
+        },
+        {
+          key: '7',
+          documentTitle: '中国联通HR管理平台认识业务管理流程操作手册（省份本部及地市公司）v.1.0.ppt',
+          documentType: '操作手册',
+          module: '人事业务管理',
+          windowLoad: '400',
+          load: '下载',
+        },
+        {
+          key: '8',
+          documentTitle: '员工跨省调动.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '336',
+          load: '下载',
+        },
+        {
+          key: '9',
+          documentTitle: '员工省到地市或地市到省调动.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '297',
+          load: '下载',
+        },
+        {
+          key: '10',
+          documentTitle: '员工地市间调动.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '268',
+          load: '下载',
+        },
+        {
+          key: '11',
+          documentTitle: '员工入职手工录入.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '261',
+          load: '下载',
+        },
+        {
+          key: '12',
+          documentTitle: 'eHR人事信息维护规范v.1.3.pdf',
+          documentType: '业务范围',
+          module: '人事业务管理',
+          windowLoad: '259',
+          load: '下载',
+        },
+        {
+          key: '13',
+          documentTitle: '员工入职批量.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '212',
+          load: '下载',
+        },
+        {
+          key: '14',
+          documentTitle: '人事业务流程培训资料.zip',
+          documentType: '其他文档',
+          module: '人事业务管理',
+          windowLoad: '201',
+          load: '下载',
+        },
+        {
+          key: '15',
+          documentTitle: '员工用工类型转化（合同制转劳务派遣）.rar',
+          documentType: '视频教程',
+          module: '人事业务管理',
+          windowLoad: '153',
+          load: '下载',
+        },
+      ],
+      pages: 0,
+    },
+  },
+  reducers: {
+    stateWillUpdate(state, { payload }) {
+      return {
+        ...state,
+        ...payload,
+      };
+    },
+  },
+  effects: {
+  },
+  subscriptions: {
+  },
+};

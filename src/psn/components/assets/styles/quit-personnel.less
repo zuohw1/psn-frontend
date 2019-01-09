@@ -1,0 +1,95 @@
+:global {
+  .submitdismiss {
+    text-align: center;
+    button {
+      margin: 10px;
+    }
+  }
+  .active {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-bottom: none;
+    .active_main {
+      display: flex;
+      flex-flow: column nowrap;
+      height: 250px;
+      .ant-form-item {
+        border-bottom: 1px solid #d9d9d9;
+        margin: 0;
+        .ant-form-item-label {
+          height: 100%;
+          text-align: left;
+          border-right: 1px solid #d9d9d9;
+          padding-left: 20px;
+          padding-top: 3px;
+        }
+        .ant-form-item-control-wrapper {
+          height: 100%;
+          padding: 5px;
+          border-right: 1px solid #d9d9d9;
+          button{
+            margin-top: 3px;
+          }
+          .ant-upload{
+            float: right;
+          }
+          .ant-upload-list{
+            float: right;
+            width: 250px;
+            margin-right: 10px;
+            background-color: #fbfbfb;
+          }
+        }
+      }
+      &_cont {
+        width: 100%;
+        &_left {
+          width: 66.66%;
+          height: 100%;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 2;
+          }
+        }
+        &_right {
+          width: 33.33%;
+          height: 100%;
+          float: right;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 1;
+            .ant-form-item-control-wrapper{
+              border-right: 0;
+            }
+          }
+        }
+        &-staff {
+          flex: 3;
+          .active_main_cont_right{
+            .ant-form-item:nth-child(1) {
+              input {
+                border: 1px solid #d9d9d9;
+              }
+            }
+          }
+        }
+        &-registbottom {
+          flex: 7;
+          display: flex;
+          flex-flow: column nowrap;
+          .ant-form-item {
+            flex: 1;
+            .ant-form-item-control-wrapper{
+              border-right: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
