@@ -16,7 +16,7 @@ export function isQuerySetModeShow(querySettingModel) {
   };
 }
 
-export function isSelectConditionModelShow(selectConditionModel) {
+export function isAdvancedQueryModelShow(selectConditionModel) {
   return {
     type: 'psnRoster/stateWillUpdate',
     payload: {
@@ -43,15 +43,6 @@ export function updateOrgRefModelShow(refModal) {
   };
 }
 
-/* export function conditionSelectState(conditionIsSelect) {
-  return {
-    type: 'psnRoster/stateWillUpdate',
-    payload: {
-      conditionIsSelect,
-    },
-  };
-}
-
 export function updateSelectedConditions(selectedConditions) {
   return {
     type: 'psnRoster/stateWillUpdate',
@@ -59,7 +50,16 @@ export function updateSelectedConditions(selectedConditions) {
       selectedConditions,
     },
   };
-} */
+}
+
+export function setCurrentCheckedValues(currentCheckedValues) {
+  return {
+    type: 'psnRoster/stateWillUpdate',
+    payload: {
+      currentCheckedValues,
+    },
+  };
+}
 
 export function updateDynamicTableCols(newDynamicTableCols) {
   return {

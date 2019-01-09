@@ -16,12 +16,12 @@ export default ({
   actions,
   search,
   loading, dynamicTableCols, selectConditionModel, querySettingModel, allDisplayItems,
-  lastSetQueryItems, psnCardModel, record, detailRecord, infoSetList, conditionIsSelect,
-  selectedConditions,
+  lastSetQueryItems, psnCardModel, record, detailRecord, infoSetList,
+  selectedConditions, currentCheckedValues,
 }) => {
   const {
     isQuerySetModeShow,
-    isSelectConditionModelShow,
+    isAdvancedQueryModelShow,
     listTable,
     updateLastSetQueryItems,
     updateDynamicTableCols,
@@ -35,7 +35,7 @@ export default ({
   };
 
   const onClickAdvancedQuery = () => {
-    isSelectConditionModelShow(true);
+    isAdvancedQueryModelShow(true);
   };
 
   const onClickSetQuery = () => {
@@ -90,10 +90,10 @@ export default ({
     onPsnCardCancel(e);
   };
   const onAdvancedSelectOk = () => {
-    isSelectConditionModelShow(false);
+    isAdvancedQueryModelShow(false);
   };
   const onAdvancedSelectCancel = () => {
-    isSelectConditionModelShow(false);
+    isAdvancedQueryModelShow(false);
   };
 
   const onChange = (pageNumber, pageSize) => {
@@ -251,15 +251,16 @@ export default ({
         title="选择条件"
         visible={selectConditionModel}
         maskClosable={false}
-        width={800}
+        width={700}
         centered={true}
         onCancel={onAdvancedSelectCancel}
         onOk={onAdvancedSelectOk}
+        footer={null}
       >
         <SelectCondition
           selectedConditions={selectedConditions}
-          conditionIsSelect={conditionIsSelect}
           actions={actions}
+          currentCheckedValues={currentCheckedValues}
         />
       </Modal>
       <Modal

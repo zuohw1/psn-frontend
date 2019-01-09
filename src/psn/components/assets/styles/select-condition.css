@@ -17,14 +17,29 @@
 :global .selectcondition .ant-modal-body .ant-card .ant-card-head .ant-card-head-title {
   line-height: 38px;
 }
-:global .selectcondition .ant-modal-body .ant-card .ant-card-body .ant-btn {
-  width: 180px;
+:global .selectcondition .ant-modal-body .ant-card .ant-card-body > div {
+  position: relative;
+  float: left;
+  height: 35px;
+  line-height: 35px;
+  width: 160px;
   text-align: left;
   margin-right: 10px;
   margin-top: 5px;
+  padding-left: 10px;
   background-color: #F7F7F7;
   border: 0;
   color: #000;
+}
+:global .selectcondition .ant-modal-body .ant-card .ant-card-body > div > i {
+  position: absolute;
+  right: 10px;
+  line-height: 35px;
+  color: #D6D6D6;
+}
+:global .selectcondition .ant-modal-body .allSelected .ant-card-head .ant-card-extra {
+  padding-top: 0;
+  padding-bottom: 3px;
 }
 :global .selectcondition .ant-modal-body .conditionlist .ant-card-head {
   border-bottom: 1px solid #D8000F;
@@ -51,5 +66,9 @@
 }
 :global .ant-popover {
   width: 400px;
+}
+:global .ant-popover .inputsBox .ant-col-2 {
+  text-align: center;
+  line-height: 30px;
 }
 /*# sourceMappingURL=select-condition.css.map */
