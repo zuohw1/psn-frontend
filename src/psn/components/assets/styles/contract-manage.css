@@ -1,0 +1,98 @@
+:global .submitdismiss {
+  text-align: center;
+}
+:global .submitdismiss button {
+  margin: 10px;
+}
+:global .contract {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+}
+:global .contract .contract_main {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 600px;
+}
+:global .contract .contract_main .ant-form-item {
+  border-bottom: 1px solid #d9d9d9;
+  margin: 0;
+}
+:global .contract .contract_main .ant-form-item .ant-form-item-label {
+  height: 100%;
+  text-align: left;
+  border-right: 1px solid #d9d9d9;
+  padding-left: 20px;
+  padding-top: 3px;
+}
+:global .contract .contract_main .ant-form-item .ant-form-item-control-wrapper {
+  height: 100%;
+  padding: 5px;
+  border-right: 1px solid #d9d9d9;
+}
+:global .contract .contract_main .ant-form-item .ant-form-item-control-wrapper button {
+  margin-top: 3px;
+}
+:global .contract .contract_main_cont {
+  width: 100%;
+}
+:global .contract .contract_main_cont_left {
+  width: 50%;
+  height: 100%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+:global .contract .contract_main_cont_left .ant-form-item {
+  flex: 1;
+}
+:global .contract .contract_main_cont_right {
+  width: 50%;
+  height: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+}
+:global .contract .contract_main_cont_right .ant-form-item {
+  flex: 1;
+}
+:global .contract .contract_main_cont_right .ant-form-item .ant-form-item-control-wrapper {
+  border-right: 0;
+}
+:global .contract .contract_main_cont-staff {
+  flex: 3;
+}
+:global .contract .contract_main_cont-staff .survivors_main_cont_right .ant-form-item:nth-child(1) input {
+  border: 1px solid #d9d9d9;
+}
+:global .contractNew .ant-layout-content .conditionContainer {
+  line-height: 50px;
+  display: flex;
+  border: 1px solid #d9d9d9;
+}
+:global .contractNew .ant-layout-content .conditionContainer .conditionContainerItem1 {
+  flex: 5;
+  text-align: center;
+  background-color: #fafafa;
+  border-right: 1px solid #d9d9d9;
+}
+:global .contractNew .ant-layout-content .conditionContainer .conditionContainerItem3 {
+  flex: 5;
+  text-align: center;
+  background-color: #fafafa;
+  border-right: 1px solid #d9d9d9;
+}
+:global .contractNew .ant-layout-content .conditionContainer .conditionContainerItem4 {
+  flex: 15;
+  background-color: #fff;
+  border-right: 1px solid #d9d9d9;
+  text-align: center;
+}
+:global .contractNew .ant-layout-content .conditionContainer .conditionContainerItem4 input {
+  border: none;
+}
+:global .contractNew .ant-layout-content .conditionContainer1 {
+  border-bottom: none;
+}
+/*# sourceMappingURL=contract-manage.css.map */

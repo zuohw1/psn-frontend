@@ -1,0 +1,70 @@
+:global .retire {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+}
+:global .retire .retire_main {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 800px;
+}
+:global .retire .retire_main .ant-form-item {
+  border-bottom: 1px solid #d9d9d9;
+  margin: 0;
+}
+:global .retire .retire_main .ant-form-item .ant-form-item-label {
+  height: 100%;
+  width: 450px;
+  text-align: left;
+  border-right: 1px solid #d9d9d9;
+  padding-left: 20px;
+  padding-top: 3px;
+}
+:global .retire .retire_main .ant-form-item .ant-form-item-control-wrapper {
+  height: 100%;
+  padding: 5px 10px;
+}
+:global .retire .retire_main .ant-form-item .ant-form-item-control-wrapper button {
+  margin-top: 3px;
+}
+:global .retire .retire_main .ant-form-item .ant-form-item-control-wrapper .ant-upload {
+  float: right;
+}
+:global .retire .retire_main .ant-form-item .ant-form-item-control-wrapper .ant-upload-list {
+  float: right;
+  width: 230px;
+  margin-right: 3px;
+  background-color: #fbfbfb;
+}
+:global .retire .retire_main_cont {
+  width: 100%;
+}
+:global .retire .retire_main_cont_left {
+  width: 100%;
+  height: 100%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+:global .retire .retire_main_cont_left .ant-form-item {
+  flex: 2;
+}
+:global .retire .retire_main_cont-staff {
+  flex: 1;
+}
+:global .select {
+  height: 400px;
+}
+:global .select .query {
+  border: 1px solid #e8e8e8;
+  border-bottom: 0;
+}
+:global .select .query .ant-form-item {
+  margin-right: 2px;
+}
+:global .select .query button {
+  margin-top: 3px;
+  margin-right: 2px;
+}
+/*# sourceMappingURL=retire-personnel.css.map */

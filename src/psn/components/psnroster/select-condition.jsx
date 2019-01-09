@@ -9,6 +9,7 @@ const conditionList = [
   {
     itemname: '性别',
     itemkey: 'sex',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '男性', itemkey: 'sex_1', checked: false },
@@ -18,6 +19,7 @@ const conditionList = [
   {
     itemname: '民族',
     itemkey: 'nation',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '阿昌族', itemkey: 'nation_1', checked: false },
@@ -50,6 +52,7 @@ const conditionList = [
   {
     itemname: '政治面貌',
     itemkey: 'politics',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '中国共产党党员', itemkey: 'politics_1', checked: false },
@@ -70,6 +73,7 @@ const conditionList = [
   {
     itemname: '最高学历',
     itemkey: 'education',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '博士研究生', itemkey: 'education_1', checked: false },
@@ -91,6 +95,7 @@ const conditionList = [
   {
     itemname: '最高学位',
     itemkey: 'degree',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '博士后', itemkey: 'degree_1', checked: false },
@@ -104,6 +109,7 @@ const conditionList = [
   {
     itemname: '户口类型',
     itemkey: 'accounttype',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '非农业户口', itemkey: 'accounttype_1', checked: false },
@@ -119,6 +125,7 @@ const conditionList = [
   {
     itemname: '员工状态',
     itemkey: 'staffstate',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '正式-在岗-一般在岗人员', itemkey: 'staffstate_1', checked: false },
@@ -145,6 +152,7 @@ const conditionList = [
   {
     itemname: '户口所在地',
     itemkey: 'accountlocation',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '北京市', itemkey: 'accountlocation_1', checked: false },
@@ -170,6 +178,7 @@ const conditionList = [
   {
     itemname: '加入本企业途径',
     itemkey: 'enterpriseapproach',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '调入', itemkey: 'enterpriseapproach_1', checked: false },
@@ -185,6 +194,7 @@ const conditionList = [
   {
     itemname: '分配类别',
     itemkey: 'Category',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '集团总部部门（中心）正职', itemkey: 'Category_1', checked: false },
@@ -208,10 +218,12 @@ const conditionList = [
   {
     itemname: '毕业院校',
     itemkey: 'graduatefrom',
+    type: 'input',
   },
   {
     itemname: '职称',
     itemkey: 'professionaltitle',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '正高级', itemkey: 'professionaltitle_1', checked: false },
@@ -224,6 +236,7 @@ const conditionList = [
   {
     itemname: '学习形式',
     itemkey: 'learningform',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '在职', itemkey: 'learningform_1', checked: false },
@@ -233,10 +246,12 @@ const conditionList = [
   {
     itemname: '专业',
     itemkey: 'major',
+    type: 'input',
   },
   {
     itemname: '岗位序列',
     itemkey: 'positionsequence ',
+    type: 'checkbox',
     checked: false,
     children: [
       { itemname: '销售与客户服务序列...', itemkey: 'positionsequence_1', checked: false },
@@ -249,20 +264,24 @@ const conditionList = [
   {
     itemname: '专业技术资格名称',
     itemkey: 'skillname',
+    type: 'input',
   },
   {
     itemname: '其他名称',
     itemkey: 'othername',
+    type: 'input',
   },
   {
     itemname: '其他',
     itemkey: 'other',
+    type: 'input',
   },
 ];
 
 const otherList = [
   {
     itemname: '年龄',
+    type: 'rangeInput',
     itemkey: 'age',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -271,6 +290,7 @@ const otherList = [
   },
   {
     itemname: '出生日期',
+    type: 'rangeInput',
     itemkey: 'birthday',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -279,6 +299,7 @@ const otherList = [
   },
   {
     itemname: '参加工作日期',
+    type: 'rangeInput',
     itemkey: 'employmentdate',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -287,6 +308,7 @@ const otherList = [
   },
   {
     itemname: '加入本企业日期',
+    type: 'rangeInput',
     itemkey: 'joinenterprisedate',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -295,6 +317,7 @@ const otherList = [
   },
   {
     itemname: '职级',
+    type: 'rangeInput',
     itemkey: 'rank',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -303,6 +326,7 @@ const otherList = [
   },
   {
     itemname: '合同日期',
+    type: 'rangeInput',
     itemkey: 'contract date',
     children: [
       { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
@@ -316,7 +340,7 @@ export default ({
   const { updateSelectedConditions, setCurrentCheckedValues } = actions;
   const setContent = (item) => {
     const { children } = item;
-    if (children) {
+    if (item.type === 'checkbox') {
       return (
         <CheckboxGroup
           style={{ width: '100%' }}
@@ -382,7 +406,41 @@ export default ({
     }
   };
   const getOtherInputValue = (e, conditionItem) => {
-    console.log(e, conditionItem);
+    console.log(2222222222, e.target.name, conditionItem);
+    const newSelectedConditions = [...selectedConditions];
+    // 获取当前选择项
+    const newSelected = { ...conditionItem };
+    const newSelectedChildren = [...conditionItem.children];
+    /* if (e.target.value === '') {
+      deleteSelectedItem(newSelectedConditions, newSelected.itemname);
+      updateSelectedConditions(newSelectedConditions);
+      return;
+    } */
+    newSelectedChildren.forEach((ele) => {
+      const value = ele;
+      if (ele.itemkey === e.target.name) {
+        value.itemvalue = e.target.value;
+      }
+    });
+    newSelected.children = newSelectedChildren;
+    for (let i = 0; i < newSelectedConditions.length; i += 1) {
+      if (newSelectedConditions[i].itemname === newSelected.itemname) {
+        newSelectedConditions[i] = newSelected;
+        updateSelectedConditions(newSelectedConditions);
+        return;
+      }
+    }
+    if (newSelectedConditions.length < 5) {
+      newSelectedConditions.push(newSelected);
+      updateSelectedConditions(newSelectedConditions);
+    } else {
+      message.config({
+        top: 200,
+        duration: 2,
+        maxCount: 1,
+      });
+      message.warning('当前选择的条件最多为 5 个');
+    }
   };
   const setConditionContent = (item) => {
     const { children } = item;
@@ -398,7 +456,7 @@ export default ({
                     onClose(e, ele);
                   }}
                 key={ele.itemkey}
-              >{ele.itemname}
+              >{item.type === 'rangeInput' ? ele.itemname + ele.itemvalue : ele.itemname}
               </Tag>
             </Col>
           );
@@ -483,21 +541,20 @@ export default ({
     updateSelectedConditions([]);
   };
   const setOtherListContent = (item) => {
-    const { children } = item;
     return (
       <div className="inputsBox">
         <Row type="flex" justify="space-around">
           <Col span={2}>从</Col>
           <Col span={10}>
             <Input
-              ref={(input) => { children[0].itemvalue = input; }}
+              name="begin"
               onBlur={e => getOtherInputValue(e, item)}
             />
           </Col>
           <Col span={2}>到</Col>
           <Col span={10}>
             <Input
-              ref={(input) => { children[1].itemvalue = input; }}
+              name="end"
               onBlur={e => getOtherInputValue(e, item)}
             />
           </Col>
