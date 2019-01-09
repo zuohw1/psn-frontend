@@ -7,6 +7,7 @@ import {
   Divider,
 } from 'antd';
 import Modall from './alertmessage/index';
+import Model from './card';
 
 const { confirm } = Modal;
 
@@ -20,11 +21,22 @@ export default ({
   search,
   addPeople,
   loading,
+
+  record,
+  modal,
+  form,
+  formEdit, refModal, refSelectData,
 }) => {
   const {
-    deleteRecord,
+    // deleteRecord,
     listTable,
     redirectDetail,
+    setTableDataNew,
+    setModeShow,
+    // setRecords,
+    updateRecord,
+    getRecord,
+
   } = actions;
 
   console.log(addPeople);
@@ -35,25 +47,53 @@ export default ({
   //   getRecord(true, true);
   // };
   const onClickCopy = () => {
+    setModeShow(true, true);
   };
-  const onClickDelete = (key) => {
-    data.filter(item => item.key !== key);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    form.validateFields((err, values) => {
+      if (!err) {
+        /* eslint no-console: 0 */
+        updateRecord(values);
+        form.resetFields();
+      }
+    });
+  };
+  const onCancel = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    getRecord({}, false, true);
+  };
+
+  const onClickDelete = (posKey) => {
     confirm({
       title: '确定要删除本条记录吗?',
       onOk() {
-        deleteRecord(key);
+        // deleteRecord(posKey);
+        // setRecords();
+        const dataDel = [...data];
+        const dataNew = dataDel.filter((item) => {
+          return item.noticId !== posKey.noticId;
+        });
+        const tableDataNew1 = {
+          total: 0,
+          size: 0,
+          current: 1,
+          records: dataNew,
+        };
+        setTableDataNew(tableDataNew1);
       },
     });
   };
-
   const data = tableData.records;
+  console.log('tableData', tableData);
+  console.log('data', data);
   const onClickAdd = () => {
     redirectDetail('/psn/settingNotice/OrgExportCondition', { name: 'main-table' });
   };
   const onClickEdit = () => {
     redirectDetail('/psn/settingNotice/PsnExportCondition');
   };
-
   const onChange = (pageNumber, pageSize) => {
     const searchF = { ...search, pageSize, pageNumber };
     listTable(searchF);
@@ -69,20 +109,20 @@ export default ({
   /* 列表字段 */
   const tableCols = [{
     title: '通知单名称',
-    dataIndex: 'ATTRIBUTE8',
-    key: 'ATTRIBUTE8',
+    dataIndex: 'notice',
+    key: 'notice',
     align: 'center',
     width: 200,
   }, {
     title: '业务类型',
-    dataIndex: 'ATTRIBUTE9',
-    key: 'ATTRIBUTE9',
+    dataIndex: 'business',
+    key: 'business',
     align: 'center',
     width: 200,
   }, {
     title: '状态',
-    dataIndex: 'DOC_VERIFIER',
-    key: 'DOC_VERIFIER',
+    dataIndex: 'state',
+    key: 'state',
     align: 'center',
     width: 50,
   }];
@@ -122,12 +162,31 @@ export default ({
       >
         新增
       </Button>
+
       <Button
         type="primary"
         style={{ marginLeft: '10px' }}
         onClick={onClickCopy}
       >复制
       </Button>
+      <Modal
+        title="选择通知单"
+        visible={modal}
+        onOk={formEdit ? onSubmit : onCancel}
+        onCancel={onCancel}
+        maskClosable={false}
+        destroyOnClose
+        width={500}
+      >
+        <Model
+          record={record}
+          form={form}
+          actions={actions}
+          formEdit={formEdit}
+          refModal={refModal}
+          refSelectData={refSelectData}
+        />
+      </Modal>
       <Table columns={getFields()} loading={loading} dataSource={data} pagination={false} size="small" bordered scroll={{ y: document.body.scrollHeight - 460 }} />
       <Pagination
         showQuickJumper

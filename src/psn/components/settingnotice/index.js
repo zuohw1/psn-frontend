@@ -6,6 +6,7 @@ import '../../../assets/styles/module.less';
 const { Content } = Layout;
 
 const SettingNotice = (state) => {
+  console.log('33', state);
   return (
     <React.Fragment>
       <Breadcrumb style={{ margin: '10px 0' }}>

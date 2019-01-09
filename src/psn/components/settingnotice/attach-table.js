@@ -6,6 +6,7 @@ import {
   Button, Modal,
   /* Layout, Modal, */
 } from 'antd';
+import PropTypes from 'prop-types';
 import { Link } from 'dva/router';
 import Query from './query';
 
@@ -58,8 +59,9 @@ class EmptyAttach extends Component {
 
   render() {
     const { visible } = this.state;
-    // const { respRange } = this.props;
+    const { addPeople } = this.props;
 
+    console.log('addPeople9999', addPeople);
     const tableCols = [
       {
         title: '部门',
@@ -132,17 +134,17 @@ class EmptyAttach extends Component {
       },
     ];
 
-    const data = [
-      {
-        department: '',
-        name: '',
-        contact: '',
-        address: '',
-        handle: '',
-        Whether: '',
-        Remarks: '',
-      },
-    ];
+    // const data = [
+    //   {
+    //     department: '',
+    //     name: '',
+    //     contact: '',
+    //     address: '',
+    //     handle: '',
+    //     Whether: '',
+    //     Remarks: '',
+    //   },
+    // ];
 
     const respRange = [
       { id: '0', title: '是' },
@@ -161,7 +163,7 @@ class EmptyAttach extends Component {
       <div>
         <Table
           columns={tableCols}
-          dataSource={data}
+          dataSource={addPeople}
           pagination={false}
           size="middle"
           bordered
@@ -191,3 +193,7 @@ class EmptyAttach extends Component {
   }
 }
 export default EmptyAttach;
+
+EmptyAttach.propTypes = {
+  addPeople: PropTypes.number.isRequired,
+};
