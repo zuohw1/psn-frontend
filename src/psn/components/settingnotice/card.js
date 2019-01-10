@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {
-  Layout, Select, Button,
+  Layout, Select,
 } from 'antd';
 import '../assets/styles/org-export-condition.less';
 

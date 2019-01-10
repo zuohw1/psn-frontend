@@ -8,8 +8,6 @@ import AttachTable from './attach-table';
 
 
 const OrgExportCondition = (state) => {
-  // const { addPeople } = state;
-  // console.log('state5555', state, addPeople);
   const { Content } = Layout;
   const { Option } = Select;
   const respList = [];
@@ -78,7 +76,3 @@ const OrgExportCondition = (state) => {
   );
 };
 export default OrgExportCondition;
-
-// OrgExportCondition.propTypes = {
-//   setAddPeople: PropTypes.func.isRequired,
-// };

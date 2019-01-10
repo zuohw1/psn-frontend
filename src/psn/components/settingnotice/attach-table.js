@@ -4,55 +4,43 @@ import {
   Select,
   Input,
   Button, Modal,
-  /* Layout, Modal, */
 } from 'antd';
-// import PropTypes from 'prop-types';
-// import { Link } from 'dva/router';
 import Query from './query';
-// import OrgExportCondition from "./org-export-condition";
-
 
 const { Option } = Select;
 const respList = [];
-
 const EmptyAttach = (state) => {
-  // console.log('444state', state);
-
-  // const { setAddPeople } = actions;
-  // const { setAddPeople } = props;
-  // class EmptyAttach extends Component {
-  //   state = {
-  //     visible: false,
-  //   };
-
-  const { addPeople } = state;
+  const {
+    isVisible,
+    actions,
+    form,
+    count,
+    addPeople,
+  } = state;
+  const {
+    setVisible,
+    setCount,
+    setAddPeople,
+  } = actions;
   const showModal = () => {
     setVisible(true);
   };
-
   const handleOk = () => {
+    setVisible(false);
   };
-
   const handleCancel = (e) => {
     e.preventDefault();
     form.resetFields();
-    setVisible(false);
+    setVisible(false, true);
   };
-
   const onClickDelete = (records) => {
-    const { actions, count } = state;
-    const { setCount, setAddPeople } = actions;
     setAddPeople(addPeople.filter(item => item.count !== records.count));
     setCount(count - 1);
   };
-
   const handleReset = () => {
   };
-
   const onClickAdd = () => {
     const addPeople23 = [...addPeople];
-    const { actions, count } = state;
-    const { setAddPeople, setCount } = actions;
     const datanew = [
       ...addPeople23,
       {
@@ -69,15 +57,10 @@ const EmptyAttach = (state) => {
     setAddPeople(datanew);
     setCount(count + 1);
   };
-
   const apply = (item) => {
     return (<Option value={item.id} key={item.id}> {item.title} </Option>);
   };
-
-  // 列表字段
   /* 列表信息 */
-  const { isVisible, actions, form } = state;
-  const { setVisible } = actions;
   const tableCols = [
     {
       title: '部门',
@@ -193,10 +176,6 @@ const EmptyAttach = (state) => {
       </Modal>
     </div>
   );
-  // }
 };
-// EmptyAttach.propTypes = {
-//   setAddPeople: PropTypes.func.isRequired,
-// };
 
 export default EmptyAttach;

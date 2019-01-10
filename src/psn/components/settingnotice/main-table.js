@@ -6,10 +6,10 @@ import {
   Button,
   Divider,
 } from 'antd';
-import Modall from './alertmessage/index';
 import Model from './card';
 import OrgExportCondition from './org-export-condition';
 import PsnExportCondition from './psn-export-condition';
+import FormTable from './alertmessage/form-table';
 
 const { confirm } = Modal;
 
@@ -22,27 +22,23 @@ export default (state) => {
     tableData,
     actions,
     search,
-    // addPeople,
     loading,
     isNAddViewShow,
     isNAddShow,
-    // record,
     modal,
     form,
     formEdit,
+    isSee,
   } = state;
   const {
-    // deleteRecord,
     listTable,
-    // redirectDetail,
     setTableDataNew,
     setModeShow,
-    // setRecords,
     updateRecord,
-    // getRecord,
     setIsNAddViewShow,
     setIsNAddwShow,
     setAddPeople,
+    setSee,
   } = actions;
 
   const onClickCopy = () => {
@@ -52,7 +48,6 @@ export default (state) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        /* eslint no-console: 0 */
         updateRecord(values);
         form.resetFields();
       }
@@ -72,6 +67,14 @@ export default (state) => {
     e.preventDefault();
     form.resetFields();
     setIsNAddwShow(false);
+  };
+  const handleCancel3 = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    setSee(false);
+  };
+  const handleOk = () => {
+    setModeShow(false);
   };
 
   const onClickDelete = (posKey) => {
@@ -100,6 +103,9 @@ export default (state) => {
   };
   const onClickEdit = () => {
     setIsNAddwShow(true);
+  };
+  const onClickView = () => {
+    setSee(true);
   };
   const onChange = (pageNumber, pageSize) => {
     const searchF = { ...search, pageSize, pageNumber };
@@ -148,7 +154,7 @@ export default (state) => {
         width: 150,
         render: (text, records) => (
           <span>
-            <a href=" javascript:;">{records.ATTRIBUTE12.map(tag => <Modall posName={tag} />)}</a>
+            <a href=" javascript:;" onClick={() => onClickView(text, records)}>查看</a>
             <Divider type="vertical" />
             <a href=" javascript:;" onClick={() => onClickEdit(text, records)}>编辑</a>
             <Divider type="vertical" />
@@ -178,7 +184,7 @@ export default (state) => {
       <Modal
         title="选择通知单"
         visible={modal}
-        onOk={formEdit ? onSubmit : onCancel}
+        onOk={handleOk}
         onCancel={onCancel}
         maskClosable={false}
         destroyOnClose
@@ -223,6 +229,16 @@ export default (state) => {
         footer={null}
       >
         <PsnExportCondition {...state} setAddPeople={setAddPeople} />
+      </Modal>
+      <Modal
+        title="查看"
+        width={1000}
+        visible={isSee}
+        onOk={handleOk}
+        onCancel={handleCancel3}
+        footer={null}
+      >
+        <FormTable />
       </Modal>
     </div>
   );

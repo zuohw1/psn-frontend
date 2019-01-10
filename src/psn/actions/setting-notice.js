@@ -124,6 +124,14 @@ export function setVisible(isVisible) {
     },
   };
 }
+export function setSee(isSee) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isSee,
+    },
+  };
+}
 /* 设置是否展开查询 */
 export function setTableDataNew(tableData) {
   return {
