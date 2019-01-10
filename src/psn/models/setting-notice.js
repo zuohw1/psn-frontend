@@ -3,6 +3,7 @@ import { routerRedux } from 'dva/router';
 export default {
   namespace: 'psnSetting',
   state: {
+    count: 0,
     /* 列表数据 */
     tableData: {
       total: 0,
@@ -64,6 +65,8 @@ export default {
       pages: 0,
     },
     addPeople: [{
+      noticId: '001',
+      key: '001',
       department: '1',
       name: '2',
       contact: '3',
@@ -71,8 +74,11 @@ export default {
       handle: '8',
       Whether: '77',
       Remarks: '99',
+      count: 1,
     },
     ],
+    /* 卡片是否显示 */
+    isNAddViewShow: false,
     /* 卡片是否显示 */
     modal: false,
     /* 参照是否显示 */

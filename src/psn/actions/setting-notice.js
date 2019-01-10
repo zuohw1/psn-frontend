@@ -96,6 +96,17 @@ export function setToggle(expand) {
     },
   };
 }
+
+/* 设置是否展开查询 */
+export function setIsNAddViewShow(isNAddViewShow) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isNAddViewShow,
+    },
+  };
+}
+
 /* 设置是否展开查询 */
 export function setTableDataNew(tableData) {
   return {
@@ -227,9 +238,18 @@ export function redirectDetail(pathname, state) {
 }
 export function setTableData(tableData) {
   return {
-    type: 'staffEntry/stateWillUpdate',
+    type: 'psnSetting/stateWillUpdate',
     payload: {
       tableData,
+    },
+  };
+}
+
+export function setCount(count) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      count,
     },
   };
 }
