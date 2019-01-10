@@ -9,6 +9,7 @@ import Query from './query';
 
 const { Option } = Select;
 const respList = [];
+const { confirm } = Modal;
 const EmptyAttach = (state) => {
   const {
     isVisible,
@@ -25,6 +26,13 @@ const EmptyAttach = (state) => {
   const showModal = () => {
     setVisible(true);
   };
+  const handleSubmission = () => {
+    confirm({
+      title: '确定要提交吗?',
+      onOk() {
+      },
+    });
+  };
   const handleOk = () => {
     setVisible(false);
   };
@@ -37,8 +45,8 @@ const EmptyAttach = (state) => {
     setAddPeople(addPeople.filter(item => item.count !== records.count));
     setCount(count - 1);
   };
-  const handleReset = () => {
-  };
+  // const handleReset = () => {
+  // };
   const onClickAdd = () => {
     const addPeople23 = [...addPeople];
     const datanew = [
@@ -163,8 +171,7 @@ const EmptyAttach = (state) => {
       >
         新增人员
       </Button>
-      <Button htmlType="submit" style={{ margin: '10px 10px 5px 525px' }}>提交</Button>
-      <Button htmlType="button" onClick={handleReset} style={{ margin: '10px' }}>暂存</Button>
+      <Button htmlType="submit" onClick={handleSubmission} style={{ margin: '10px 10px 5px 560px' }}>提交</Button>
       <Modal
         width={800}
         title="通知设置人员查询"

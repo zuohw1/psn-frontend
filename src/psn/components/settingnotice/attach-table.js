@@ -10,6 +10,7 @@ import Query from './query';
 
 const { Option } = Select;
 const respList = [];
+const { confirm } = Modal;
 
 const EmptyAttach = (state) => {
   const {
@@ -40,6 +41,18 @@ const EmptyAttach = (state) => {
     setCount(count - 1);
   };
   const handleReset = () => {
+    confirm({
+      title: '确定要暂存吗?',
+      onOk() {
+      },
+    });
+  };
+  const handleSubmission = () => {
+    confirm({
+      title: '确定要提交吗?',
+      onOk() {
+      },
+    });
   };
   const onClickAdd = () => {
     const addPeople23 = [...addPeople];
@@ -165,7 +178,7 @@ const EmptyAttach = (state) => {
       >
           新增人员
       </Button>
-      <Button htmlType="submit" style={{ margin: '10px 10px 5px 525px' }}>提交</Button>
+      <Button htmlType="submit" onClick={handleSubmission} style={{ margin: '10px 10px 5px 525px' }}>提交</Button>
       <Button htmlType="button" onClick={handleReset} style={{ margin: '10px' }}>暂存</Button>
       <Modal
         width={800}

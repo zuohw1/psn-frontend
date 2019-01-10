@@ -79,7 +79,7 @@ export default (state) => {
 
   const onClickDelete = (posKey) => {
     confirm({
-      title: '确定要删除本条记录吗?',
+      title: '确定要提交吗?',
       onOk() {
         // deleteRecord(posKey);
         // setRecords();
