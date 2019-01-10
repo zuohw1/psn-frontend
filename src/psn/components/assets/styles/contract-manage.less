@@ -1,0 +1,108 @@
+:global {
+  .submitdismiss {
+    text-align: center;
+    button {
+      margin: 10px;
+    }
+  }
+  .contract{
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-bottom: none;
+    .contract_main {
+      display: flex;
+      flex-flow: column nowrap;
+      height: 600px;
+      .ant-form-item {
+        border-bottom: 1px solid #d9d9d9;
+        margin: 0;
+        .ant-form-item-label {
+          height: 100%;
+          text-align: left;
+          border-right: 1px solid #d9d9d9;
+          padding-left: 20px;
+          padding-top: 3px;
+        }
+        .ant-form-item-control-wrapper {
+          height: 100%;
+          padding: 5px;
+          border-right: 1px solid #d9d9d9;
+          button{
+            margin-top: 3px;
+          }
+        }
+      }
+      &_cont {
+        width: 100%;
+        &_left {
+          width: 50%;
+          height: 100%;
+          float: left;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 1;
+          }
+        }
+        &_right {
+          width: 50%;
+          height: 100%;
+          float: right;
+          display: flex;
+          flex-direction: column;
+          .ant-form-item {
+            flex: 1;
+            .ant-form-item-control-wrapper{
+              border-right: 0;
+            }
+          }
+        }
+        &-staff {
+          flex: 3;
+          .survivors_main_cont_right{
+            .ant-form-item:nth-child(1) {
+              input {
+                border: 1px solid #d9d9d9;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .contractNew {
+      .ant-layout-content{
+        .conditionContainer{
+          line-height: 50px;
+          display: flex;
+          border: 1px solid #d9d9d9;
+          .conditionContainerItem1{
+            flex: 5;
+            text-align: center;
+            background-color: #fafafa;
+            border-right: 1px solid #d9d9d9;
+          }
+          .conditionContainerItem3{
+            flex: 5;
+            text-align: center;
+            background-color: #fafafa;
+            border-right: 1px solid #d9d9d9;
+          }
+          .conditionContainerItem4{
+            flex: 15;
+            background-color: #fff;
+            border-right: 1px solid #d9d9d9;
+            text-align: center;
+            input{
+              border: none;
+            }
+          }
+        }
+        .conditionContainer1{
+          border-bottom: none;
+        }
+      }
+    }
+  }
+

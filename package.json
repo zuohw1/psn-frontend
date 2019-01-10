@@ -13,10 +13,14 @@
     "json-bigint": "0.3.0",
     "moment": "^2.22.2",
     "path-to-regexp": "^2.2.1",
+    "prop-types": "latest",
     "react": "^16.2.0",
+    "react-avatar-editor": "^11.0.4",
+    "react-cropper": "^1.0.1",
     "react-dom": "^16.2.0",
     "redux": "latest",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "reqwest": "^2.0.5"
   },
   "scripts": {
     "lint": "eslint ./src",

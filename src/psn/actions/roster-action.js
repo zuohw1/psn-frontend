@@ -16,6 +16,15 @@ export function isQuerySetModeShow(querySettingModel) {
   };
 }
 
+export function isAdvancedQueryModelShow(selectConditionModel) {
+  return {
+    type: 'psnRoster/stateWillUpdate',
+    payload: {
+      selectConditionModel,
+    },
+  };
+}
+
 export function isPsnCardModelShow(psnCardModel) {
   return {
     type: 'psnRoster/stateWillUpdate',
@@ -30,6 +39,24 @@ export function updateOrgRefModelShow(refModal) {
     type: 'psnRoster/stateWillUpdate',
     payload: {
       refModal,
+    },
+  };
+}
+
+export function updateSelectedConditions(selectedConditions) {
+  return {
+    type: 'psnRoster/stateWillUpdate',
+    payload: {
+      selectedConditions,
+    },
+  };
+}
+
+export function setCurrentCheckedValues(currentCheckedValues) {
+  return {
+    type: 'psnRoster/stateWillUpdate',
+    payload: {
+      currentCheckedValues,
     },
   };
 }

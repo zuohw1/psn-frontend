@@ -1,0 +1,89 @@
+:global .submitdismiss {
+  text-align: center;
+}
+:global .submitdismiss button {
+  margin: 10px;
+}
+:global .active {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+}
+:global .active .active_main {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 250px;
+}
+:global .active .active_main .ant-form-item {
+  border-bottom: 1px solid #d9d9d9;
+  margin: 0;
+}
+:global .active .active_main .ant-form-item .ant-form-item-label {
+  height: 100%;
+  text-align: left;
+  border-right: 1px solid #d9d9d9;
+  padding-left: 20px;
+  padding-top: 3px;
+}
+:global .active .active_main .ant-form-item .ant-form-item-control-wrapper {
+  height: 100%;
+  padding: 5px;
+  border-right: 1px solid #d9d9d9;
+}
+:global .active .active_main .ant-form-item .ant-form-item-control-wrapper button {
+  margin-top: 3px;
+}
+:global .active .active_main .ant-form-item .ant-form-item-control-wrapper .ant-upload {
+  float: right;
+}
+:global .active .active_main .ant-form-item .ant-form-item-control-wrapper .ant-upload-list {
+  float: right;
+  width: 250px;
+  margin-right: 10px;
+  background-color: #fbfbfb;
+}
+:global .active .active_main_cont {
+  width: 100%;
+}
+:global .active .active_main_cont_left {
+  width: 66.66%;
+  height: 100%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+:global .active .active_main_cont_left .ant-form-item {
+  flex: 2;
+}
+:global .active .active_main_cont_right {
+  width: 33.33%;
+  height: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+}
+:global .active .active_main_cont_right .ant-form-item {
+  flex: 1;
+}
+:global .active .active_main_cont_right .ant-form-item .ant-form-item-control-wrapper {
+  border-right: 0;
+}
+:global .active .active_main_cont-staff {
+  flex: 3;
+}
+:global .active .active_main_cont-staff .active_main_cont_right .ant-form-item:nth-child(1) input {
+  border: 1px solid #d9d9d9;
+}
+:global .active .active_main_cont-registbottom {
+  flex: 7;
+  display: flex;
+  flex-flow: column nowrap;
+}
+:global .active .active_main_cont-registbottom .ant-form-item {
+  flex: 1;
+}
+:global .active .active_main_cont-registbottom .ant-form-item .ant-form-item-control-wrapper {
+  border-right: 0;
+}
+/*# sourceMappingURL=quit-personnel.css.map */

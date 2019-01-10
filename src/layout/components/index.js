@@ -12,12 +12,49 @@ import PsnRoster from '../../psn/containers/roster';
 import StaffDimission from '../../psn/containers/staff-dimission';
 import PsnMgr from '../../psn/containers/psn-mgr';
 import PsnMgrCard from '../../psn/containers/psn-mgr-card';
-
+import DocumentLoad from '../../psn/containers/document-load';
+import StaffEntry from '../../psn/containers/staff-entry';
+import QuitPersonnel from '../../psn/containers/quit-personnel';
+import TransferPersonnel from '../../psn/containers/transfer-personnel';
+import RetirePersonnel from '../../psn/containers/retire-personnel';
+import SurvivorsInput from '../../psn/containers/survivors-input';
+import ContractManage from '../../psn/containers/contract-manage';
+import SettingNotice from '../../psn/containers/setting-notice';
+import OrgExportCondition from '../../psn/components/settingnotice/org-export-condition';
+import NewInformation from '../../psn/components/contractmanage/new-information';
+import PsnExportCondition from '../../psn/components/settingnotice/psn-export-condition';
+import CreateProcess from '../../psn/containers/create-process';
 
 const { SubMenu } = Menu;
 
 const MainLayout = (state) => {
-  return (
+  const route = (
+    <Switch>
+      <Route exact path="/" component={Main} />
+      <Route exact path="/psn/transpro" component={PsnTranspro} />
+      <Route exact path="/psn/roster" component={PsnRoster} />
+      <Route exact path="/psn/staffdimission" component={StaffDimission} />
+      <Route exact path="/psn/psnMgr" component={PsnMgr} />
+      <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
+      <Route exact path="/psn/documentLoad" component={DocumentLoad} />
+      <Route exact path="/psn/staffEntry" component={StaffEntry} />
+      <Route exact path="/psn/quitPersonnel" component={QuitPersonnel} />
+      <Route exact path="/psn/transferPersonnel" component={TransferPersonnel} />
+      <Route exact path="/psn/retirePersonnel" component={RetirePersonnel} />
+      <Route exact path="/psn/survivorsInput" component={SurvivorsInput} />
+      <Route exact path="/psn/contractManage" component={ContractManage} />
+      <Route exact path="/psn/settingNotice" component={SettingNotice} />
+      <Route exact path="/psn/settingNotice/OrgExportCondition" component={OrgExportCondition} />
+      <Route exact path="/psn/contractManage/newInformation" component={NewInformation} />
+      <Route exact path="/psn/settingNotice/PsnExportCondition" component={PsnExportCondition} />
+      <Route exact path="/psn/createProcess" component={CreateProcess} />
+    </Switch>
+  );
+  const ret = state.headless ? (
+    <Layout style={{ padding: '5px' }}>
+      {route}
+    </Layout>
+  ) : (
     <div className={app.App}>
       <div className={app.AppHeader}>
         <div className={app.headerTop}>
@@ -78,18 +115,12 @@ const MainLayout = (state) => {
           </Menu>
         </Layout.Sider>
         <Layout style={{ padding: '5px' }}>
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route exact path="/psn/transpro" component={PsnTranspro} />
-            <Route exact path="/psn/roster" component={PsnRoster} />
-            <Route exact path="/psn/staffdimission" component={StaffDimission} />
-            <Route exact path="/psn/psnMgr" component={PsnMgr} />
-            <Route exact path="/psn/psnMgrCard" component={PsnMgrCard} />
-          </Switch>
+          {route}
         </Layout>
       </Layout>
     </div>
   );
+  return ret;
 };
 
 export default MainLayout;
