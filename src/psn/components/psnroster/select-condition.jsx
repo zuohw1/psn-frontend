@@ -218,7 +218,12 @@ const conditionList = [
   {
     itemname: '毕业院校',
     itemkey: 'graduatefrom',
-    type: 'input',
+    type: 'rangeInput',
+    children: [
+      {
+        itemname: '', itemkey: 'graduatefrominput', itemvalue: '', datatype: 'string',
+      },
+    ],
   },
   {
     itemname: '职称',
@@ -246,7 +251,12 @@ const conditionList = [
   {
     itemname: '专业',
     itemkey: 'major',
-    type: 'input',
+    type: 'rangeInput',
+    children: [
+      {
+        itemname: '', itemkey: 'majorinput', itemvalue: '', datatype: 'string',
+      },
+    ],
   },
   {
     itemname: '岗位序列',
@@ -264,17 +274,32 @@ const conditionList = [
   {
     itemname: '专业技术资格名称',
     itemkey: 'skillname',
-    type: 'input',
+    type: 'rangeInput',
+    children: [
+      {
+        itemname: '', itemkey: 'skillnameinput', itemvalue: '', datatype: 'string',
+      },
+    ],
   },
   {
     itemname: '其他名称',
     itemkey: 'othername',
-    type: 'input',
+    type: 'rangeInput',
+    children: [
+      {
+        itemname: '', itemkey: 'othernameinput', itemvalue: '', datatype: 'string',
+      },
+    ],
   },
   {
     itemname: '其他',
     itemkey: 'other',
-    type: 'input',
+    type: 'rangeInput',
+    children: [
+      {
+        itemname: '', itemkey: 'othernput', itemvalue: '', datatype: 'string',
+      },
+    ],
   },
 ];
 
@@ -284,8 +309,12 @@ const otherList = [
     type: 'rangeInput',
     itemkey: 'age',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'agebegin', itemvalue: '', datatype: 'number',
+      },
+      {
+        itemname: '结束:', itemkey: 'ageend', itemvalue: '', datatype: 'number',
+      },
     ],
   },
   {
@@ -293,8 +322,12 @@ const otherList = [
     type: 'rangeInput',
     itemkey: 'birthday',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'birthdaybegin', itemvalue: '', datatype: 'date',
+      },
+      {
+        itemname: '结束:', itemkey: 'birthdayend', itemvalue: '', datatype: 'date',
+      },
     ],
   },
   {
@@ -302,8 +335,12 @@ const otherList = [
     type: 'rangeInput',
     itemkey: 'employmentdate',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'employmentdatebegin', itemvalue: '', datatype: 'date',
+      },
+      {
+        itemname: '结束:', itemkey: 'employmentdateend', itemvalue: '', datatype: 'date',
+      },
     ],
   },
   {
@@ -311,8 +348,12 @@ const otherList = [
     type: 'rangeInput',
     itemkey: 'joinenterprisedate',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'joinenterprisedatebegin', itemvalue: '', datatype: 'date',
+      },
+      {
+        itemname: '结束:', itemkey: 'joinenterprisedateend', itemvalue: '', datatype: 'date',
+      },
     ],
   },
   {
@@ -320,24 +361,32 @@ const otherList = [
     type: 'rangeInput',
     itemkey: 'rank',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'rankbegin', itemvalue: '', datatype: 'number',
+      },
+      {
+        itemname: '结束:', itemkey: 'rankend', itemvalue: '', datatype: 'number',
+      },
     ],
   },
   {
     itemname: '合同日期',
     type: 'rangeInput',
-    itemkey: 'contract date',
+    itemkey: 'contractdate',
     children: [
-      { itemname: '开始:', itemkey: 'begin', itemvalue: '' },
-      { itemname: '结束:', itemkey: 'end', itemvalue: '' },
+      {
+        itemname: '开始:', itemkey: 'contractdatebegin', itemvalue: '', datatype: 'date',
+      },
+      {
+        itemname: '结束:', itemkey: 'contractdateend', itemvalue: '', datatype: 'date',
+      },
     ],
   },
 ];
 export default ({
   selectedConditions, actions, currentCheckedValues,
 }) => {
-  const { updateSelectedConditions, setCurrentCheckedValues } = actions;
+  const { updateSelectedConditions, setCurrentCheckedValues, isAdvancedQueryModelShow } = actions;
   const setContent = (item) => {
     const { children } = item;
     if (item.type === 'checkbox') {
@@ -349,7 +398,7 @@ export default ({
           }}
           value={currentCheckedValues}
         >
-          <Row>
+          <Row gutter={8}>
             {children.map((ele) => {
               return (
                 <Col key={ele.itemkey} span={12}>
@@ -365,64 +414,66 @@ export default ({
         </CheckboxGroup>
       );
     } else {
-      return <Input onBlur={e => getInputValue(e, item)} />;
+      return (
+        <Input
+          name={children[0].itemkey}
+          onBlur={e => getInputValue(e, item)}
+        />
+      );
     }
   };
   const getInputValue = (e, conditionItem) => {
-    console.log(777, e.target.value, conditionItem);
+    const itemChildren = conditionItem.children;
+    for (let i = 0; i < itemChildren.length; i += 1) {
+      const ele = itemChildren[i];
+      if (ele.datatype === 'date' && e.target.value !== '') {
+        const datereg = e.target.value.match(/^(\d{4})(-)(\d{2})(-)(\d{2})$/);
+        if (datereg == null) {
+          message.config({
+            top: 400,
+            duration: 4,
+            maxCount: 1,
+          });
+          message.info('请输入正确的开始时间格式,如:2017-01-01');
+          return;
+        }
+      } else if (ele.datatype === 'number' && e.target.value !== '') {
+        const numreg = e.target.value.match(/^\d*$/);
+        if (numreg === null) {
+          message.config({
+            top: 400,
+            duration: 4,
+            maxCount: 1,
+          });
+          message.info('请输入有效数字');
+          return;
+        }
+      }
+    }
     // 获取所有的选择项
     const newSelectedConditions = [...selectedConditions];
     // 获取当前选择项
     const newSelected = { ...conditionItem };
-    if (e.target.value === '') {
-      deleteSelectedItem(newSelectedConditions, newSelected.itemname);
-      updateSelectedConditions(newSelectedConditions);
-      return;
-    }
-    console.log(333, newSelected);
-    if (typeof newSelected.children === 'undefined') {
-      newSelected.children = [];
-    }
-    // 设置一个children，放入value，以便删除
-    // 再所有选择项中查找，如果有就替换，没有就push（前提是所有项不超过五个）
-    newSelected.children.push({ itemname: e.target.value });
-    for (let i = 0; i < newSelectedConditions.length; i += 1) {
-      if (newSelectedConditions[i].itemname === newSelected.itemname) {
-        newSelectedConditions[i] = newSelected;
-        updateSelectedConditions(newSelectedConditions);
-        return;
-      }
-    }
-    if (newSelectedConditions.length < 5) {
-      newSelectedConditions.push(newSelected);
-      updateSelectedConditions(newSelectedConditions);
-    } else {
-      message.config({
-        top: 200,
-        duration: 2,
-        maxCount: 1,
-      });
-      message.warning('当前选择的条件最多为 5 个');
-    }
-  };
-  const getOtherInputValue = (e, conditionItem) => {
-    console.log(2222222222, e.target.name, conditionItem);
-    const newSelectedConditions = [...selectedConditions];
-    // 获取当前选择项
-    const newSelected = { ...conditionItem };
     const newSelectedChildren = [...conditionItem.children];
-    /* if (e.target.value === '') {
-      deleteSelectedItem(newSelectedConditions, newSelected.itemname);
+    for (let i = 0; i < newSelectedChildren.length; i += 1) {
+      const value = newSelectedChildren[i];
+      // 根据itemkey 和 target.name判断该改哪一个input
+      if (value.itemkey === e.target.name) {
+        value.itemvalue = e.target.value.trim();
+      }
+      if (value.itemvalue === '') {
+        newSelectedChildren.splice(i, 1);
+        if (value.itemkey.indexOf('begin') > -1) {
+          i -= 1;
+        }
+      }
+    }
+    newSelected.children = newSelectedChildren;
+    if (newSelected.children.length === 0) {
+      deleteSelectedItem(newSelectedConditions, newSelected.itemkey);
       updateSelectedConditions(newSelectedConditions);
       return;
-    } */
-    newSelectedChildren.forEach((ele) => {
-      const value = ele;
-      if (ele.itemkey === e.target.name) {
-        value.itemvalue = e.target.value;
-      }
-    });
-    newSelected.children = newSelectedChildren;
+    }
     for (let i = 0; i < newSelectedConditions.length; i += 1) {
       if (newSelectedConditions[i].itemname === newSelected.itemname) {
         newSelectedConditions[i] = newSelected;
@@ -445,10 +496,10 @@ export default ({
   const setConditionContent = (item) => {
     const { children } = item;
     return (
-      <Row>
+      <Row gutter={8}>
         {children.map((ele) => {
           return (
-            <Col span={12}>
+            <Col key={ele.itemkey} span={12}>
               <Tag
                 closable
                 onClose={
@@ -466,7 +517,6 @@ export default ({
   };
   /* 此处重要的是 selectedConditions */
   const handleChange = (checkedValue, conditionItem) => {
-    console.log(11111111111111111111, checkedValue);
     const newSelectedConditions = [...selectedConditions];
     // 当前的那一条数据
     const newSelected = { ...conditionItem };
@@ -502,7 +552,7 @@ export default ({
     }
   };
   const onClose = (e, item) => {
-    const { itemname } = item;
+    const { itemname, itemkey } = item;
     // 获取被选中的所有value 值
     const newValues = [...currentCheckedValues];
     // 如果能找到，就直接去掉，找不到就去children中去找然后去掉
@@ -523,16 +573,16 @@ export default ({
     // 设置当前所有的value值
     setCurrentCheckedValues(newValues);
     const newConditions = [...selectedConditions];
-    // 根据名字删除。名字相同直接删除，有children属性，但是length为0，也直接删除
-    deleteSelectedItem(newConditions, itemname);
+    // 根据itemkey删除。itemkey相同直接删除，有children属性，但是length为0，也直接删除
+    deleteSelectedItem(newConditions, itemkey);
     updateSelectedConditions(newConditions);
   };
-  const deleteSelectedItem = (node, name) => {
+  const deleteSelectedItem = (node, itemkey) => {
     node.forEach((ele, index) => {
       if (typeof ele.children !== 'undefined') {
-        deleteSelectedItem(ele.children, name);
+        deleteSelectedItem(ele.children, itemkey);
       }
-      if (ele.itemname === name || (typeof ele.children !== 'undefined' && ele.children.length === 0)) {
+      if (ele.itemkey === itemkey || (typeof ele.children !== 'undefined' && ele.children.length === 0)) {
         node.splice(index, 1);
       }
     });
@@ -541,26 +591,28 @@ export default ({
     updateSelectedConditions([]);
   };
   const setOtherListContent = (item) => {
+    const { children } = item;
     return (
       <div className="inputsBox">
         <Row type="flex" justify="space-around">
-          <Col span={2}>从</Col>
-          <Col span={10}>
-            <Input
-              name="begin"
-              onBlur={e => getOtherInputValue(e, item)}
-            />
-          </Col>
-          <Col span={2}>到</Col>
-          <Col span={10}>
-            <Input
-              name="end"
-              onBlur={e => getOtherInputValue(e, item)}
-            />
-          </Col>
+          {children.map((ele, index) => {
+            return (
+              <Col span={10} key={ele.itemkey}>
+                <span>{index === 0 ? '从' : '到'}</span>
+                <Input
+                  name={ele.itemkey}
+                  onBlur={e => getInputValue(e, item)}
+                />
+              </Col>
+            );
+          })}
         </Row>
       </div>
     );
+  };
+  const handleOk = () => {
+    console.log('所有选择的条件', selectedConditions);
+    isAdvancedQueryModelShow(false);
   };
 
   return (
@@ -570,7 +622,7 @@ export default ({
         title={selectedConditions.length ? '您选择的条件' : '提示 :'}
         extra={(
           <div>
-            <Button type="primary" style={{ marginRight: 2 }}>确定</Button>
+            <Button type="primary" style={{ marginRight: 2 }} onClick={handleOk}>确定</Button>
             <Button onClick={handleClear}>清除</Button>
           </div>
 )}
@@ -579,7 +631,13 @@ export default ({
         {selectedConditions.length
           ? selectedConditions.map((ele, index) => {
             return (
-              <Popover key={ele.itemkey} placement="rightTop" content={setConditionContent(ele, index)} trigger="hover">
+              <Popover
+                overlayClassName="selectConPop"
+                key={ele.itemkey}
+                placement="rightTop"
+                content={setConditionContent(ele, index)}
+                trigger="hover"
+              >
                 <div>
                   <Tag
                     closable
@@ -605,7 +663,7 @@ export default ({
       >
         {conditionList.map((ele, index) => {
           return (
-            <Popover key={ele.itemkey} placement="rightTop" content={setContent(ele, index)} trigger="hover">
+            <Popover overlayClassName="conListPop" key={ele.itemkey} placement="rightTop" content={setContent(ele, index)} trigger="hover">
               <div>{ele.itemname} <Icon type="caret-right" /></div>
             </Popover>
           );
@@ -618,7 +676,7 @@ export default ({
       >
         {otherList.map((ele) => {
           return (
-            <Popover key={ele.itemkey} placement="rightTop" content={setOtherListContent(ele)} trigger="hover">
+            <Popover overlayClassName="otherListPop" key={ele.itemkey} placement="rightTop" content={setOtherListContent(ele)} trigger="hover">
               <div>{ele.itemname}<Icon type="caret-right" /></div>
             </Popover>
           );

@@ -89,9 +89,6 @@ export default ({
   const onPsnCardOk = (e) => {
     onPsnCardCancel(e);
   };
-  const onAdvancedSelectOk = () => {
-    isAdvancedQueryModelShow(false);
-  };
   const onAdvancedSelectCancel = () => {
     isAdvancedQueryModelShow(false);
   };
@@ -254,7 +251,6 @@ export default ({
         width={700}
         centered={true}
         onCancel={onAdvancedSelectCancel}
-        onOk={onAdvancedSelectOk}
         footer={null}
       >
         <SelectCondition

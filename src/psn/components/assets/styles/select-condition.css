@@ -37,6 +37,16 @@
   line-height: 35px;
   color: #D6D6D6;
 }
+:global .selectcondition .ant-modal-body .allSelected {
+  /*.ant-card-body {
+          > div {
+            background-color: rgba(255, 0, 0, 0.1);
+            > i{
+              color: #E76767;
+            }
+          }
+        }*/
+}
 :global .selectcondition .ant-modal-body .allSelected .ant-card-head .ant-card-extra {
   padding-top: 0;
   padding-bottom: 3px;
@@ -64,11 +74,21 @@
   height: 42px;
   line-height: 42px;
 }
-:global .ant-popover {
-  width: 400px;
+:global .selectConPop {
+  max-width: 500px;
 }
-:global .ant-popover .inputsBox .ant-col-2 {
-  text-align: center;
-  line-height: 30px;
+:global .selectConPop .ant-col-12 {
+  margin-top: 5px;
+}
+:global .conListPop {
+  max-width: 500px;
+}
+:global .otherListPop .inputsBox .ant-col-10 {
+  position: relative;
+}
+:global .otherListPop .inputsBox .ant-col-10 span {
+  position: absolute;
+  top: 5px;
+  left: -23px;
 }
 /*# sourceMappingURL=select-condition.css.map */

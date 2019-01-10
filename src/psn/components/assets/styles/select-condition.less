@@ -32,7 +32,7 @@
             background-color: #F7F7F7;
             border: 0;
             color: #000;
-            >i{
+            > i {
               position: absolute;
               right: 10px;
               line-height: 35px;
@@ -41,13 +41,21 @@
           }
         }
       }
-      .allSelected{
-        .ant-card-head{
-          .ant-card-extra{
+      .allSelected {
+        .ant-card-head {
+          .ant-card-extra {
             padding-top: 0;
             padding-bottom: 3px;
           }
         }
+        /*.ant-card-body {
+          > div {
+            background-color: rgba(255, 0, 0, 0.1);
+            > i{
+              color: #E76767;
+            }
+          }
+        }*/
       }
       .conditionlist {
         .ant-card-head {
@@ -60,7 +68,7 @@
           }
         }
       }
-      .othercondition{
+      .othercondition {
         .ant-card-head {
           border-bottom: 1px solid #D8000F;
           .ant-card-head-wrapper {
@@ -80,12 +88,24 @@
       }
     }
   }
-  .ant-popover {
-    width: 400px;
-    .inputsBox{
-      .ant-col-2{
-        text-align: center;
-        line-height: 30px;
+  .selectConPop {
+    max-width: 500px;
+    .ant-col-12 {
+      margin-top: 5px;
+    }
+  }
+  .conListPop {
+    max-width: 500px;
+  }
+  .otherListPop {
+    .inputsBox {
+      .ant-col-10 {
+        position: relative;
+        span {
+          position: absolute;
+          top: 5px;
+          left: -23px;
+        }
       }
     }
   }
