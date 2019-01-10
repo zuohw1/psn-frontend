@@ -9,7 +9,6 @@ const { Content } = Layout;
 
 const PsnRoster = (state) => {
   return (
-
     <React.Fragment>
       <Breadcrumb style={{ margin: '10px 0' }}>
         <Breadcrumb.Item>
