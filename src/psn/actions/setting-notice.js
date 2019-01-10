@@ -96,6 +96,51 @@ export function setToggle(expand) {
     },
   };
 }
+
+/* 设置是否展开查询 */
+export function setIsNAddViewShow(isNAddViewShow) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isNAddViewShow,
+    },
+  };
+}
+
+export function setIsNAddwShow(isNAddShow) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isNAddShow,
+    },
+  };
+}
+
+export function setVisible(isVisible) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isVisible,
+    },
+  };
+}
+export function setSee(isSee) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isSee,
+    },
+  };
+}
+/* 设置是否展开查询 */
+export function setTableDataNew(tableData) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      tableData,
+    },
+  };
+}
 /* 更新列表数据 */
 export function setListDataSourceAll(dataSourceAll) {
   return {
@@ -213,6 +258,23 @@ export function redirectDetail(pathname, state) {
     type: 'psnSetting/redirect',
     payload: {
       pathname, state,
+    },
+  };
+}
+export function setTableData(tableData) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      tableData,
+    },
+  };
+}
+
+export function setCount(count) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      count,
     },
   };
 }

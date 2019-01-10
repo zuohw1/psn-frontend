@@ -3,6 +3,7 @@ import { routerRedux } from 'dva/router';
 export default {
   namespace: 'psnSetting',
   state: {
+    count: 0,
     /* 列表数据 */
     tableData: {
       total: 0,
@@ -10,57 +11,74 @@ export default {
       current: 1,
       records: [
         {
-          ATTRIBUTE8: '内部员工调动',
-          ATTRIBUTE9: '员工调动 ',
-          DOC_VERIFIER: '提交',
+          noticId: '001',
+          key: '001',
+          notice: '内部员工调动',
+          business: '员工调动 ',
+          state: '提交',
           ATTRIBUTE12: ['查看'],
         },
         {
-          ATTRIBUTE8: '联通软件研究院入职',
-          ATTRIBUTE9: '入职流程',
-          DOC_VERIFIER: '提交',
+          noticId: '002',
+          key: '002',
+          notice: '联通软件研究院入职',
+          business: '入职流程',
+          state: '提交',
           ATTRIBUTE12: ['查看'],
         },
         {
-          ATTRIBUTE8: '离职通知',
-          ATTRIBUTE9: '离职流程',
-          DOC_VERIFIER: '提交',
-          ATTRIBUTE12: ['查看'],
-
-        },
-        {
-          ATTRIBUTE8: '23333 ',
-          ATTRIBUTE9: '跨省兼职借调交流流程',
-          DOC_VERIFIER: '提交',
-          ATTRIBUTE12: ['查看'],
-
-        },
-        {
-          ATTRIBUTE8: '12333 ',
-          ATTRIBUTE9: '组织变更流程 ',
-          DOC_VERIFIER: '提交',
+          noticId: '003',
+          key: '003',
+          notice: '离职通知',
+          business: '离职流程',
+          state: '提交',
           ATTRIBUTE12: ['查看'],
 
         },
         {
-          ATTRIBUTE8: '省内地市间兼职借调交流',
-          ATTRIBUTE9: '跨地市兼职借调交流流程',
-          DOC_VERIFIER: '提交',
+          noticId: '004',
+          key: '004',
+          notice: '23333 ',
+          business: '跨省兼职借调交流流程',
+          state: '提交',
+          ATTRIBUTE12: ['查看'],
+
+        },
+        {
+          noticId: '005',
+          key: '005',
+          notice: '12333 ',
+          business: '组织变更流程 ',
+          state: '提交',
+          ATTRIBUTE12: ['查看'],
+
+        },
+        {
+          noticId: '006',
+          key: '006',
+          notice: '省内地市间兼职借调交流',
+          business: '跨地市兼职借调交流流程',
+          state: '提交',
           ATTRIBUTE12: ['查看'],
         },
       ],
       pages: 0,
     },
     addPeople: [{
-      department: '',
-      name: '',
-      contact: '',
-      address: '',
-      handle: '',
-      Whether: '',
-      Remarks: '',
+      noticId: '001',
+      key: '001',
+      department: '1',
+      name: '2',
+      contact: '3',
+      address: '7',
+      handle: '8',
+      Whether: '77',
+      Remarks: '99',
+      count: 1,
     },
     ],
+    /* 卡片是否显示 */
+    isNAddViewShow: false,
     /* 卡片是否显示 */
     modal: false,
     /* 参照是否显示 */

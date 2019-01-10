@@ -1,14 +1,17 @@
 /* eslint-disable */
 import React from 'react';
 import {
-  Layout, Select, Input,
+  Layout, Select,
 } from 'antd';
 import '../assets/styles/org-export-condition.less';
-import AttachTable from './attach';
 
-const PsnExportCondition = (state) => {
-  const { Content } = Layout;
-  const { Option } = Select;
+export default ({
+                  addPeople,
+                  tableData,
+                }) => {
+  console.log('addPeople0000', addPeople, tableData);
+  const { } = Layout;
+  const Option = Select.Option;
   const respList = [];
   const apply = (item) => {
     return (<Option value={item.id} key={item.id}> {item.title} </Option>);
@@ -45,15 +48,7 @@ const PsnExportCondition = (state) => {
   return (
     <div className="OrgExportCondition">
       <Layout>
-        <Content>
           <div className="conditionContainer">
-            <span className="conditionContainerItem1">通知单名称：</span>
-            <span className="conditionContainerItem4">
-              <Input
-                style={{ width: 300 }}
-              />
-            </span>
-            <span className="conditionContainerItem3">业务类型：</span>
             <span className="conditionContainerItem4">
               <Select
                 placeholder="请选择"
@@ -68,11 +63,8 @@ const PsnExportCondition = (state) => {
               </Select>,
             </span>
           </div>
-          <AttachTable {...state} />
-        </Content>
       </Layout>
     </div>
   );
 };
-export default PsnExportCondition;
 

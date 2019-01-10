@@ -1,8 +1,10 @@
+/* eslint-disable no-debugger */
 
 import React from 'react';
 import {
   Row, Col, Tabs, Table, Button, Divider, Modal,
 } from 'antd';
+// import request from '../../../utils/request';
 import BasicForm from './basic-info-edit';
 /*
  员工信息维护卡片
@@ -10,11 +12,17 @@ import BasicForm from './basic-info-edit';
  @date：2018-11-27
  */
 export default ({
-  record, actions, detailRecord, infoSetList, form, modal, templateData,
+  record, actions, detailRecord, infoSetList, form, modal,
+  templateData, editEmpBasicDetail, selectRefData, empBasicUptState, jRTJRefData,
+  jRZTJRefData, jRTJSMRefData,
 }) => {
   const { personId } = record;
 
-  const { queryDetailDataByPersonId, isModeShow, queryBillTemplateDataS } = actions;
+  const {
+    queryDetailDataByPersonId, isModeShow,
+    queryBillTemplateDataS, queryPsnEmpBasicDetailByPersonId, querySelectData, updateBasicInfo,
+    queryJRTJRefData,
+  } = actions;
 
   const { TabPane } = Tabs;
   const onTabChange = (activeKey) => {
@@ -28,6 +36,10 @@ export default ({
   const onEditBasicInfo = () => {
     // 查询单据模板数据
     queryBillTemplateDataS('emp-mgr-basicinfo-edit');
+    // 查询待编辑的数据
+    queryPsnEmpBasicDetailByPersonId(personId);
+    querySelectData('emp-mgr-basicinfo-edit');
+    queryJRTJRefData();
     // 弹出基本信息编辑框
     isModeShow(true, true);
   };
@@ -120,7 +132,7 @@ export default ({
         width: 240,
         render: (text, row) => (
           <span>
-            <a href=" javascript:;" onClick={() => onClickView(text, row)}>查1看</a>
+            <a href=" javascript:;" onClick={() => onClickView(text, row)}>查看</a>
             <Divider type="vertical" />
             <a href=" javascript:;" onClick={() => onClickEdit(text, row)}>修改</a>
             <Divider type="vertical" />
@@ -448,7 +460,23 @@ export default ({
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        console.log('--------------', values);
+        const { opt, effectiveUpdateStartDate } = values;
+        const { currentSysDate, effectiveStartDate } = editEmpBasicDetail;
+        if (opt === 'UPDATE') {
+          // 减少查询，直接在前端校验
+          debugger;
+          if ((effectiveUpdateStartDate.format('YYYY-MM-DD') < effectiveStartDate)
+            || (effectiveUpdateStartDate.format('YYYY-MM-DD') > currentSysDate)) {
+            Modal.error({
+              title: '错误',
+              content: '更新日期必须大于历史数据的生效开始日期，且小于当前系统日期！',
+            });
+          } else {
+            updateBasicInfo(values);
+          }
+        } else {
+          updateBasicInfo(values);
+        }
       }
     });
   };
@@ -505,7 +533,18 @@ export default ({
         </Col>
       </Row>
       <Modal visible={modal} onOk={onSubmit} onCancel={onCancel} width="80%">
-        <BasicForm form={form} templateData={templateData} detailRecord={detailRecord} />
+        <BasicForm
+          form={form}
+          templateData={templateData}
+          detailRecord={detailRecord}
+          editEmpBasicDetail={editEmpBasicDetail}
+          selectRefData={selectRefData}
+          empBasicUptState={empBasicUptState}
+          actions={actions}
+          jRTJRefData={jRTJRefData}
+          jRZTJRefData={jRZTJRefData}
+          jRTJSMRefData={jRTJSMRefData}
+        />
       </Modal>
     </div>
   );
