@@ -18,7 +18,7 @@ const OrgExportCondition = (state) => {
   const { addPeople } = state;
   console.log('state5555', state, addPeople);
   // const { setAddPeople } = actions;
-  const { Header, Content } = Layout;
+  const { Content } = Layout;
   // const  = .Option;const
   const { Option } = Select;
   const respList = [];
@@ -57,7 +57,6 @@ const OrgExportCondition = (state) => {
   return (
     <div className="OrgExportCondition">
       <Layout>
-        <Header>新增</Header>
         <Content>
           <div className="conditionContainer">
             <span className="conditionContainerItem1">通知单名称：</span>

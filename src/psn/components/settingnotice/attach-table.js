@@ -7,7 +7,7 @@ import {
   /* Layout, Modal, */
 } from 'antd';
 // import PropTypes from 'prop-types';
-import { Link } from 'dva/router';
+// import { Link } from 'dva/router';
 import Query from './query';
 // import OrgExportCondition from "./org-export-condition";
 
@@ -16,7 +16,7 @@ const { Option } = Select;
 const respList = [];
 
 const EmptyAttach = (state) => {
-  console.log('444state', state);
+  // console.log('444state', state);
 
   // const { setAddPeople } = actions;
   // const { setAddPeople } = props;
@@ -47,31 +47,33 @@ const EmptyAttach = (state) => {
     // });
   };
 
-  const onClickDelete = (key) => {
+  const onClickDelete = (records) => {
     // console.log(posKey);
-    const dataDel = [...data];
-    const dataNew = dataDel.filter((item) => {
-      return item.noticId !== key.noticId;
-    });
-    const { actions } = state;
-    const { setAddPeople } = actions;
-    const datanew = {
-      total: 0,
-      size: 0,
-      current: 1,
-      records: dataNew,
-    };
-    setAddPeople(datanew);
+    // const dataDel = [...data];
+    // const dataNew = dataDel.filter((item) => {
+    //   return item.count !== records.count;
+    // });
+    const { actions, count } = state;
+    const { setCount, setAddPeople } = actions;
+    // const datanew = {
+    //   total: 0,
+    //   size: 0,
+    //   current: 1,
+    //   records: dataNew,
+    // };
+    // setAddPeople(datanew);
+    setAddPeople(addPeople.filter(item => item.count !== records.count));
+    setCount(count - 1);
   };
-  const data = addPeople.records;
+  // const data = addPeople.records;
 
   const handleReset = () => {
   };
 
   const onClickAdd = () => {
     const addPeople23 = [...addPeople];
-    const { actions } = state;
-    const { setAddPeople } = actions;
+    const { actions, count } = state;
+    const { setAddPeople, setCount } = actions;
     const datanew = [
       ...addPeople23,
       {
@@ -82,10 +84,12 @@ const EmptyAttach = (state) => {
         handle: '',
         Whether: '',
         Remarks: '',
+        count,
       },
     ];
-    console.log('datanew', datanew);
+    // console.log('datanew', datanew);
     setAddPeople(datanew);
+    setCount(count + 1);
   };
 
   const apply = (item) => {
@@ -214,8 +218,7 @@ const EmptyAttach = (state) => {
       >
           新增人员
       </Button>
-      <Button htmlType="submit" style={{ margin: '10px 10px 5px 480px' }}>提交</Button>
-      <Button type="primary" style={{ margin: '10px' }}><Link to="/psn/SettingNotice">返回</Link></Button>
+      <Button htmlType="submit" style={{ margin: '10px 10px 5px 525px' }}>提交</Button>
       <Button htmlType="button" onClick={handleReset} style={{ margin: '10px' }}>暂存</Button>
       <Modal
         width={800}

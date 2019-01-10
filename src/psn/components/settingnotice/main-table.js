@@ -21,7 +21,7 @@ export default (state) => {
     tableData,
     actions,
     search,
-    addPeople,
+    // addPeople,
     loading,
     isNAddViewShow,
     // record,
@@ -38,13 +38,13 @@ export default (state) => {
     setModeShow,
     // setRecords,
     updateRecord,
-    getRecord,
+    // getRecord,
     setIsNAddViewShow,
     setAddPeople,
   } = actions;
 
-  console.log(addPeople);
-  console.log('isNAddViewShow', isNAddViewShow);
+  /*  console.log(addPeople);
+  console.log('isNAddViewShow', isNAddViewShow); */
 
   // const onClickAdd = () => {
   //   //   setModeShow(true, true);
@@ -68,7 +68,7 @@ export default (state) => {
   const onCancel = (e) => {
     e.preventDefault();
     form.resetFields();
-    getRecord(false);
+    setModeShow(false);
   };
   const onCancel1 = (e) => {
     e.preventDefault();
@@ -189,7 +189,6 @@ export default (state) => {
         maskClosable={false}
         destroyOnClose
         width={500}
-        footer={null}
       >
         <Model />
       </Modal>
@@ -212,7 +211,7 @@ export default (state) => {
         onCancel={onCancel1}
         maskClosable={false}
         destroyOnClose
-        width={1500}
+        width={1300}
         height={560}
         footer={null}
       >
