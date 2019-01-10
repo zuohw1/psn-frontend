@@ -24,6 +24,24 @@ export default {
     }
     return request.get(url);
   },
+  getPsnBasicDetail(personId) {
+    let url = 'empMgr/queryPsnBasicDetailById?';
+    if (personId && personId !== '') {
+      url += `personId=${personId}`;
+    }
+    return request.get(url);
+  },
+  getRefSelectDataByBillType(billtypecode) {
+    let url = 'empMgr/queryRefSelectDataByBillType?';
+    if (billtypecode && billtypecode !== '') {
+      url += `billTypeCode=${billtypecode}`;
+    }
+    return request.get(url);
+  },
+  queryJRTJRefData() {
+    const url = 'empMgr/queryJRTJRefData';
+    return request.get(url);
+  },
   getInfoSetDetailData(detailSearch) {
     let url = 'empMgr/queryPsnSubSetInfoById?';
     if (detailSearch.personId && detailSearch.personId !== '') {
@@ -40,6 +58,9 @@ export default {
       url += `billTypeCode=${billTypeCode}`;
     }
     return request.get(url);
+  },
+  update(formData) {
+    return request.post('empMgr/update', formData);
   },
   /*
   add(records) {
