@@ -107,6 +107,23 @@ export function setIsNAddViewShow(isNAddViewShow) {
   };
 }
 
+export function setIsNAddwShow(isNAddShow) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isNAddShow,
+    },
+  };
+}
+
+export function setVisible(isVisible) {
+  return {
+    type: 'psnSetting/stateWillUpdate',
+    payload: {
+      isVisible,
+    },
+  };
+}
 /* 设置是否展开查询 */
 export function setTableDataNew(tableData) {
   return {

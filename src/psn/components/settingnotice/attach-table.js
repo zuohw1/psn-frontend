@@ -27,45 +27,24 @@ const EmptyAttach = (state) => {
 
   const { addPeople } = state;
   const showModal = () => {
-    // const { visible } = state;
-    // setState({
-    //   visible: !visible,
-    // });
+    setVisible(true);
   };
 
   const handleOk = () => {
-    // console.log(e);
-    // setState({
-    //   visible: false,
-    // });
   };
 
-  const handleCancel = () => {
-    // console.log(e);
-    // setState({
-    //   visible: false,
-    // });
+  const handleCancel = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    setVisible(false);
   };
 
   const onClickDelete = (records) => {
-    // console.log(posKey);
-    // const dataDel = [...data];
-    // const dataNew = dataDel.filter((item) => {
-    //   return item.count !== records.count;
-    // });
     const { actions, count } = state;
     const { setCount, setAddPeople } = actions;
-    // const datanew = {
-    //   total: 0,
-    //   size: 0,
-    //   current: 1,
-    //   records: dataNew,
-    // };
-    // setAddPeople(datanew);
     setAddPeople(addPeople.filter(item => item.count !== records.count));
     setCount(count - 1);
   };
-  // const data = addPeople.records;
 
   const handleReset = () => {
   };
@@ -87,7 +66,6 @@ const EmptyAttach = (state) => {
         count,
       },
     ];
-    // console.log('datanew', datanew);
     setAddPeople(datanew);
     setCount(count + 1);
   };
@@ -98,12 +76,8 @@ const EmptyAttach = (state) => {
 
   // 列表字段
   /* 列表信息 */
-
-  // render() {
-  const { visible } = state;
-  // const { addPeople } = props;
-
-  // console.log('addPeople9999', addPeople);
+  const { isVisible, actions, form } = state;
+  const { setVisible } = actions;
   const tableCols = [
     {
       title: '部门',
@@ -176,18 +150,6 @@ const EmptyAttach = (state) => {
     },
   ];
 
-    // const data = [
-    //   {
-    //     department: '',
-    //     name: '',
-    //     contact: '',
-    //     address: '',
-    //     handle: '',
-    //     Whether: '',
-    //     Remarks: '',
-    //   },
-    // ];
-
   const respRange = [
     { id: '0', title: '是' },
     { id: '1', title: '否' },
@@ -223,7 +185,7 @@ const EmptyAttach = (state) => {
       <Modal
         width={800}
         title="通知设置人员查询"
-        visible={visible}
+        visible={isVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >

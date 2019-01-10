@@ -9,6 +9,7 @@ import {
 import Modall from './alertmessage/index';
 import Model from './card';
 import OrgExportCondition from './org-export-condition';
+import PsnExportCondition from './psn-export-condition';
 
 const { confirm } = Modal;
 
@@ -24,34 +25,26 @@ export default (state) => {
     // addPeople,
     loading,
     isNAddViewShow,
+    isNAddShow,
     // record,
     modal,
     form,
     formEdit,
-    // refModal, refSelectData,
   } = state;
   const {
     // deleteRecord,
     listTable,
-    redirectDetail,
+    // redirectDetail,
     setTableDataNew,
     setModeShow,
     // setRecords,
     updateRecord,
     // getRecord,
     setIsNAddViewShow,
+    setIsNAddwShow,
     setAddPeople,
   } = actions;
 
-  /*  console.log(addPeople);
-  console.log('isNAddViewShow', isNAddViewShow); */
-
-  // const onClickAdd = () => {
-  //   //   setModeShow(true, true);
-  //   // };
-  // const onClickEdit = () => {
-  //   getRecord(true, true);
-  // };
   const onClickCopy = () => {
     setModeShow(true, true);
   };
@@ -75,7 +68,11 @@ export default (state) => {
     form.resetFields();
     setIsNAddViewShow(false);
   };
-
+  const onCancel2 = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    setIsNAddwShow(false);
+  };
 
   const onClickDelete = (posKey) => {
     confirm({
@@ -98,14 +95,11 @@ export default (state) => {
     });
   };
   const data = tableData.records;
-  // console.log('tableData', tableData);
-  // console.log('data', data);
   const onClickAdd = () => {
-    // redirectDetail('/psn/settingNotice/OrgExportCondition', { tableData, addPeople });
     setIsNAddViewShow(true);
   };
   const onClickEdit = () => {
-    redirectDetail('/psn/settingNotice/PsnExportCondition');
+    setIsNAddwShow(true);
   };
   const onChange = (pageNumber, pageSize) => {
     const searchF = { ...search, pageSize, pageNumber };
@@ -216,6 +210,19 @@ export default (state) => {
         footer={null}
       >
         <OrgExportCondition {...state} setAddPeople={setAddPeople} />
+      </Modal>
+      <Modal
+        title="编辑通知单"
+        visible={isNAddShow}
+        onOk={formEdit ? onSubmit : onCancel2}
+        onCancel={onCancel2}
+        maskClosable={false}
+        destroyOnClose
+        width={1300}
+        height={560}
+        footer={null}
+      >
+        <PsnExportCondition {...state} setAddPeople={setAddPeople} />
       </Modal>
     </div>
   );

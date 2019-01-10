@@ -3,23 +3,14 @@ import React from 'react';
 import {
   Layout, Select, Input,
 } from 'antd';
-// import PropTypes from 'prop-types';
 import '../assets/styles/org-export-condition.less';
 import AttachTable from './attach-table';
 
-// import Table from './main-table';
 
 const OrgExportCondition = (state) => {
-// class OrgExportCondition extends React.Component {
-// export default ({
-//   addPeople,
-//   tableData,
-// }) => {
-  const { addPeople } = state;
-  console.log('state5555', state, addPeople);
-  // const { setAddPeople } = actions;
+  // const { addPeople } = state;
+  // console.log('state5555', state, addPeople);
   const { Content } = Layout;
-  // const  = .Option;const
   const { Option } = Select;
   const respList = [];
   const apply = (item) => {
