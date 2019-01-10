@@ -64,8 +64,8 @@ const OrgExportCondition = (state) => {
                 }}
               >
                 {
-                      respList.map(apply)
-                    }
+                  respList.map(apply)
+                }
               </Select>,
             </span>
           </div>
