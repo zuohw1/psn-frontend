@@ -24,6 +24,7 @@ import OrgExportCondition from '../../psn/components/settingnotice/org-export-co
 import NewInformation from '../../psn/components/contractmanage/new-information';
 import PsnExportCondition from '../../psn/components/settingnotice/psn-export-condition';
 import CreateProcess from '../../psn/containers/create-process';
+import BatchSetup from '../../psn/containers/batch-setup';
 
 const { SubMenu } = Menu;
 
@@ -48,6 +49,7 @@ const MainLayout = (state) => {
       <Route exact path="/psn/contractManage/newInformation" component={NewInformation} />
       <Route exact path="/psn/settingNotice/PsnExportCondition" component={PsnExportCondition} />
       <Route exact path="/psn/createProcess" component={CreateProcess} />
+      <Route exact path="/psn/batchSetup" component={BatchSetup} />
     </Switch>
   );
   const ret = state.headless ? (

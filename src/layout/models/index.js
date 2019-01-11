@@ -98,6 +98,13 @@ export default {
         pid: 3,
         iconUrl: 'sync',
       },
+      {
+        id: 316,
+        menuName: '批量通知单配置',
+        url: '/psn/batchSetup',
+        pid: 3,
+        iconUrl: 'sync',
+      },
     ],
   },
   reducers: {
