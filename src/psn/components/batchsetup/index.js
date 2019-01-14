@@ -3,6 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 import Table from './main-table';
 import Search from './search';
 import '../../../assets/styles/module.less';
+import '../assets/styles/business-key-resp-map.less';
 
 const { Content } = Layout;
 

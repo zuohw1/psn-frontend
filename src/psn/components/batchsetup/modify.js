@@ -8,7 +8,7 @@ const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
 
-const AddProfDivision = ({
+const Modify = ({
   form, isPrimaryShow, leftCardTree, actions, showAlert,
 }) => {
   const {
@@ -89,9 +89,9 @@ const AddProfDivision = ({
     isAddprofModalShow(false);
   };
   return (
-    <div className="OrgExportCondition">
+    <div className="addProfDivision">
       <Alert style={showAlert ? { display: 'block' } : { display: 'none' }} message="已有该分组，请重新添加！" type="warning" showIcon />
-      <ul className="conditionContainer">
+      <ul className="addProfList">
         <li>
           <FormItem
             {...formItemLayout}
@@ -163,5 +163,5 @@ const AddProfDivision = ({
   );
 };
 
-const WrappedAddProfDivision = Form.create()(AddProfDivision);
-export default WrappedAddProfDivision;
+const WrappedModify = Form.create()(Modify);
+export default WrappedModify;

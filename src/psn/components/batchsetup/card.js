@@ -1,36 +1,27 @@
-/* eslint-disable */
 import React from 'react';
 import {
-  Layout, Select, Form, Col, Input,
+  Form, Input, Button, Alert, Select,
 } from 'antd';
-import '../assets/styles/org-export-condition.less';
 
-export default ({
-                  addPeople,
-                  tableData,
-                }) => {
-  console.log('addPeople0000', addPeople, tableData);
-  const { } = Layout;
-  const Option = Select.Option;
+
+const FormItem = Form.Item;
+
+
+const Card = ({
+  form, showAlert,
+}) => {
+  const { Option } = Select;
   const respList = [];
-  const FormItem = Form.Item;
   const apply = (item) => {
     return (<Option value={item.id} key={item.id}> {item.title} </Option>);
   };
   const respRange = [
-    { id: '0', title: '退休流程' },
-    { id: '1', title: '系统内入职（集团总部）' },
-    { id: '2', title: '入职流程' },
-    { id: '3', title: '理智系统内（集团总部）' },
-    { id: '4', title: '离职流程' },
-    { id: '5', title: '员工调动' },
-    { id: '6', title: '借调交流结束流程' },
-    { id: '7', title: '地市兼职借调交流流程' },
-    { id: '8', title: '市管兼职借调交流流程' },
-    { id: '9', title: '省管兼职借调交流流程' },
-    { id: '10', title: '跨地市兼职借调交流流程' },
-    { id: '11', title: '跨省兼职借调交流流程' },
-    { id: '12', title: '组织变更流程' }];
+    { id: '0', title: '部门综合处' },
+    { id: '1', title: '信息化接口人' },
+    { id: '2', title: '人力核心' },
+    { id: '3', title: '主数据' },
+    { id: '4', title: '云门户' },
+    { id: '5', title: '各个系统' }];
   if (respList.length === 0) {
     for (let i = 0; i < respRange.length; i += 1) {
       const respV = {
@@ -40,42 +31,37 @@ export default ({
       respList.push(respV);
     }
   }
-
-  const childItem4 = [];
-  for (let i = 1; i < 11; i += 1) {
-    childItem4.push(<Option key={i.toString()}>{i}</Option>);
-  }
-
+  const formItemLayout = {
+    labelCol: {
+      span: 8,
+    },
+    wrapperCol: {
+      span: 16,
+    },
+  };
+  const { getFieldDecorator } = form;
+  // 点击radio2 显示一级业务划分
+  const addProfModalOk = () => {
+  };
+  // const addProfModalCancel = () => {
+  //   isAlertShow(false);
+  //   isAddprofModalShow(false);
+  // };
   return (
-    <div className="OrgExportCondition">
-          <div className="conditionContainer">
-               <FormItem
-               label="业务划分类型"
-               help=""
-             >
-            {
-              <span className="conditionContainerItem4">
-              <Select
-                placeholder="请选择"
-                allowClear
-                style={{
-                  width: 300,
-                }}
-              >
-                {
-                  respList.map(apply)
-                }
-              </Select>
-            </span>
-            }
-               </FormItem>
-             <br />
+    <div className="addProfDivision">
+      <Alert style={showAlert ? { display: 'block' } : { display: 'none' }} message="已有该分组，请重新添加！" type="warning" showIcon />
+      <ul className="addProfList">
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="通知类型"
+            help=""
+          >
             <span className="conditionContainerItem4">
               <Select
                 placeholder="请选择"
                 allowClear
                 style={{
-                  top:'20',
                   width: 300,
                 }}
               >
@@ -84,19 +70,91 @@ export default ({
                 }
               </Select>,
             </span>
-            <Col span={8} style={{ display: 'block' }}>
-              <FormItem
-                label="批文校验人"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 12 }}
-              >
-                {(
-                  <Input disabled />
-                )}
-              </FormItem>
-            </Col>
-          </div>
+          </FormItem>
+        </li>
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="通知人员"
+            help=""
+          >
+            {getFieldDecorator('businessdescript', {
+              rules: [{
+                type: 'string',
+              }],
+            })(
+              <Input
+                style={{
+                  width: 300,
+                }}
+              />,
+            )}
+          </FormItem>
+        </li>
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="通知范围"
+            help=""
+          >
+            {getFieldDecorator('businessdescript', {
+              rules: [{
+                type: 'string',
+              }],
+            })(
+              <Input
+                style={{
+                  width: 300,
+                }}
+              />,
+            )}
+          </FormItem>
+        </li>
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="邮箱"
+            help=""
+          >
+            {getFieldDecorator('businessdescript', {
+              rules: [{
+                type: 'string',
+              }],
+            })(
+              <Input
+                style={{
+                  width: 300,
+                }}
+              />,
+            )}
+          </FormItem>
+        </li>
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="系统名称"
+            help=""
+          >
+            {getFieldDecorator('businessdescript', {
+              rules: [{
+                type: 'string',
+              }],
+            })(
+              <Input
+                style={{
+                  width: 300,
+                }}
+              />,
+            )}
+          </FormItem>
+        </li>
+      </ul>
+      <Button key="submit" type="primary" onClick={e => addProfModalOk(e)}>
+        保存
+      </Button>
     </div>
   );
 };
 
+const WrappedCard = Form.create()(Card);
+export default WrappedCard;
