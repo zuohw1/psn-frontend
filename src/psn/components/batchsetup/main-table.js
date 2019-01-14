@@ -3,7 +3,8 @@ import {
   Table, Pagination, Button, Input, Modal,
 } from 'antd';
 import Model from './card';
-import AddProfDivision from './modify';
+import WrappedModify from './modify';
+import WrappedQuery from './query';
 
 export default (props) => {
   const {
@@ -13,14 +14,17 @@ export default (props) => {
     form,
     modal,
     addProfModal,
+    addProfQuery,
     isPrimaryShow,
     primaryBusinessData,
     leftCardTree,
     showAlert,
+    state,
+
   } = props;
   const data = tableData.records;
   const {
-    listTable, setModeShow, isAlertShow, isAddprofModalShow,
+    listTable, setModeShow, setQuery, isAlertShow, isAddprofModalShow,
   } = actions;
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -54,6 +58,14 @@ export default (props) => {
   };
   // 查询
   const onClickView = () => {
+    setQuery(true, true);
+  };
+  const onCancel2 = () => {
+    isAlertShow(false);
+    setQuery(false);
+  };
+  const handleOkl = () => {
+    setQuery(false);
   };
   // 保存
   const handleSave = () => {
@@ -154,12 +166,30 @@ export default (props) => {
       >
         查询
       </Button>
+      <Modal
+        title="查询"
+        visible={addProfQuery}
+        onOk={handleOkl}
+        onCancel={onCancel2}
+        maskClosable={false}
+        destroyOnClose
+        width={1000}
+        footer={null}
+      >
+        <WrappedQuery
+          isPrimaryShow={isPrimaryShow}
+          actions={actions}
+          leftCardTree={leftCardTree}
+          primaryBusinessData={primaryBusinessData}
+          showAlert={showAlert}
+          {...state}
+        />
+      </Modal>
       <Button
         type="primary"
         style={{ margin: '5px' }}
         onClick={handleSave}
-      >
-        保存
+      >保存
       </Button>
       <Button
         type="primary"
@@ -177,7 +207,7 @@ export default (props) => {
         onCancel={addProfModalCancel}
         footer={null}
       >
-        <AddProfDivision
+        <WrappedModify
           isPrimaryShow={isPrimaryShow}
           actions={actions}
           leftCardTree={leftCardTree}

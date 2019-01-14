@@ -1,23 +1,36 @@
 import React from 'react';
 import {
-  Form, Input, Button, Alert, Select,
+  Form, Input, Button, Alert, Select, Modal,
 } from 'antd';
+import First from './first-window';
 
 
 const FormItem = Form.Item;
 
-
-const Modify = ({
-  form, showAlert, actions,
-}) => {
+const EmptyAttach = (state) => {
+  const {
+    showAlert, actions, isVisible, form,
+  } = state;
+  const {
+    setVisible,
+  } = actions;
   const { Option } = Select;
   const respList = [];
   const apply = (item) => {
     return (<Option value={item.id} key={item.id}> {item.title} </Option>);
   };
-  const {
-    setVisible,
-  } = actions;
+  // 第一個彈窗
+  const showModal = () => {
+    setVisible(true);
+  };
+  const handleOk = () => {
+    setVisible(false);
+  };
+  const handleCancel = (e) => {
+    e.preventDefault();
+    form.resetFields();
+    setVisible(false, true);
+  };
   const respRange = [
     { id: '0', title: '部门综合处' },
     { id: '1', title: '信息化接口人' },
@@ -34,9 +47,6 @@ const Modify = ({
       respList.push(respV);
     }
   }
-  const showModal = () => {
-    setVisible(true);
-  };
   const formItemLayout = {
     labelCol: {
       span: 8,
@@ -45,7 +55,6 @@ const Modify = ({
       span: 16,
     },
   };
-  const { getFieldDecorator } = form;
   const addProfModalOk = () => {
   };
   return (
@@ -69,7 +78,7 @@ const Modify = ({
                 {
                   respList.map(apply)
                 }
-              </Select>,
+              </Select>
             </span>
           </FormItem>
         </li>
@@ -79,18 +88,12 @@ const Modify = ({
             label="通知人员"
             help=""
           >
-            {getFieldDecorator('businessdescript', {
-              rules: [{
-                type: 'string',
-              }],
-            })(
-              <Input
-                style={{
-                  width: 300,
-                }}
-                onClick={showModal}
-              />,
-            )}
+            <Input
+              style={{
+                width: 300,
+              }}
+              onClick={showModal}
+            />
           </FormItem>
         </li>
         <li>
@@ -99,55 +102,12 @@ const Modify = ({
             label="通知范围"
             help=""
           >
-            {getFieldDecorator('businessdescript', {
-              rules: [{
-                type: 'string',
-              }],
-            })(
-              <Input
-                style={{
-                  width: 300,
-                }}
-              />,
-            )}
-          </FormItem>
-        </li>
-        <li>
-          <FormItem
-            {...formItemLayout}
-            label="邮箱"
-            help=""
-          >
-            {getFieldDecorator('businessdescript', {
-              rules: [{
-                type: 'string',
-              }],
-            })(
-              <Input
-                style={{
-                  width: 300,
-                }}
-              />,
-            )}
-          </FormItem>
-        </li>
-        <li>
-          <FormItem
-            {...formItemLayout}
-            label="系统名称"
-            help=""
-          >
-            {getFieldDecorator('businessdescript', {
-              rules: [{
-                type: 'string',
-              }],
-            })(
-              <Input
-                style={{
-                  width: 300,
-                }}
-              />,
-            )}
+
+            <Input
+              style={{
+                width: 300,
+              }}
+            />
           </FormItem>
         </li>
         <li>
@@ -156,20 +116,43 @@ const Modify = ({
             label="通知范围"
             help=""
           >
-            {getFieldDecorator('businessdescript', {
-              rules: [{
-                type: 'string',
-              }],
-            })}
+
+            <Input
+              style={{
+                width: 300,
+              }}
+            />
+          </FormItem>
+        </li>
+        <li>
+          <FormItem
+            {...formItemLayout}
+            label="通知范围"
+            help=""
+          >
+
+            <Input
+              style={{
+                width: 300,
+              }}
+            />
           </FormItem>
         </li>
       </ul>
       <Button key="submit" type="primary" onClick={e => addProfModalOk(e)}>
         保存
       </Button>
+      <Modal
+        width={800}
+        title="通知设置人员查询"
+        visible={isVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <First />
+      </Modal>
     </div>
   );
 };
 
-const WrappedQuery = Form.create()(Modify);
-export default WrappedQuery;
+export default EmptyAttach;
