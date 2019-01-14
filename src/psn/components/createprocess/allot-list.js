@@ -56,7 +56,7 @@ class AllotList extends React.Component {
       dataIndex: 'main',
       key: 'main',
       align: 'center',
-      width: 150,
+      width: 250,
     }, {
       title: '操作',
       dataIndex: 'operation',
