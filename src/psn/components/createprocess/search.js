@@ -27,7 +27,7 @@ export default (props) => {
     });
   };
   const handleReset = () => {
-    console.log('resetFields', Input.value);
+    console.log('initialValue', form.resetFields);
     form.resetFields();
   };
   const treeSelectChange = (value, label, extra) => {
@@ -110,7 +110,7 @@ export default (props) => {
                   message: '不能为空',
                 }],
               })(
-                <InputGroup compact>
+                <InputGroup initialValue="1">
                   <Input placeholder="请输入" />
                   <span style={{ fontSize: 12 }}>可输入多个员工编号用逗号分隔</span>
                 </InputGroup>,
