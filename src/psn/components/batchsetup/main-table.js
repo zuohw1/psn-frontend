@@ -201,7 +201,7 @@ export default (props) => {
       <Modal
         maskClosable={false}
         destroyOnClose
-        width={600}
+        width={700}
         title="通知单节点新增和修改"
         visible={addProfModal}
         onCancel={addProfModalCancel}
@@ -229,7 +229,7 @@ export default (props) => {
         onCancel={onCancel}
         maskClosable={false}
         destroyOnClose
-        width={600}
+        width={700}
         footer={null}
       >
         <Model
@@ -270,6 +270,7 @@ export default (props) => {
         pagination={false}
         scroll={{ y: document.body.scrollHeight - 460 }}
       />
+
       <Pagination
         showQuickJumper
         current={current}

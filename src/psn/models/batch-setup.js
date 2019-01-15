@@ -65,6 +65,7 @@ export default {
       ],
       pages: 0,
     },
+    modal: false,
   },
   reducers: {
     stateWillUpdate(state, { payload }) {

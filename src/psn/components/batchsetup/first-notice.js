@@ -1,20 +1,26 @@
 import React from 'react';
 import {
-  Button, Form, Table, Pagination, TreeSelect, Select,
+  Button, Form, Icon, Input, Table, Pagination, TreeSelect,
 } from 'antd';
 
 const FormItem = Form.Item;
 
-class First extends React.Component {
+class Notice extends React.Component {
   colums=[
     {
-      title: '组织名',
+      title: '员工编码',
+      dataIndex: 'key',
+      key: 'key',
+      align: 'center',
+    },
+    {
+      title: '员工姓名',
       dataIndex: 'id',
       key: 'id',
       align: 'center',
     },
     {
-      title: '融合类型',
+      title: '所属组织',
       dataIndex: 'name',
       key: 'name',
       align: 'center',
@@ -25,6 +31,8 @@ class First extends React.Component {
   ];
 
   render() {
+    const { form } = this.props;
+    const { getFieldDecorator } = form;
     const onChange = (value) => {
       console.log(value);
     };
@@ -53,6 +61,7 @@ class First extends React.Component {
       value: '0-1',
       key: '0-1',
     }];
+
     const formItemLayout = {
       labelCol: {
         span: 8,
@@ -61,34 +70,6 @@ class First extends React.Component {
         span: 16,
       },
     };
-    const respList = [];
-    const respRange = [
-      { id: '0', title: '包含组织（不包含子组织）' },
-      { id: '1', title: '包含组织（包含子组织）' },
-      { id: '2', title: '排除组织（不排除子组织）' },
-      { id: '3', title: '排除组织（排除子组织）' }];
-    if (respList.length === 0) {
-      for (let i = 0; i < respRange.length; i += 1) {
-        const respV = {
-          id: respRange[i].id,
-          title: respRange[i].title,
-        };
-        respList.push(respV);
-      }
-    }
-    const { Option } = Select;
-    const apply = (item) => {
-      return (<Option value={item.id} key={item.id}> {item.title} </Option>);
-    };
-    const rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      },
-      getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name,
-      }),
-    };
     return (
       <div className="selectstaff">
         <Form className="queryform" layout="inline" onSubmit={this.handleSubmit}>
@@ -96,7 +77,7 @@ class First extends React.Component {
             <TreeSelect
               placeholder="请选择"
               style={{
-                width: 200,
+                width: 158,
                 align: 'center',
               }}
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
@@ -107,36 +88,38 @@ class First extends React.Component {
           </span>
           <FormItem
             {...formItemLayout}
-            label="通知类型"
             help=""
+            label="员工编号"
           >
-            <span className="conditionContainerItem4">
-              <Select
-                placeholder="请选择"
-                allowClear
-                style={{
-                  width: 200,
-                }}
-              >
+            {
+              getFieldDecorator('organize',
                 {
-                    respList.map(apply)
-                  }
-              </Select>
-            </span>
+                  rules: [{ writable: true }],
+                })(
+                  <Input />,
+              )
+            }
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            help=""
+            label="员工姓名"
+          >
+            {getFieldDecorator('username', {
+              rules: [{ writable: true }],
+            })(
+              <Input />,
+            )}
           </FormItem>
           <Button htmlType="submit">
-            增加
+            <Icon type="search" />
+            查询
           </Button>
           <Button htmlType="submit">
-            删除
+            清除
           </Button>
         </Form>
-        <Table
-          bordered
-          columns={this.colums}
-          dataSource={this.dataSource}
-          rowSelection={rowSelection}
-        />
+        <Table bordered columns={this.colums} dataSource={this.dataSource} />
         <Pagination
           showQuickJumper
           showSizeChanger
@@ -146,5 +129,5 @@ class First extends React.Component {
     );
   }
 }
-const WrappedFirst = Form.create()(First);
+const WrappedFirst = Form.create()(Notice);
 export default WrappedFirst;

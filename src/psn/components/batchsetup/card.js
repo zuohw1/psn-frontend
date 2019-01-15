@@ -3,12 +3,15 @@ import {
   Form, Input, Button, Alert, Select, Modal,
 } from 'antd';
 import First from './first-window';
-
+import Notice from './first-notice';
 
 const FormItem = Form.Item;
 
 class EmptyAttach extends React.Component {
-  state = { visible: false };
+  state = {
+    visible: false,
+    notice: false,
+  };
 
 
   // 第一個彈窗
@@ -28,6 +31,26 @@ class EmptyAttach extends React.Component {
     e.preventDefault();
     this.setState({
       visible: false,
+    });
+  };
+  // 第二个弹窗
+
+  showModal2 = () => {
+    this.setState({
+      notice: true,
+    });
+  };
+
+  handleOk2 = () => {
+    this.setState({
+      notice: false,
+    });
+  };
+
+  handleCancel2 = (e) => {
+    e.preventDefault();
+    this.setState({
+      notice: false,
     });
   };
 
@@ -63,7 +86,7 @@ class EmptyAttach extends React.Component {
     const apply = (item) => {
       return (<Option value={item.id} key={item.id}> {item.title} </Option>);
     };
-    const { visible } = this.state;
+    const { visible, notice } = this.state;
     return (
       <div className="addProfDivision">
         <Alert style={this.showAlert ? { display: 'block' } : { display: 'none' }} message="已有该分组，请重新添加！" type="warning" showIcon />
@@ -99,7 +122,7 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
-                onClick={this.showModal}
+                onClick={this.showModal2}
               />
             </FormItem>
           </li>
@@ -114,6 +137,7 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                onClick={this.showModal}
               />
             </FormItem>
           </li>
@@ -151,12 +175,21 @@ class EmptyAttach extends React.Component {
         </Button>
         <Modal
           width={800}
-          title="通知设置人员查询"
+          title=" "
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <First />
+        </Modal>
+        <Modal
+          width={800}
+          title="查找审批人"
+          visible={notice}
+          onOk={this.handleOk2}
+          onCancel={this.handleCancel2}
+        >
+          <Notice />
         </Modal>
       </div>
     );

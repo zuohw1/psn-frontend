@@ -1,8 +1,8 @@
-export function setModeShow(modal, formEdit) {
+export function setModeShow(modal) {
   return {
     type: 'batchSetup/stateWillUpdate',
     payload: {
-      modal, formEdit,
+      modal,
     },
   };
 }
@@ -35,6 +35,22 @@ export function isAddprofModalShow(addProfModal) {
     type: 'batchSetup/stateWillUpdate',
     payload: {
       addProfModal,
+    },
+  };
+}
+export function setQuery(addProfQuery) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      addProfQuery,
+    },
+  };
+}
+export function setVisible(isVisible) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      isVisible,
     },
   };
 }
