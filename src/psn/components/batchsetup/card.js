@@ -55,6 +55,8 @@ class EmptyAttach extends React.Component {
   };
 
   render() {
+    // const { form } = this.props;
+    // const { closeInsDrawer } = form;
     const respList = [];
     const respRange = [
       { id: '0', title: '部门综合处' },
@@ -80,7 +82,9 @@ class EmptyAttach extends React.Component {
         span: 16,
       },
     };
-    const addProfModalOk = () => {
+    const addProfModalOk = (e) => {
+      e.preventDefault();
+      // closeInsDrawer( );
     };
     const { Option } = Select;
     const apply = (item) => {

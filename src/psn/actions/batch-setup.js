@@ -54,3 +54,26 @@ export function setVisible(isVisible) {
     },
   };
 }
+export function listTable(loginName, respId, rangeId, currentPageNum, recordNum) {
+  return {
+    type: 'batchSetup/listTable',
+    payload: {
+      loginName, respId, rangeId, currentPageNum, recordNum,
+    },
+  };
+}
+export function deleteSortList(sort) {
+  return {
+    type: 'batchSetup/deleteSortList',
+    payload: {
+      sort,
+    },
+  };
+}
+export function closeInsDrawer() {
+  return {
+    type: 'batchSetup/closeInsDrawer',
+    payload: {
+    },
+  };
+}

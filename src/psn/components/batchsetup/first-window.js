@@ -92,19 +92,19 @@ class First extends React.Component {
     return (
       <div className="selectstaff">
         <Form className="queryform" layout="inline" onSubmit={this.handleSubmit}>
-          <span className="trans_modelTop_1">组织：
+          <FormItem
+            {...formItemLayout}
+            help=""
+            label="组织"
+          >
             <TreeSelect
               placeholder="请选择"
-              style={{
-                width: 200,
-                align: 'center',
-              }}
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
               treeData={treeData}
-              treeDefaultExpandAll
+              // treeDefaultExpandAll
               onChange={onChange}
             />
-          </span>
+          </FormItem>
           <FormItem
             {...formItemLayout}
             label="通知类型"

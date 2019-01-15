@@ -1,3 +1,5 @@
+import PostInstructionsService from '../services/batch-setup';
+
 export default {
   namespace: 'batchSetup',
   state: {
@@ -8,6 +10,7 @@ export default {
       current: 1,
       records: [
         {
+          key: '01',
           number: '1',
           notice: '信息化接口人',
           mailbox: 'yn@qq,com',
@@ -19,6 +22,7 @@ export default {
           Range: '中国联通总部管理部门[包含下属]',
         },
         {
+          key: '02',
           number: '2',
           notice: '信息化接口人',
           mailbox: 'jys@qq,com',
@@ -30,6 +34,7 @@ export default {
           Range: '周口市分公司[包含下属]',
         },
         {
+          key: '03',
           number: '3',
           notice: '部门综合处 ',
           mailbox: 'lf@qq,com',
@@ -41,6 +46,7 @@ export default {
           Range: '中国联通总部-信息化事业部[包含下属]',
         },
         {
+          key: '04',
           number: '4',
           notice: '部门综合处',
           mailbox: 'zxp@qq,com',
@@ -52,6 +58,7 @@ export default {
           Range: '中国联通总部-企业发展部[包含下属]',
         },
         {
+          key: '05',
           number: '5',
           notice: '部门综合处',
           mailbox: 'zj@qq,com',
@@ -66,6 +73,8 @@ export default {
       pages: 0,
     },
     modal: false,
+    visibleDrawer: false,
+    sortList: [],
   },
   reducers: {
     stateWillUpdate(state, { payload }) {
@@ -76,6 +85,27 @@ export default {
     },
   },
   effects: {
+    *deleteSortList({ payload: { sort } }, { call, put }) { // 主页面删除
+      if (sort.length > 0) {
+        const data0 = yield call(PostInstructionsService.delete, sort);
+        console.log(data0);
+        yield put({
+          type: 'stateWillUpdate',
+          payload: {
+            sortList: [],
+          },
+        });
+      }
+    },
+    *closeInsDrawer({ payload }, { put }) {
+      console.log(payload);
+      yield put({
+        type: 'stateWillUpdate',
+        payload: {
+          visibleDrawer: false,
+        },
+      });
+    },
   },
   subscriptions: {
   },

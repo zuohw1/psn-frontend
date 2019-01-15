@@ -4,9 +4,13 @@ import {
 } from 'antd';
 import Model from './card';
 import WrappedModify from './modify';
-import WrappedQuery from './query';
+// import WrappedQuery from './query';
+import config from '../../../env.config';
 
-export default (props) => {
+// const { Option } = Select;
+// const data2 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const data = ['jack', 'lucy', 'disabled', 'Yiminghe'];
+export default (state) => {
   const {
     tableData,
     search,
@@ -14,17 +18,28 @@ export default (props) => {
     form,
     modal,
     addProfModal,
-    addProfQuery,
     isPrimaryShow,
     primaryBusinessData,
     leftCardTree,
     showAlert,
-    state,
-
-  } = props;
+    // records,
+    // loginName,
+    // respId,
+    // rangeId,
+    recordNum,
+  } = state;
   const data = tableData.records;
+  // const sequenceChildren = [];
+  // const rankChildren = [];
+  // for (let i = 0; i < data.length; i += 1) {
+  //   sequenceChildren.push(<Option key={data[i]}>{ data[i] }</Option>);
+  // }
+  // for (let i = 0; i < data2.length; i += 1) {
+  //   rankChildren.push(<Option key={data2[i]}>{ data2[i] }</Option>);
+  // }
   const {
-    listTable, setModeShow, setQuery, isAlertShow, isAddprofModalShow,
+    listTable, setModeShow, isAlertShow, isAddprofModalShow,
+    // deleteSortList,
   } = actions;
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -58,19 +73,19 @@ export default (props) => {
   };
   // 查询
   const onClickView = () => {
-    setQuery(true, true);
   };
-  const onCancel2 = () => {
-    isAlertShow(false);
-    setQuery(false);
-  };
-  const handleOkl = () => {
-    setQuery(false);
-  };
+  // const onCancel2 = () => {
+  //   isAlertShow(false);
+  //   setQuery(false);
+  // };
+  // const handleOkl = () => {
+  //   setQuery(false);
+  // };
   // 保存
   const handleSave = () => {
+    const newData = [...data];
+    console.log(newData);
   };
-
   // 修改
   const onClickEdit = () => {
     isAddprofModalShow(true);
@@ -81,6 +96,10 @@ export default (props) => {
   };
   // 删除
   const onClickDelete = () => {
+    // deleteSortList(records);
+    // if (records.length > 0) {
+    //   listTable(loginName, respId, rangeId, current, recordNum);
+    // }
   };
   // 重置
   const handleReset = () => {
@@ -88,6 +107,24 @@ export default (props) => {
   };
   // 导出
   const handleExport = () => {
+    form.validateFields((err, values) => {
+      if (!err) {
+        // const recordNum = 10;
+        const currentPageNum = 1;
+        const select = { ...values, recordNum, currentPageNum };
+        let expUrl = `${config.api}/posElement/export?1=1`;
+        if (select.sequence && select.sequence !== '') {
+          expUrl += `&sequence=${select.sequence}`;
+        }
+        if (select.respName && select.respName !== '') {
+          expUrl += `&respName=${select.respName}`;
+        }
+        if (select.cRespName && select.cRespName !== '') {
+          expUrl += `&cRespName=${select.cRespName}`;
+        }
+        window.open(expUrl, '_self');
+      }
+    });
   };
   /* 列表字段 */
   const tableCols = [{
@@ -166,25 +203,25 @@ export default (props) => {
       >
         查询
       </Button>
-      <Modal
-        title="查询"
-        visible={addProfQuery}
-        onOk={handleOkl}
-        onCancel={onCancel2}
-        maskClosable={false}
-        destroyOnClose
-        width={1000}
-        footer={null}
-      >
-        <WrappedQuery
-          isPrimaryShow={isPrimaryShow}
-          actions={actions}
-          leftCardTree={leftCardTree}
-          primaryBusinessData={primaryBusinessData}
-          showAlert={showAlert}
-          {...state}
-        />
-      </Modal>
+      {/* <Modal */}
+      {/* title="查询" */}
+      {/* visible={addProfQuery} */}
+      {/* onOk={handleOkl} */}
+      {/* onCancel={onCancel2} */}
+      {/* maskClosable={false} */}
+      {/* destroyOnClose */}
+      {/* width={1000} */}
+      {/* footer={null} */}
+      {/* > */}
+      {/* <WrappedQuery */}
+      {/* isPrimaryShow={isPrimaryShow} */}
+      {/* actions={actions} */}
+      {/* leftCardTree={leftCardTree} */}
+      {/* primaryBusinessData={primaryBusinessData} */}
+      {/* showAlert={showAlert} */}
+      {/* {...state} */}
+      {/* /> */}
+      {/* </Modal> */}
       <Button
         type="primary"
         style={{ margin: '5px' }}

@@ -31,10 +31,17 @@ class Notice extends React.Component {
   ];
 
   render() {
-    const { form } = this.props;
-    const { getFieldDecorator } = form;
+    const { form, state } = this.props;
+    const { getFieldDecorator, searchNewTree } = form;
     const onChange = (value) => {
       console.log(value);
+    };
+    const handleReset = () => {
+      form.resetFields();
+    };
+    const onSearchNewTree = () => {
+      console.log(state.real);
+      searchNewTree(state.treeData[0].id, state.real);
     };
     const treeData = [{
       title: '中国联合网络通信集团有限公司',
@@ -73,19 +80,19 @@ class Notice extends React.Component {
     return (
       <div className="selectstaff">
         <Form className="queryform" layout="inline" onSubmit={this.handleSubmit}>
-          <span className="trans_modelTop_1">组织：
+          <FormItem
+            {...formItemLayout}
+            help=""
+            label="组织"
+          >
             <TreeSelect
               placeholder="请选择"
-              style={{
-                width: 158,
-                align: 'center',
-              }}
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
               treeData={treeData}
-              treeDefaultExpandAll
+              // treeDefaultExpandAll
               onChange={onChange}
             />
-          </span>
+          </FormItem>
           <FormItem
             {...formItemLayout}
             help=""
@@ -112,10 +119,10 @@ class Notice extends React.Component {
             )}
           </FormItem>
           <Button htmlType="submit">
-            <Icon type="search" />
+            <Icon type="search" onClick={onSearchNewTree} />
             查询
           </Button>
-          <Button htmlType="submit">
+          <Button htmlType="submit" onClick={handleReset}>
             清除
           </Button>
         </Form>
