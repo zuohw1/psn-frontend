@@ -1,8 +1,7 @@
 import React from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import Search from './search';
-import Personnel from './personnel-table';
-import Back from './backpay-table';
+import Personnel from './main-table';
 import '../../../assets/styles/module.less';
 
 const { Content } = Layout;
@@ -26,7 +25,6 @@ const quitPersonnel = (state) => {
       >
         <Search {...state} />
         <Personnel {...state} />
-        <Back {...state} />
       </Content>
     </React.Fragment>
   );
