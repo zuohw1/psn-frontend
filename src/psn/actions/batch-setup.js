@@ -77,3 +77,53 @@ export function closeInsDrawer() {
     },
   };
 }
+export function changeSortList(sort) {
+  return {
+    type: 'batchSetup/changeSortList',
+    payload: {
+      sort,
+    },
+  };
+}
+export function setAddPeople(addPeople) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      addPeople,
+    },
+  };
+}
+/* 获取选中记录 */
+export function getRecord(record) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      record,
+    },
+  };
+}
+/* 更新列表数据 */
+export function updateTable(dataRecord) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      dataRecord,
+    },
+  };
+}
+export function updateFirst(treeData) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      treeData,
+    },
+  };
+}
+export function updateSecond(respRange) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      respRange,
+    },
+  };
+}

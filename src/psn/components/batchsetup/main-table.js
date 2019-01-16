@@ -12,7 +12,7 @@ import config from '../../../env.config';
 // const data = ['jack', 'lucy', 'disabled', 'Yiminghe'];
 export default (state) => {
   const {
-    tableData,
+    dataRecord,
     search,
     actions,
     form,
@@ -22,33 +22,26 @@ export default (state) => {
     primaryBusinessData,
     leftCardTree,
     showAlert,
-    // records,
-    // loginName,
-    // respId,
-    // rangeId,
     recordNum,
+    formEdit,
+    refModal,
+    refSelectData,
+    record,
   } = state;
-  const data = tableData.records;
-  // const sequenceChildren = [];
-  // const rankChildren = [];
-  // for (let i = 0; i < data.length; i += 1) {
-  //   sequenceChildren.push(<Option key={data[i]}>{ data[i] }</Option>);
-  // }
-  // for (let i = 0; i < data2.length; i += 1) {
-  //   rankChildren.push(<Option key={data2[i]}>{ data2[i] }</Option>);
-  // }
   const {
-    listTable, setModeShow, isAlertShow, isAddprofModalShow,
-    // deleteSortList,
+    listTable,
+    setModeShow,
+    isAlertShow,
+    isAddprofModalShow,
+    updateTable,
+    getRecord,
   } = actions;
+  // const sort = [];
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+      console.log('selectedRows: ', selectedRows[0]);
+      getRecord(selectedRows);
     },
-    getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User', // Column configuration not to be checked
-      name: record.name,
-    }),
   };
   const onChange = (pageSize, pageNumber) => {
     const searchF = { ...search, pageSize, pageNumber };
@@ -58,7 +51,6 @@ export default (state) => {
     const searchF = { ...search, pageSize: size, pageNumber: current };
     listTable(searchF);
   };
-  const { current, total, size } = tableData;
   // 新增
   const onClickAdd = () => {
     setModeShow(true, true);
@@ -83,7 +75,7 @@ export default (state) => {
   // };
   // 保存
   const handleSave = () => {
-    const newData = [...data];
+    const newData = [...dataRecord];
     console.log(newData);
   };
   // 修改
@@ -96,10 +88,17 @@ export default (state) => {
   };
   // 删除
   const onClickDelete = () => {
-    // deleteSortList(records);
-    // if (records.length > 0) {
+    console.log(record);
+    console.log(record[0]);
+    const newRecord = record[0];
+    updateTable(dataRecord.filter(item => item.key !== newRecord.key));
+    console.log(dataRecord);
+    // deleteSortList(sortList);
+    // if (sortList.length > 0) {
     //   listTable(loginName, respId, rangeId, current, recordNum);
     // }
+    // setAddPeople(data.filter(item => item.count !== records.count));
+    // setCount(count - 1);
   };
   // 重置
   const handleReset = () => {
@@ -250,6 +249,7 @@ export default (state) => {
           leftCardTree={leftCardTree}
           primaryBusinessData={primaryBusinessData}
           showAlert={showAlert}
+          record={record}
         />
       </Modal>
       <Button
@@ -275,6 +275,11 @@ export default (state) => {
           leftCardTree={leftCardTree}
           primaryBusinessData={primaryBusinessData}
           showAlert={showAlert}
+          // record={record}
+          form={form}
+          formEdit={formEdit}
+          refModal={refModal}
+          refSelectData={refSelectData}
         />
       </Modal>
       <Button
@@ -300,7 +305,7 @@ export default (state) => {
       </Button>
       <Table
         columns={getFields()}
-        dataSource={data}
+        dataSource={dataRecord}
         bordered
         size="small"
         rowSelection={rowSelection}
@@ -310,9 +315,6 @@ export default (state) => {
 
       <Pagination
         showQuickJumper
-        current={current}
-        total={total}
-        pageSize={size}
         onChange={onChange}
         onShowSizeChange={onChangePageSize}
         showTotal={tota => `共${tota}条`}

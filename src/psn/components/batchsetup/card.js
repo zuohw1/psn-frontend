@@ -84,7 +84,7 @@ class EmptyAttach extends React.Component {
     };
     const addProfModalOk = (e) => {
       e.preventDefault();
-      // closeInsDrawer( );
+      // closeInsDrawer();
     };
     const { Option } = Select;
     const apply = (item) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Input, Button, Alert, Select, Modal,
+  Form, Input, Button, Alert, Modal,
 } from 'antd';
 import First from './first-window';
 
@@ -10,19 +10,14 @@ const FormItem = Form.Item;
 class EmptyAttach extends React.Component {
   state = {
     visible: false,
+    Records: [],
+    // newRecord: {},
   };
-
 
   // 第一個彈窗
   showModal = () => {
     this.setState({
       visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({
-      visible: false,
     });
   };
 
@@ -32,6 +27,12 @@ class EmptyAttach extends React.Component {
       visible: false,
     });
   };
+
+  show(records) {
+    this.setState({
+      Records: records,
+    });
+  }
 
   render() {
     const respList = [];
@@ -59,13 +60,45 @@ class EmptyAttach extends React.Component {
         span: 16,
       },
     };
+    const { visible, Records } = this.state;
+    const { record } = this.props;
+
+    const newRecord = record[0];
+
+    let add = '';
+    const newRecords = Records[0];
+    const handleOk = () => {
+      if (newRecord.Range && newRecord.Range !== newRecords.id) {
+        for (let i = 0; i < Records.length; i += 1) {
+          // noinspection JSAnnotator
+          add += Records[i].id;
+        }
+        newRecord.Range = add;
+      }
+      this.setState({
+        visible: false,
+      });
+    };
+
+    let valueOne = '';
+    const onChangeOne = (e) => {
+      const values = e.target.value;
+      valueOne = values;
+    };
+    let valueTwo = '';
+    const onChangeTwo = (e) => {
+      const values = e.target.value;
+      valueTwo = values;
+    };
     const addProfModalOk = () => {
+      alert('ddd');
+      const newData = {
+        Range: add,
+        mailbox: valueOne,
+        system: valueTwo,
+      };
+      console.log(newData);
     };
-    const { Option } = Select;
-    const apply = (item) => {
-      return (<Option value={item.id} key={item.id}> {item.title} </Option>);
-    };
-    const { visible } = this.state;
     return (
       <div className="addProfDivision">
         <Alert style={this.showAlert ? { display: 'block' } : { display: 'none' }} message="已有该分组，请重新添加！" type="warning" showIcon />
@@ -77,17 +110,7 @@ class EmptyAttach extends React.Component {
               help=""
             >
               <span className="conditionContainerItem4">
-                <Select
-                  placeholder="请选择"
-                  allowClear
-                  style={{
-                    width: 300,
-                  }}
-                >
-                  {
-                    respList.map(apply)
-                  }
-                </Select>
+                {newRecord.notice}
               </span>
             </FormItem>
           </li>
@@ -101,6 +124,7 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                value={`${newRecord.name}`}
               />
             </FormItem>
           </li>
@@ -116,6 +140,7 @@ class EmptyAttach extends React.Component {
                   width: 300,
                 }}
                 onClick={this.showModal}
+                value={`${newRecord.Range}`}
               />
             </FormItem>
           </li>
@@ -130,6 +155,8 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                defaultValue={`${newRecord.mailbox}`}
+                onChange={e => onChangeOne(e)}
               />
             </FormItem>
           </li>
@@ -144,6 +171,8 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                defaultValue={`${newRecord.system}`}
+                onChange={e => onChangeTwo(e)}
               />
             </FormItem>
           </li>
@@ -155,17 +184,17 @@ class EmptyAttach extends React.Component {
             />
           </li>
         </ul>
-        <Button key="submit" type="primary" onClick={e => addProfModalOk(e)}>
+        <Button htmlType="button" type="primary" onClick={() => addProfModalOk}>
           保存
         </Button>
         <Modal
           width={800}
           title=" "
           visible={visible}
-          onOk={this.handleOk}
+          onOk={handleOk}
           onCancel={this.handleCancel}
         >
-          <First />
+          <First getMsg={this.show.bind(this)} />
         </Modal>
       </div>
     );
