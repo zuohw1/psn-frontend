@@ -1,68 +1,48 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, TreeSelect, Tree, Checkbox, Button,
+  Form, Row, Col, Input, Checkbox, Button,
 } from 'antd';
+import SyncTreeSelect from '../../../components/sync-tree-select';
 
 const FormItem = Form.Item;
-const InputGroup = Input.Group;
 export default (state) => {
   const {
     form,
-    expand,
     actions,
   } = state;
   const { getFieldDecorator } = form;
   const { listTable } = actions;
-  const { TreeNode } = Tree;
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = () => {
+    // e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
-        const pageSize = 10;
-        const pageNumber = 1;
-        const select = { ...values, pageSize, pageNumber };
+        const recordNum = 10;
+        const currentPageNum = 1;
+        const select = { ...values, recordNum, currentPageNum };
         listTable(select);
       }
     });
   };
+  const refUrl = 'empBasicV1/getPayForEmps?currentPageNum=1&recordNum=4&orgId=';
   const treeSelectChange = (value, label, extra) => {
     form.setFieldsValue({
-      orgid: `${extra.triggerNode.props.id}`,
+      orgName: `${extra.triggerNode.props.id}`,
     });
-  };
-  const refUrl = 'org/allData?id=';
-  const renderTreeNodes = () => {
-    return (
-      <TreeNode value="parent" title="中国联合网络有限公司" key="0-1">
-        <TreeNode value="parent 1-0" title="中国联通总部管理部门" key="0-1-1">
-          <TreeNode value="parent 1-1-1" title="中国联通总部-综合部（董事会办公室）" key="0-1-1-1">
-            <TreeNode value="leaf1" title="中国联通总部-综合部" key="random" />
-            <TreeNode value="leaf2" title="中国联通总部-综合部" key="random1" />
-          </TreeNode>
-        </TreeNode>
-        <TreeNode value="parent 1-1" title="中国联通总部-办公厅" key="random2">
-          <TreeNode value="sss" title="中国联通总部-办公厅" key="random3" />
-        </TreeNode>
-      </TreeNode>
-    );
   };
   /* 查询字段 */
   const queryCols = [{
-    itemName: '组织名称', itemKey: 'orgname', itemType: 'OrgSelect', required: false,
+    itemName: '组织名称', itemKey: 'orgName', itemType: 'OrgSelect', required: false,
   }, {
-    itemName: '员工编号', itemKey: 'Employee', itemType: 'String', required: false,
+    itemName: '员工编号', itemKey: 'employeeNum', itemType: 'String', required: false,
   }, {
-    itemName: '姓名', itemKey: 'name', itemType: 'String', required: false,
-  }, {
-    itemName: '身份证号', itemKey: 'idNumber', itemType: 'String', required: false,
+    itemName: '姓名', itemKey: 'employeeName', itemType: 'String', required: false,
   }];
   function getFields() {
-    const count = expand ? queryCols.length : 6;
     const children = [];
     for (let i = 0; i < queryCols.length; i += 1) {
       if (queryCols[i].itemType === 'String') {
         children.push(
-          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+          <Col span={6} key={i} style={{ display: 'block' }}>
             <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey, {
                 rules: [{
@@ -70,7 +50,7 @@ export default (state) => {
                   message: '不能为空',
                 }],
               })(
-                <Input placeholder="请输入" />,
+                <Input placeholder="请输入" style={{ width: 220 }} />,
               )
               }
             </FormItem>
@@ -78,23 +58,19 @@ export default (state) => {
         );
       } else if (queryCols[i].itemType === 'OrgSelect') {
         children.push(
-          <Col span={6} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+          <Col span={6} key={i} style={{ display: 'block' }}>
             <FormItem label={queryCols[i].itemName} labelCol={{ span: 6 }}>
               {getFieldDecorator(queryCols[i].itemKey)(
-                <InputGroup>
-                  <TreeSelect
-                    treeId={37838}
-                    refUrl={refUrl}
-                    treeSelectChange={treeSelectChange}
-                    placeholder="请选择"
-                    allowClear
-                    treeDefaultExpandAll
-                    style={{ width: 220 }}
-                  >
-                    {renderTreeNodes(state.orgTree)}
-                  </TreeSelect>,
-                  <Checkbox defaultChecked /> 是否包含下层组织
-                </InputGroup>,
+                <SyncTreeSelect
+                  treeId={37838}
+                  treeSelectChange={treeSelectChange}
+                  refUrl={refUrl}
+                  placeholder="请选择"
+                  allowClear
+                />,
+              )}
+              {getFieldDecorator('levelType')(
+                <Checkbox defaultChecked> 是否包含下层组织</Checkbox>,
               )}
             </FormItem>
           </Col>,
@@ -102,7 +78,7 @@ export default (state) => {
       }
     }
     children.push(
-      <Col span={24} key={count + 5} style={{ textAlign: 'right', marginTop: 5 }}>
+      <Col span={6} style={{ textAlign: 'center', marginTop: 5 }}>
         <Button htmlType="submit">查询</Button>
       </Col>,
     );
@@ -114,10 +90,8 @@ export default (state) => {
         className="ant-advanced-search-form"
         style={{ padding: 10 }}
         onSubmit={handleSearch}
-        layout="inline"
       >
         <Row gutter={24}>{getFields()}</Row>
-        <Row gutter={24} />
       </Form>
     </div>
   );
