@@ -6,33 +6,47 @@ import {
 const FormItem = Form.Item;
 
 class Notice extends React.Component {
+  state = {
+    rowRecord: '',
+  };
+
   colums=[
     {
       title: '员工编码',
-      dataIndex: 'key',
-      key: 'key',
+      dataIndex: 'Code',
+      key: 'Code',
       align: 'center',
     },
     {
       title: '员工姓名',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'name',
+      key: 'name',
       align: 'center',
     },
     {
       title: '所属组织',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'organization',
+      key: 'organization',
       align: 'center',
     },
   ];
 
   dataSource=[
+    {
+      Code: '0012',
+      name: '尹楠',
+      organization: '联通系统集成有限公司-客户服务与支撑部',
+    },
   ];
 
   render() {
-    const { form, state } = this.props;
-    const { getFieldDecorator, searchNewTree } = form;
+    const { rowRecord } = this.state;
+    const { form, getRecordMsg } = this.props;
+    const onClickView = (row) => {
+      getRecordMsg(row.name);
+    };
+    console.log(rowRecord);
+    const { getFieldDecorator } = form;
     const onChange = (value) => {
       console.log(value);
     };
@@ -40,8 +54,8 @@ class Notice extends React.Component {
       form.resetFields();
     };
     const onSearchNewTree = () => {
-      console.log(state.real);
-      searchNewTree(state.treeData[0].id, state.real);
+      // console.log(state.real);
+      // searchNewTree(state.treeData[0].id, state.real);
     };
     const treeData = [{
       title: '中国联合网络通信集团有限公司',
@@ -126,7 +140,18 @@ class Notice extends React.Component {
             清除
           </Button>
         </Form>
-        <Table bordered columns={this.colums} dataSource={this.dataSource} />
+        <Table
+          bordered
+          columns={this.colums}
+          dataSource={this.dataSource}
+          onRow={(records) => {
+            return {
+              onClick: () => {
+                onClickView(records);
+              },
+            };
+          }}
+        />
         <Pagination
           showQuickJumper
           showSizeChanger

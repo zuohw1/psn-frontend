@@ -1,29 +1,27 @@
 import React from 'react';
 import {
-  Form, Input, Button, Alert, Select, Modal,
+  Form, Input, Button, Alert, Modal, Select,
 } from 'antd';
 import First from './first-window';
 import Notice from './first-notice';
+
 
 const FormItem = Form.Item;
 
 class EmptyAttach extends React.Component {
   state = {
     visible: false,
-    notice: false,
+    Records: [],
+    Range: '',
+    rowRecords: '',
+    count: 6,
+    notices: '',
   };
-
 
   // 第一個彈窗
   showModal = () => {
     this.setState({
       visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({
-      visible: false,
     });
   };
 
@@ -41,11 +39,6 @@ class EmptyAttach extends React.Component {
     });
   };
 
-  handleOk2 = () => {
-    this.setState({
-      notice: false,
-    });
-  };
 
   handleCancel2 = (e) => {
     e.preventDefault();
@@ -54,9 +47,19 @@ class EmptyAttach extends React.Component {
     });
   };
 
+  rowRecord(records) {
+    this.setState({
+      rowRecords: records,
+    });
+  }
+
+  show(records) {
+    this.setState({
+      Records: records,
+    });
+  }
+
   render() {
-    // const { form } = this.props;
-    // const { closeInsDrawer } = form;
     const respList = [];
     const respRange = [
       { id: '0', title: '部门综合处' },
@@ -82,15 +85,71 @@ class EmptyAttach extends React.Component {
         span: 16,
       },
     };
-    const addProfModalOk = (e) => {
-      e.preventDefault();
-      // closeInsDrawer();
-    };
     const { Option } = Select;
     const apply = (item) => {
       return (<Option value={item.id} key={item.id}> {item.title} </Option>);
     };
-    const { visible, notice } = this.state;
+    const {
+      visible, Records, notice, Range, rowRecords, count, notices,
+    } = this.state;
+    const {
+      isNewModalShowone, updateTable, dataRecord,
+    } = this.props;
+
+
+    let add = '';
+    const handleOk = () => {
+      for (let i = 0; i < Records.length; i += 1) {
+        add += Records[i].id;
+      }
+      this.setState({
+        Range: add,
+        visible: false,
+      });
+    };
+
+    const handleOk2 = () => {
+      this.setState({
+        notice: false,
+      });
+    };
+
+    let valueOne = '';
+    const onChangeOne = (e) => {
+      const values = e.target.value;
+      valueOne = values;
+    };
+    let valueTwo = '';
+    const onChangeTwo = (e) => {
+      const values = e.target.value;
+      valueTwo = values;
+    };
+
+    const handleTreeSelect = (selectedKeys, info) => {
+      console.log(info);
+      const titleType = info.props.children[1];
+      console.log(titleType);
+      this.setState({
+        notices: titleType,
+      });
+    };
+    const addProfModalOk = () => {
+      isNewModalShowone(false);
+      const newData = {
+        key: count,
+        mailbox: valueOne,
+        name: rowRecords,
+        system: valueTwo,
+        Range,
+        notice: notices,
+        Code: '0003889',
+        organization: '中国联通总部-信息化事业部-综合管理处',
+      };
+      this.setState({
+        count: count + 1,
+      });
+      updateTable([...dataRecord, newData]);
+    };
     return (
       <div className="addProfDivision">
         <Alert style={this.showAlert ? { display: 'block' } : { display: 'none' }} message="已有该分组，请重新添加！" type="warning" showIcon />
@@ -108,10 +167,11 @@ class EmptyAttach extends React.Component {
                   style={{
                     width: 300,
                   }}
+                  onSelect={handleTreeSelect}
                 >
                   {
-                  respList.map(apply)
-                }
+                    respList.map(apply)
+                  }
                 </Select>
               </span>
             </FormItem>
@@ -127,6 +187,7 @@ class EmptyAttach extends React.Component {
                   width: 300,
                 }}
                 onClick={this.showModal2}
+                value={rowRecords}
               />
             </FormItem>
           </li>
@@ -142,6 +203,7 @@ class EmptyAttach extends React.Component {
                   width: 300,
                 }}
                 onClick={this.showModal}
+                value={`${Range}`}
               />
             </FormItem>
           </li>
@@ -156,6 +218,7 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                onChange={e => onChangeOne(e)}
               />
             </FormItem>
           </li>
@@ -170,30 +233,33 @@ class EmptyAttach extends React.Component {
                 style={{
                   width: 300,
                 }}
+                onChange={e => onChangeTwo(e)}
               />
             </FormItem>
           </li>
         </ul>
-        <Button key="submit" type="primary" onClick={e => addProfModalOk(e)}>
+        <Button htmlType="button" type="primary" onClick={addProfModalOk}>
           保存
         </Button>
         <Modal
           width={800}
           title=" "
           visible={visible}
-          onOk={this.handleOk}
+          onOk={handleOk}
           onCancel={this.handleCancel}
         >
-          <First />
+          <First getMsg={this.show.bind(this)} />
         </Modal>
         <Modal
           width={800}
           title="查找审批人"
           visible={notice}
-          onOk={this.handleOk2}
+          onOk={handleOk2}
           onCancel={this.handleCancel2}
         >
-          <Notice />
+          <Notice
+            getRecordMsg={this.rowRecord.bind(this)}
+          />
         </Modal>
       </div>
     );

@@ -1,14 +1,15 @@
 import PostInstructionsService from '../services/batch-setup';
 
+// noinspection JSAnnotator
 export default {
   namespace: 'batchSetup',
   state: {
     /* 选中记录 */
-    record: {},
+    record: [],
     /* 列表数据 */
     dataRecord: [
       {
-        key: '01',
+        key: '1',
         number: '1',
         notice: '信息化接口人',
         mailbox: 'yn@qq,com',
@@ -20,7 +21,7 @@ export default {
         Range: '中国联通总部管理部门[包含下属]',
       },
       {
-        key: '02',
+        key: '2',
         number: '2',
         notice: '信息化接口人',
         mailbox: 'jys@qq,com',
@@ -32,7 +33,7 @@ export default {
         Range: '周口市分公司[包含下属]',
       },
       {
-        key: '03',
+        key: '3',
         number: '3',
         notice: '部门综合处 ',
         mailbox: 'lf@qq,com',
@@ -44,7 +45,7 @@ export default {
         Range: '中国联通总部-信息化事业部[包含下属]',
       },
       {
-        key: '04',
+        key: '4',
         number: '4',
         notice: '部门综合处',
         mailbox: 'zxp@qq,com',
@@ -56,7 +57,7 @@ export default {
         Range: '中国联通总部-企业发展部[包含下属]',
       },
       {
-        key: '05',
+        key: '5',
         number: '5',
         notice: '部门综合处',
         mailbox: 'zj@qq,com',

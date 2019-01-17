@@ -35,23 +35,6 @@ class EmptyAttach extends React.Component {
   }
 
   render() {
-    const respList = [];
-    const respRange = [
-      { id: '0', title: '部门综合处' },
-      { id: '1', title: '信息化接口人' },
-      { id: '2', title: '人力核心' },
-      { id: '3', title: '主数据' },
-      { id: '4', title: '云门户' },
-      { id: '5', title: '各个系统' }];
-    if (respList.length === 0) {
-      for (let i = 0; i < respRange.length; i += 1) {
-        const respV = {
-          id: respRange[i].id,
-          title: respRange[i].title,
-        };
-        respList.push(respV);
-      }
-    }
     const formItemLayout = {
       labelCol: {
         span: 8,
@@ -61,7 +44,7 @@ class EmptyAttach extends React.Component {
       },
     };
     const { visible, Records } = this.state;
-    const { record } = this.props;
+    const { record, dataRecord, isAddprofModalShow } = this.props;
 
     const newRecord = record[0];
 
@@ -70,7 +53,6 @@ class EmptyAttach extends React.Component {
     const handleOk = () => {
       if (newRecord.Range && newRecord.Range !== newRecords.id) {
         for (let i = 0; i < Records.length; i += 1) {
-          // noinspection JSAnnotator
           add += Records[i].id;
         }
         newRecord.Range = add;
@@ -80,6 +62,7 @@ class EmptyAttach extends React.Component {
       });
     };
 
+    console.log(newRecord.Range);
     let valueOne = '';
     const onChangeOne = (e) => {
       const values = e.target.value;
@@ -90,14 +73,12 @@ class EmptyAttach extends React.Component {
       const values = e.target.value;
       valueTwo = values;
     };
+
     const addProfModalOk = () => {
-      alert('ddd');
-      const newData = {
-        Range: add,
-        mailbox: valueOne,
-        system: valueTwo,
-      };
-      console.log(newData);
+      isAddprofModalShow(false);
+      newRecord.mailbox = valueOne;
+      newRecord.system = valueTwo;
+      dataRecord.filter(item => item.key !== newRecord.key);
     };
     return (
       <div className="addProfDivision">
@@ -184,7 +165,7 @@ class EmptyAttach extends React.Component {
             />
           </li>
         </ul>
-        <Button htmlType="button" type="primary" onClick={() => addProfModalOk}>
+        <Button htmlType="button" type="primary" onClick={addProfModalOk}>
           保存
         </Button>
         <Modal

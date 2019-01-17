@@ -38,6 +38,14 @@ export function isAddprofModalShow(addProfModal) {
     },
   };
 }
+export function isNewModalShow(modal) {
+  return {
+    type: 'batchSetup/stateWillUpdate',
+    payload: {
+      modal,
+    },
+  };
+}
 export function setQuery(addProfQuery) {
   return {
     type: 'batchSetup/stateWillUpdate',
