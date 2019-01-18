@@ -24,9 +24,6 @@ export default class MainTable extends React.Component {
       leftCardTree,
       showAlert,
       recordNum,
-      // formEdit,
-      // refModal,
-      // refSelectData,
       record,
     } = this.props;
     console.log(record);
@@ -39,7 +36,6 @@ export default class MainTable extends React.Component {
       updateTable,
       getRecord,
     } = actions;
-    // const sort = [];
     const rowSelection = {
       onChange: (selectedRowKeys, selectedRows) => {
         console.log('selectedRows: ', selectedRows[0]);
@@ -69,14 +65,6 @@ export default class MainTable extends React.Component {
     // 查询
     const onClickView = () => {
     };
-    // const onCancel2 = () => {
-    //   isAlertShow(false);
-    //   setQuery(false);
-    // };
-    // const handleOkl = () => {
-    //   setQuery(false);
-    // };
-    // 保存
     const handleSave = () => {
       const newData = [...dataRecord];
       console.log(newData);
@@ -85,9 +73,9 @@ export default class MainTable extends React.Component {
     const onClickEdit = () => {
       console.log(record);
       if (record.length === 0) {
-        alert('请选择修改内容!');
+        alert('请选择要修改的信息!');
       } else if (record.length > 1) {
-        alert('修改内容只能选择一个!');
+        alert('请选中一条要修改的信息!');
       } else {
         isAddprofModalShow(true);
       }
@@ -98,17 +86,8 @@ export default class MainTable extends React.Component {
     };
     // 删除
     const onClickDelete = () => {
-      console.log(record);
-      console.log(record[0]);
       const newRecord = record[0];
       updateTable(dataRecord.filter(item => item.key !== newRecord.key));
-      console.log(dataRecord);
-      // deleteSortList(sortList);
-      // if (sortList.length > 0) {
-      //   listTable(loginName, respId, rangeId, current, recordNum);
-      // }
-      // setAddPeople(data.filter(item => item.count !== records.count));
-      // setCount(count - 1);
     };
     // 重置
     const handleReset = () => {
@@ -213,25 +192,6 @@ export default class MainTable extends React.Component {
         >
           查询
         </Button>
-        {/* <Modal */}
-        {/* title="查询" */}
-        {/* visible={addProfQuery} */}
-        {/* onOk={handleOkl} */}
-        {/* onCancel={onCancel2} */}
-        {/* maskClosable={false} */}
-        {/* destroyOnClose */}
-        {/* width={1000} */}
-        {/* footer={null} */}
-        {/* > */}
-        {/* <WrappedQuery */}
-        {/* isPrimaryShow={isPrimaryShow} */}
-        {/* actions={actions} */}
-        {/* leftCardTree={leftCardTree} */}
-        {/* primaryBusinessData={primaryBusinessData} */}
-        {/* showAlert={showAlert} */}
-        {/* {...state} */}
-        {/* /> */}
-        {/* </Modal> */}
         <Button
           type="primary"
           style={{ margin: '5px' }}

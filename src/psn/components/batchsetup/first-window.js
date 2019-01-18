@@ -54,13 +54,13 @@ class First extends React.Component {
       };
       const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
-          console.log('selectedRows: ', selectedRows);
+          // console.log('selectedRows: ', selectedRows);
           getMsg(selectedRows);
           this.setState({ records: selectedRows });
         },
       };
       const onClickDelete = () => {
-        console.log(records);
+        // console.log(records);
         const dataSource = [...data];
         for (let i = 0; i < dataSource.length; i += 1) {
           for (let j = 0; j < records.length; j += 1) {
@@ -69,13 +69,7 @@ class First extends React.Component {
             }
             this.setState({ data: dataSource });
           }
-        // this.setState({ data: dataSource.filter(item => item.key !== records[i].key) });
         }
-      // console.log(record[0]);
-      // const newRecord = record;
-      // updateFirst(treeData.filter(item => item.key !== newRecord.key));
-      // updateSecond(respRange.filter(item => item.key !== newRecord.key));
-      // console.log(dataRecord);
       };
 
 
