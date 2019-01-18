@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Form, Row, Col, Input, Button, Icon, Select, Modal,
+  Form, Row, Col, Input, Button, Icon, Select,
 } from 'antd';
 
 import SearchTable from '../../../components/search-table';
@@ -23,29 +23,29 @@ export default (props) => {
   const { listTable, setToggle, updateOrgRefModelShow } = actions;
 
   /* 组织参照部分 */
-  const onOrgRefOk = () => {
-    form.setFieldsValue({
-      org_id: `${refSelectData.orgId}`,
-      orgName: `${refSelectData.orgName}`,
-    });
-    updateOrgRefModelShow(false);
-  };
+  // const onOrgRefOk = () => {
+  //   form.setFieldsValue({
+  //     org_id: `${refSelectData.orgId}`,
+  //     orgName: `${refSelectData.orgName}`,
+  //   });
+  //   updateOrgRefModelShow(false);
+  // };
 
-  const onOrgRefCancel = (e) => {
-    e.preventDefault();
-    updateOrgRefModelShow(false);
-  };
+  // const onOrgRefCancel = (e) => {
+  //   //   e.preventDefault();
+  //   //   updateOrgRefModelShow(false);
+  //   // };
 
   const onOrgRefClick = () => {
     updateOrgRefModelShow(true);
   };
 
-  const orgRefUrl = 'empMgr/queryOrgListByName';
+  const orgRefUrl = 'empMgr/queryOrgListByName?';
 
-  const rowSelection = {
-    columnWidth: '30px',
-    type: 'radio',
-  };
+  // const rowSelection = {
+  //   columnWidth: '30px',
+  //   type: 'radio',
+  // };
 
   const orgRefColumns = [{
     title: '序号',
@@ -61,7 +61,7 @@ export default (props) => {
     width: 400,
   }];
 
-  const orgRefCodes = [{ code: 'orgId', refcode: 'orgId' }, { code: 'orgName', refcode: 'orgName' }];
+  const orgRefCodes = [{ code: 'org_id', refcode: 'orgId' }, { code: 'orgName', refcode: 'orgName' }];
   /* 组织参照部分end */
   const handleSearch = (e) => {
     e.preventDefault();
@@ -198,25 +198,16 @@ export default (props) => {
       >
         <Row gutter={24}>{getFields()}</Row>
       </Form>
-      <Modal
-        title="组织"
-        visible={refModal}
-        maskClosable={false}
-        onCancel={onOrgRefCancel}
-        onOk={onOrgRefOk}
-        bodyStyle={{ padding: '12px' }}
-        width="700px"
-      >
-        <SearchTable
-          refUrl={orgRefUrl}
-          rowSelection={rowSelection}
-          columns={orgRefColumns}
-          placeholder="请输入组织名称"
-          refSelectData={refSelectData}
-          refCodes={orgRefCodes}
-          onConfirm={onOrgRefOk}
-        />
-      </Modal>
+      <SearchTable
+        refModal={refModal}
+        setRefModeShow={updateOrgRefModelShow}
+        parentForm={form}
+        refUrl={orgRefUrl}
+        columns={orgRefColumns}
+        placeholder="请输入组织名称"
+        refSelectData={refSelectData}
+        refCodes={orgRefCodes}
+      />
     </React.Fragment>
   );
 };

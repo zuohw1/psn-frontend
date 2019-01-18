@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars,semi,no-debugger */
 import React from 'react';
 import {
   Form, Input, Select, DatePicker, InputNumber,
@@ -93,7 +93,7 @@ export default ({
     }
     if (item.itemType === 'Input') {
       return (getFieldDecorator(item.itemkey, { initialValue: getColumnVal(item), rules })(
-        <Input style={{ width: '80%' }} />,
+        <Input style={{ width: '80%' }} readOnly={item.editflag === 'N'} />,
       ));
     } else if (item.itemType === 'Select') {
       if (item.itemkey === 'joinCucChannelNew') {
@@ -154,21 +154,36 @@ export default ({
    */
   const getColumnVal = (item) => {
     let ret = '';
-    // const key = replaceUnderLine(itemKey);
+    if (item.itemkey in editEmpBasicDetail) {
+      ret = editEmpBasicDetail[item.itemkey];
+    }
+    return ret;
+  };
+
+  /**
+   *  供直接显示用
+   * @param item
+   * @returns {string}
+   */
+  const getColumnValName = (item) => {
+    let ret = '';
     const specificFields = ['CNC_JRZTJ', 'CUC_JRTJ', 'CUC_JRZTJ', 'CUC_JRTJSM'];
     if (item.itemkey in editEmpBasicDetail) {
       if (item.itemType === 'Select') {
-        if (specificFields.indexOf(item.selectType) !== -1) {
+        if (specificFields.indexOf(item.itemkey) >= 0) {
           ret = editEmpBasicDetail[item.itemkey];
         } else {
           ret = editEmpBasicDetail[(`${item.itemkey}Name`)];
+          if (ret === undefined) {
+            ret = '';
+          }
         }
       } else {
         ret = editEmpBasicDetail[item.itemkey];
       }
     }
     // 对加入途径相关字段单独处理
-
+    console.log('getColumnValName', ret);
     return ret;
   };
 
@@ -202,7 +217,7 @@ export default ({
           <tr key={(i + 10)} style={{ display: item.showFlag === 'Y' ? '' : 'none' }}>
             <td>&nbsp;&nbsp;<b>{item.showName}:</b></td>
             <td style={{ paddingLeft: '20px' }}>
-              {getColumnVal(item)}
+              {getColumnValName(item)}
             </td>
             <td style={{ paddingLeft: '20px' }}>
               <Form.Item>
@@ -240,8 +255,8 @@ export default ({
                 <Form.Item>
                   {getFieldDecorator('opt', { initialValue: 'CORRECTION' })(
                     <Select style={{ width: '80%', marginLeft: '20px' }} onChange={onOptionChange}>
-                      <Option value="CORRECTION" key="corrections">更正</Option>
-                      <Option value="UPDATE" key="update">更新</Option>
+                      <Option value="CORRECTION" key="CORRECTION">更正</Option>
+                      <Option value="UPDATE" key="UPDATE">更新</Option>
                     </Select>,
                   )}
                 </Form.Item>

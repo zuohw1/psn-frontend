@@ -133,7 +133,7 @@ export default {
     lastSetQueryItems: ['sex', 'nation', 'politicsLandscapeName'],
     modal: false,
     refModal: false,
-    refSelectData: [],
+    refSelectData: {},
     expand: false, // 查询条件是否展开
     formEdit: true,
     record: {},

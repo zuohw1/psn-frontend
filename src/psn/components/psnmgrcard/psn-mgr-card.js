@@ -1,27 +1,26 @@
-/* eslint-disable no-debugger */
-
 import React from 'react';
 import {
   Row, Col, Tabs, Table, Button, Divider, Modal,
 } from 'antd';
 // import request from '../../../utils/request';
 import BasicForm from './basic-info-edit';
+import SubInfoEditForm from './sub-info-edit';
 /*
  员工信息维护卡片
  @autor:zhanggang
- @date：2018-11-27
+ @date：2019-01-17
  */
 export default ({
   record, actions, detailRecord, infoSetList, form, modal,
   templateData, editEmpBasicDetail, selectRefData, empBasicUptState, jRTJRefData,
-  jRZTJRefData, jRTJSMRefData,
+  jRZTJRefData, jRTJSMRefData, currentInfoSet, subCardModel, subInfoData,
 }) => {
   const { personId } = record;
 
   const {
     queryDetailDataByPersonId, isModeShow,
     queryBillTemplateDataS, queryPsnEmpBasicDetailByPersonId, querySelectData, updateBasicInfo,
-    queryJRTJRefData,
+    queryJRTJRefData, querySubInfoDataById, updateSubCardModel,
   } = actions;
 
   const { TabPane } = Tabs;
@@ -40,7 +39,6 @@ export default ({
     queryPsnEmpBasicDetailByPersonId(personId);
     querySelectData('emp-mgr-basicinfo-edit');
     queryJRTJRefData();
-    // 弹出基本信息编辑框
     isModeShow(true, true);
   };
 
@@ -69,9 +67,17 @@ export default ({
     console.log('---------', row);
   };
 
-  const onClickEdit = (text, row) => {
-    console.log('-----text----', text);
-    console.log('---------', row);
+  const onClickEdit = (row, infoset) => {
+    if (infoset === 'EMP_EDUCATIONS') {
+      // 查询单据模板数据
+      queryBillTemplateDataS('emp-mgr-eduinfo-edit');
+      // 查询待编辑的数据
+      querySubInfoDataById({ pk: row.pk, infoSetType: infoset });
+      // 查询档案数据
+      querySelectData('emp-mgr-eduinfo-edit');
+      // 打开对话框
+      updateSubCardModel(true, true);
+    }
   };
 
   const onClickDelete = (text, row) => {
@@ -132,11 +138,11 @@ export default ({
         width: 240,
         render: (text, row) => (
           <span>
-            <a href=" javascript:;" onClick={() => onClickView(text, row)}>查看</a>
+            <a href=" javascript:;" onClick={() => onClickView(row)}>查看</a>
             <Divider type="vertical" />
-            <a href=" javascript:;" onClick={() => onClickEdit(text, row)}>修改</a>
+            <a href=" javascript:;" onClick={() => onClickEdit(row, 'EMP_EDUCATIONS')}>修改</a>
             <Divider type="vertical" />
-            <a href=" javascript:;" onClick={() => onClickDelete(text, row)}>删除</a>
+            <a href=" javascript:;" onClick={() => onClickDelete(row)}>删除</a>
           </span>
         ),
       },
@@ -456,29 +462,88 @@ export default ({
       ]);
   };
 
+  /**
+   *  提交动作：除了单据模板配置的基础校验外，增加两个单独的规则校验：
+   *  1.操作类型选择‘更新’时，需要校验更新日期晚于历史数据的生效日期，且不能大于当前系统日期。
+   *  2.如果界面的数据没有修改，则不允许提交(提交会走流程，老系统也有此逻辑，故增加)
+   */
+
+  const formatRecord = (record1) => {
+    const format = {
+      ...record1,
+      dateOfBirth: record1.dateOfBirth === undefined ? '' : record1.dateOfBirth.format('YYYY-MM-DD'),
+      planOfRetirementDate: record1.planOfRetirementDate === undefined ? '' : record1.planOfRetirementDate.format('YYYY-MM-DD'),
+      initialJobStartDate: record1.initialJobStartDate === undefined ? '' : record1.initialJobStartDate.format('YYYY-MM-DD'),
+      workingAgesStartDate: record1.workingAgesStartDate === undefined ? '' : record1.workingAgesStartDate.format('YYYY-MM-DD'),
+      joinOfficeDate: record1.joinOfficeDate === undefined ? '' : record1.joinOfficeDate.format('YYYY-MM-DD'),
+      addStaffDate: record1.addStaffDate === undefined ? '' : record1.addStaffDate.format('YYYY-MM-DD'),
+      joinCucDate: record1.joinCucDate === undefined ? '' : record1.joinCucDate.format('YYYY-MM-DD'),
+    };
+    return format;
+  };
+
+  const onEditSubInfoSubmit = (e) => {
+    e.preventDefault();
+    if (currentInfoSet === 'EMP_EDUCATIONS') {
+      // de
+    }
+  };
+
+  const onEditSubInfoCancel = (e) => {
+    e.preventDefault();
+    updateSubCardModel(false, false);
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    form.validateFields((err, values) => {
-      if (!err) {
-        const { opt, effectiveUpdateStartDate } = values;
-        const { currentSysDate, effectiveStartDate } = editEmpBasicDetail;
-        if (opt === 'UPDATE') {
-          // 减少查询，直接在前端校验
-          debugger;
-          if ((effectiveUpdateStartDate.format('YYYY-MM-DD') < effectiveStartDate)
-            || (effectiveUpdateStartDate.format('YYYY-MM-DD') > currentSysDate)) {
-            Modal.error({
-              title: '错误',
-              content: '更新日期必须大于历史数据的生效开始日期，且小于当前系统日期！',
-            });
+    const formData = formatRecord(form.getFieldsValue());
+    if (checkDataIsModify(formData)) {
+      form.validateFields((err, values) => {
+        if (!err) {
+          const { opt, effectiveUpdateStartDate } = formData;
+          const { currentSysDate, effectiveStartDate } = editEmpBasicDetail;
+
+          if (opt === 'UPDATE') {
+            // 减少查询，直接在前端校验
+            if ((effectiveUpdateStartDate.format('YYYY-MM-DD') < effectiveStartDate)
+              || (effectiveUpdateStartDate.format('YYYY-MM-DD') > currentSysDate)) {
+              Modal.error({
+                title: '错误',
+                content: '更新日期必须大于历史数据的生效开始日期，且小于当前系统日期！',
+              });
+            } else {
+              updateBasicInfo(values);
+              onCancel();
+            }
           } else {
             updateBasicInfo(values);
+            onCancel();
           }
-        } else {
-          updateBasicInfo(values);
         }
+      });
+    } else {
+      Modal.warning({ title: '警告', content: '数据无变化，不能提交！' });
+    }
+  };
+  /**
+   *  如果存在数据变化，则返回true，不存在返回false
+   */
+  const checkDataIsModify = (formData) => {
+    const ignoreFields = ['opt', 'effectiveUpdateStartDate'];
+    const retAry = [];
+
+    for (const key in formData) {
+      if (ignoreFields.indexOf(key) >= 0) {
+        // doNothing
+      } else if (formData[key] !== editEmpBasicDetail[key]) {
+        retAry.push('Y');
       }
-    });
+    }
+    // 如果存在变化的，说明数据已经更改
+    if (retAry.indexOf('Y') >= 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -498,25 +563,25 @@ export default ({
               <div style={{ textAlign: 'center' }}><Button onClick={onEditBasicInfo}>修改</Button></div>
             </TabPane>
             <TabPane tab="教育经历" key="EMP_EDUCATIONS">
-              <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpEducations()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="工作经历" key="EMP_PREVIOUS_JOBS">
-              <Table columns={buildEmpPreviousJobs()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpPreviousJobs()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="职业技能信息" key="EMP_QUALIFICATIONS">
-              <Table columns={buildEmpQualifications()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpQualifications()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="专业技术资格" key="EMP_TECH_QUALIFICATION">
-              <Table columns={buildEmpTechQualification()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpTechQualification()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="奖励信息" key="EMP_REWARD">
-              <Table columns={buildEmpReward()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpReward()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="处分信息" key="EMP_PUNISHMENT">
-              <Table columns={buildEmpPunishment()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpPunishment()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="党团政治信息" key="POLITICS_LANDSCAPE">
-              <Table columns={buildPoliticsLandscape()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildPoliticsLandscape()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             {/* <TabPane tab="培训信息" key="ehrbase_emp_education">Content of Tab Pane 3</TabPane> */}
             <TabPane tab="员工简历" key="7">Content of Tab Pane 3</TabPane>
@@ -524,10 +589,10 @@ export default ({
             {/* <TabPane tab="职位信息" key="9">Content of Tab Pane 3</TabPane> */}
             {/* <TabPane tab="合同信息" key="10">Content of Tab Pane 3</TabPane> */}
             <TabPane tab="职业技能鉴定" key="EMP_QUALIFICATIONS_APP">
-              <Table columns={buildEmpQualificationsApp()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpQualificationsApp()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
             <TabPane tab="专业技术资格聘任" key="EMP_TECH_APPOINT">
-              <Table columns={buildEmpTechAppoint()} dataSource={infoSetList} size="small" bordered pagination={false} />
+              <Table columns={buildEmpTechAppoint()} dataSource={infoSetList} size="small" bordered pagination={false} rowKey="pk" />
             </TabPane>
           </Tabs>
         </Col>
@@ -544,6 +609,16 @@ export default ({
           jRTJRefData={jRTJRefData}
           jRZTJRefData={jRZTJRefData}
           jRTJSMRefData={jRTJSMRefData}
+        />
+      </Modal>
+      <Modal visible={subCardModel} onOk={onEditSubInfoSubmit} onCancel={onEditSubInfoCancel} width="80%">
+        <SubInfoEditForm
+          form={form}
+          templateData={templateData}
+          selectRefData={selectRefData}
+          actions={actions}
+          subInfoData={subInfoData}
+          currentInfoSet={currentInfoSet}
         />
       </Modal>
     </div>

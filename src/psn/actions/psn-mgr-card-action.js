@@ -7,11 +7,75 @@ export function isModeShow(modal, formEdit) {
   };
 }
 
+export function updateSubCardModel(subCardModel, formEdit) {
+  return {
+    type: 'psnMgrCard/stateWillUpdate',
+    payload: {
+      subCardModel, formEdit,
+    },
+  };
+}
+
 export function isQuerySetModeShow(querySettingModel) {
   return {
     type: 'psnMgrCard/stateWillUpdate',
     payload: {
       querySettingModel,
+    },
+  };
+}
+/**
+ *  更新学校或学院参照框显示状态
+ * @param collegeNameModel
+ * @returns {{type: string, payload: {collegeNameModel: *}}}
+ */
+export function updateCollegeNameModel(collegeNameModel) {
+  return {
+    type: 'psnMgrCard/stateWillUpdate',
+    payload: {
+      collegeNameModel,
+    },
+  };
+}
+
+/**
+ *  更新第一专业类别参照显示状态
+ * @param profTypeModel
+ * @returns {{type: string, payload: {profTypeModel: *}}}
+ */
+export function updateProfTypeModel(profTypeModel) {
+  return {
+    type: 'psnMgrCard/stateWillUpdate',
+    payload: {
+      profTypeModel,
+    },
+  };
+}
+
+/**
+ *  更新第二专业类别参照显示状态
+ * @param profSecTypeModel
+ * @returns {{type: string, payload: {profSecTypeModel: *}}}
+ */
+export function updateProfSecTypeModel(profSecTypeModel) {
+  return {
+    type: 'psnMgrCard/stateWillUpdate',
+    payload: {
+      profSecTypeModel,
+    },
+  };
+}
+
+/**
+ *  更新奖励金额币种参照显示状态
+ * @param rewardAmountUnitModel
+ * @returns {{type: string, payload: {rewardAmountUnitModel: *}}}
+ */
+export function updateRewardAmountUnitModel(rewardAmountUnitModel) {
+  return {
+    type: 'psnMgrCard/stateWillUpdate',
+    payload: {
+      rewardAmountUnitModel,
     },
   };
 }
@@ -45,7 +109,6 @@ export function isPsnCardModelShow(psnCardModel) {
 }
 
 export function updateBasicInfo(formData) {
-  console.log('------------');
   return {
     type: 'psnMgrCard/updateBasicInfo',
     payload: {
@@ -180,6 +243,20 @@ export function queryJRTJRefData() {
   return {
     type: 'psnMgrCard/queryJRTJRefData',
     payload: {
+    },
+  };
+}
+
+/**
+ *  根据子集pk和子集类型查询某条子集
+ * @param detailSearch
+ * @returns {{type: string, payload: {detailSearch: *}}}
+ */
+export function querySubInfoDataById(detailSearch1) {
+  return {
+    type: 'psnMgrCard/querySubInfoById',
+    payload: {
+      detailSearch1,
     },
   };
 }

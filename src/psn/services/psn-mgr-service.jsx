@@ -24,6 +24,7 @@ export default {
     }
     return request.get(url);
   },
+  // 根据人员主键查询某个子集集合
   getInfoSetDetailData(detailSearch) {
     let url = 'empMgr/queryPsnSubSetInfoById?';
     if (detailSearch.personId && detailSearch.personId !== '') {
@@ -34,14 +35,4 @@ export default {
     }
     return request.get(url);
   },
-  /*
-  add(records) {
-    return request.post('orgHeaderBatch/save', records);
-  },
-  update(records) {
-    return request.post('orgHeaderBatch/update', records);
-  },
-  delete(id) {
-    return request.delete(`orgHeaderBatch/delete/${id}`);
-  }, */
 };

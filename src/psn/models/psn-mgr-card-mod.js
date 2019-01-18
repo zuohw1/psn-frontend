@@ -37,6 +37,13 @@ export default {
       infoSetType: '',
     },
     psnCardModel: false,
+    subCardModel: false, // 子集编辑Model是否弹出
+    currentInfoSet: 'EMP_BASIC', // 当前操作的子集
+    collegeNameModel: false, // 学校或学院参照框是否显示
+    profTypeModel: false, // 第一专业参照框是否显示
+    profSecTypeModel: false, // 第二专业参照框是否显示
+    rewardAmountUnitModel: false, // 奖励金额币种参照框是否显示
+    subInfoData: {}, // 当前修改或浏览的子集数据
     detailRecord: {}, // 基本信息详情
     infoSetList: [], // 最新的子集信息
     templateData: [], // 单据模板数据
@@ -89,7 +96,6 @@ export default {
     * queryPsnBasicDetail({ payload: { personId } }, { call, put }) {
       if (personId && personId !== '') {
         const detailData1 = yield call(PsnMgrCardService.getPsnBasicDetail, personId);
-        console.log(detailData1);
         yield put({
           type: 'stateWillUpdate',
           payload: { editEmpBasicDetail: detailData1 },
@@ -124,6 +130,14 @@ export default {
         payload: { infoSetList: detailData },
       });
     },
+    // 根据子集主键查询数据
+    * querySubInfoById({ payload: { detailSearch1 } }, { call, put }) {
+      const detailData = yield call(PsnMgrCardService.querySubInfoById, detailSearch1);
+      yield put({
+        type: 'stateWillUpdate',
+        payload: { subInfoData: detailData },
+      });
+    },
     // * getRefData({ payload: { url, search } }, { call, put }) {
     //   const tableData = yield call(PsnMgrCardService.getRefData, url, search);
     //   const formatTable = formatTableData(tableData);
@@ -141,12 +155,12 @@ export default {
         payload: { templateData },
       });
     },
-    * updateBasicInfo({ payload: { formData } }, { call, put }) {
+    * updateBasicInfo({ payload: { formData } }, { call }) {
       yield call(PsnMgrCardService.update, formatRecord(formData));
-      yield put({
-        type: 'stateWillUpdate',
-        payload: { editEmpBasicDetail: formData },
-      });
+      // yield put({
+      //   type: 'stateWillUpdate',
+      //   payload: { editEmpBasicDetail: formData },
+      // });
     },
   },
   subscriptions: {

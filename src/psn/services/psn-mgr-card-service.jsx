@@ -62,6 +62,17 @@ export default {
   update(formData) {
     return request.post('empMgr/update', formData);
   },
+  // 根据子集主键查询子集详情
+  querySubInfoById(detailSearch1) {
+    let url = 'empMgr/queryPsnSubSetDetailInfoById?';
+    if (detailSearch1.pk && detailSearch1.pk !== '') {
+      url += `pk=${detailSearch1.pk}`;
+    }
+    if (detailSearch1.infoSetType && detailSearch1.infoSetType !== '') {
+      url += `&infoSetType=${detailSearch1.infoSetType}`;
+    }
+    return request.get(url);
+  },
   /*
   add(records) {
     return request.post('orgHeaderBatch/save', records);
