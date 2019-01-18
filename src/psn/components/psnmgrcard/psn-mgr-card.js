@@ -14,6 +14,7 @@ export default ({
   record, actions, detailRecord, infoSetList, form, modal,
   templateData, editEmpBasicDetail, selectRefData, empBasicUptState, jRTJRefData,
   jRZTJRefData, jRTJSMRefData, currentInfoSet, subCardModel, subInfoData,
+  collegeNameModel, profTypeModel, profSecTypeModel, rewardAmountUnitModel,
 }) => {
   const { personId } = record;
 
@@ -619,6 +620,10 @@ export default ({
           actions={actions}
           subInfoData={subInfoData}
           currentInfoSet={currentInfoSet}
+          collegeNameModel={collegeNameModel}
+          profTypeModel={profTypeModel}
+          profSecTypeModel={profSecTypeModel}
+          rewardAmountUnitModel={rewardAmountUnitModel}
         />
       </Modal>
     </div>

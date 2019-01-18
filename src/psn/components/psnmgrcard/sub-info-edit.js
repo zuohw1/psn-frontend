@@ -89,14 +89,9 @@ export default ({
       ));
     } else if (item.itemType === 'RefTable') {
       return (getFieldDecorator(item.itemkey, { initialValue: getColumnVal(item) })(
-        <Input.Search style={{ width: '80%' }} placeholder="请选择组织" onSearch={onSearch} autoComplete="off" readOnly={item.editflag === 'N'} />,
+        <Input.Search style={{ width: '80%' }} onSearch={() => { onRefClick(item); }} autoComplete="off" readOnly={item.editflag === 'N'} />,
       ));
     }
-  };
-
-  const onSearch = () => {
-    console.log('执行onSearch');
-    updateCollegeNameModel(true);
   };
   /** --------参照处理begin ---------*/
   const collegeNameRefUrl = 'empMgr/queryCollegeNameList?';
@@ -166,18 +161,18 @@ export default ({
    *  点击参照时触发
     * @param item
    */
-  // const onRefClick = (itemKey) => {
-  //   // debugger;
-  //   if (itemKey === 'collegeName') {
-  //     updateCollegeNameModel(true);
-  //   } else if (itemKey === 'professionType') {
-  //     updateProfTypeModel(true);
-  //   } else if (itemKey === 'professionSecondType') {
-  //     updateProfSecTypeModel(true);
-  //   } else if (itemKey === 'rewardAmountUnit') {
-  //     updateRewardAmountUnitModel(true);
-  //   }
-  // };
+  const onRefClick = (item) => {
+    // debugger;
+    if (item.itemkey === 'collegeName') {
+      updateCollegeNameModel(true);
+    } else if (item.itemkey === 'professionType') {
+      updateProfTypeModel(true);
+    } else if (item.itemkey === 'professionSecondType') {
+      updateProfSecTypeModel(true);
+    } else if (item.itemkey === 'rewardAmountUnit') {
+      updateRewardAmountUnitModel(true);
+    }
+  };
   /** --------参照处理end ---------*/
   /**
    * 根据ItemKey取值
@@ -239,7 +234,6 @@ export default ({
         );
       }
     }
-    debugger;
     return formAry;
   };
 
